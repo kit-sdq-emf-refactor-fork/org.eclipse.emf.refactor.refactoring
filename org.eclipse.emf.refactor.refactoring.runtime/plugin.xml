@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            allPopups="false"
+            locationURI="popup:org.eclipse.ui.popup.any">
+         <menu
+               label="EMF Model Refactorings">
+            <dynamic
+                  class="org.eclipse.emf.refactor.refactoring.runtime.ui.ApplicationMenu"
+                  id="org.eclipse.emf.refactor.runtime.dynamicmenu">
+            </dynamic>
+         </menu>
+      </menuContribution>
+   </extension>
+
+</plugin>
