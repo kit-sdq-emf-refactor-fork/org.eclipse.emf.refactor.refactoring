@@ -1,7 +1,6 @@
 package org.eclipse.emf.refactor.refactoring.core;
 
-import java.util.SortedSet;
-import java.util.TreeSet;
+import java.util.LinkedList;
 
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.Platform;
@@ -15,8 +14,8 @@ public class RefactoringLoader {
 	 * the corresponding extension point servings.
 	 * @return Created list of Refactoring objects.
 	 */
-	public static SortedSet<Refactoring> loadRefactorings() {
-		SortedSet<Refactoring> r = new TreeSet<Refactoring>();
+	public static LinkedList<Refactoring> loadRefactorings() {
+		LinkedList<Refactoring> r = new LinkedList<Refactoring>();
 		IConfigurationElement[] rawRefactorings = 
 				Platform.getExtensionRegistry()
 					.getConfigurationElementsFor(ExtensionPointTags.EXTENSION_POINT_NAME);		

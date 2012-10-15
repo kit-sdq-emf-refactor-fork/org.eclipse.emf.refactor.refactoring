@@ -10,8 +10,7 @@
  *******************************************************************************/
 package org.eclipse.emf.refactor.refactoring.managers;
 
-import java.util.SortedSet;
-import java.util.TreeSet;
+import java.util.LinkedList;
 
 import org.eclipse.emf.refactor.refactoring.core.Refactoring;
 import org.eclipse.emf.refactor.refactoring.core.RefactoringLoader;
@@ -31,14 +30,13 @@ public final class RefactoringManager {
 	/**
 	 * Set of all registered emf model refactorings. 
 	 */
-	private final SortedSet<Refactoring> refactorings = 
-									new TreeSet<Refactoring>();
+	private static LinkedList<Refactoring> refactorings = null;
 	
 	/**
 	 * Private constructor.
 	 */
 	private RefactoringManager() {	
-		this.refactorings.addAll(RefactoringLoader.loadRefactorings());
+		refactorings = RefactoringLoader.loadRefactorings();
 		System.out.println("RefactoringManager initialized!");
 	}
 	
@@ -57,8 +55,23 @@ public final class RefactoringManager {
 	 * Gets a set of all registered emf model refactorings. 
 	 * @return Set of all registered emf model refactorings. 
 	 */
-	public SortedSet<Refactoring> getRefactorings() {
+	public static LinkedList<Refactoring> getAllRefactorings() {
 		return refactorings;
+	}
+	
+	/**
+	 * Returns the emf model refactoring with the specified id.
+	 * @param id Id of the emf model refactoring to be returned.
+	 * @return Emf model refactoring with the specified id.
+	 */
+	public static Refactoring getById(String id){
+		for (Refactoring r : refactorings){
+			if(r.getId().equals(id)) {
+				return r;
+			}
+		}
+		throw 
+			new IllegalArgumentException("Refactoring id does not exist!");
 	}
 	
 }

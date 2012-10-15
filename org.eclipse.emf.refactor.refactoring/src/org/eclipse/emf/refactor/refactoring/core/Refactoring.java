@@ -10,14 +10,10 @@
  *******************************************************************************/
 package org.eclipse.emf.refactor.refactoring.core;
 
-import java.util.LinkedList;
-import java.util.List;
-
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.emf.refactor.refactoring.interfaces.IController;
 import org.eclipse.emf.refactor.refactoring.interfaces.IGuiHandler;
-import org.eclipse.emf.refactor.refactoring.managers.RefactoringManager;
 
 /**
  * Base class of a specific emf model refactoring.
@@ -203,31 +199,6 @@ public class Refactoring implements Comparable<Refactoring> {
 		}else{
 		    return emfRefactoring.getName().compareTo(this.getName());	
 		}
-	}
-	
-	/**
-	 * Returns the emf model refactoring with the specified id.
-	 * @param id Id of the emf model refactoring to be returned.
-	 * @return Emf model refactoring with the specified id.
-	 */
-	public static Refactoring getById(String id){
-		for (Refactoring r : 
-						RefactoringManager.getInstance().getRefactorings()){
-			if(r.getId().equals(id)){
-				return r;
-			}
-		}
-		throw 
-			new IllegalArgumentException("Refactoring id does not exist!");
-	}
-
-	/**
-	 * Return a list of all registered emf model refactorings.
-	 * @return List of all registered emf model refactorings.
-	 */
-	public static List<Refactoring> getRefactorings(){
-		return new LinkedList<Refactoring>
-						(RefactoringManager.getInstance().getRefactorings());
 	}
 
 }

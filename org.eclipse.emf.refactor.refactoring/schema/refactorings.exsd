@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!-- Schema file written by PDE -->
-<schema targetNamespace="org.eclipse.emf.refactor.common.groupmanagement" xmlns="http://www.w3.org/2001/XMLSchema">
+<schema targetNamespace="org.eclipse.emf.refactor" xmlns="http://www.w3.org/2001/XMLSchema">
 <annotation>
       <appinfo>
          <meta.schema plugin="org.eclipse.emf.refactor" id="refactorings" name="org.eclipse.emf.refactor.refactorings"/>
@@ -76,7 +76,7 @@
                   
                </documentation>
                <appinfo>
-                  <meta.attribute kind="java" basedOn=":org.eclipse.emf.refactor.common.core.IController"/>
+                  <meta.attribute kind="java" basedOn=":org.eclipse.emf.refactor.refactoring.interfaces.IController"/>
                </appinfo>
             </annotation>
          </attribute>
@@ -86,7 +86,7 @@
                   
                </documentation>
                <appinfo>
-                  <meta.attribute kind="java" basedOn=":org.eclipse.emf.refactor.common.core.ui.IGuiHandler"/>
+                  <meta.attribute kind="java" basedOn=":org.eclipse.emf.refactor.refactoring.interfaces.IGuiHandler"/>
                </appinfo>
             </annotation>
          </attribute>
