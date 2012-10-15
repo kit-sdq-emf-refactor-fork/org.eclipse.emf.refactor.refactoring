@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: RefactoringConfiguration
+Bundle-SymbolicName: org.eclipse.emf.refactor.refactoring.configuration;singleton:=true
+Bundle-Version: 0.7.0.qualifier
+Bundle-Activator: org.eclipse.emf.refactor.refactoring.configuration.Activator
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.eclipse.core.resources;bundle-version="3.8.0",
+ org.eclipse.emf.refactor.refactoring;bundle-version="0.7.0"
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Export-Package: org.eclipse.emf.refactor.refactoring.configuration.core,
+ org.eclipse.emf.refactor.refactoring.configuration.managers
