@@ -1,11 +1,11 @@
 <%@ jet package="org.eclipse.emf.refactor.refactoring" class="RefactoringGuiHandler"
-imports="org.eclipse.emf.refactor.refactoring.generator.core"%>
+imports="org.eclipse.emf.refactor.refactoring.generator.core.*"%>
 <%RefactoringInfo info = (RefactoringInfo) argument; %>
 /**
  * <copyright>
  * </copyright>
  *
- * $Id: RefactoringGuiHandler.javajet,v 1.1 2012/10/16 11:53:04 tarendt Exp $
+ * $Id: RefactoringGuiHandler.javajet,v 1.2 2012/10/16 21:03:02 tarendt Exp $
  */
  package <%=info.getPackageName()%>;
 

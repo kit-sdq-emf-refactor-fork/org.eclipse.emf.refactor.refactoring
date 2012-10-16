@@ -22,7 +22,7 @@ public class Activator extends AbstractUIPlugin {
 	/**
 	 * @generated
 	 */
-	public static final String PLUGIN_ID = "org.eclipse.emf.refactor.generator";
+	public static final String PLUGIN_ID = "org.eclipse.emf.refactor.refactoring.generator";
 
 	/**
 	 * @generated

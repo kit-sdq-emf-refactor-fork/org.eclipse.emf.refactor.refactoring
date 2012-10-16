@@ -29,15 +29,21 @@ import org.eclipse.swt.widgets.Text;
  */
 public class TestWizardPage extends WizardPage implements Listener {
 	
+	private static final String PAGE_NAME = "org.eclipse.emf.refactor.refactoring.generator.TestWizardPage";
+	private static final String PAGE_TITLE = "New Refactoring: Test Data";
+	private static final String PAGE_DESCRIPTION = "Please specify the number of test cases to be generated. " +
+												"Required fields are denoted by \"(*)\".";
+	
 	private Text numberText;
 	private Combo numberCombo;	
 	
 	/**
 	 * Default constructor.
-	 * @param pageName Name of the wizard page.
 	 */
-	protected TestWizardPage(String pageName) {
-		super(pageName);
+	protected TestWizardPage() {
+		super(PAGE_NAME);
+		setTitle(PAGE_TITLE);
+		setDescription(PAGE_DESCRIPTION);
 	}
 	
 	/**

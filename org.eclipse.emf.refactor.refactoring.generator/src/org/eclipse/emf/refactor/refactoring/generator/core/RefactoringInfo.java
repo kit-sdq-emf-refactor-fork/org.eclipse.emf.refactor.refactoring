@@ -330,7 +330,7 @@ public class RefactoringInfo {
 	 * has to be generated for.
 	 */
 	public void setMetaModelName(String metaModelName) {
-		this.metaModelName = buildMetaModelName(metaModelName);
+		this.metaModelName = metaModelName;
 	}
 	 
 	/**
@@ -355,4 +355,19 @@ public class RefactoringInfo {
 	public int getNumberOfTests(){
 		return numberOfTests;
 	}
+
+	@Override
+	public String toString() {
+		return "RefactoringInfo [projectName=" + projectName
+				+ ", refactoringId=" + refactoringId + ", menuLabel="
+				+ menuLabel + ", namespaceUri=" + namespaceUri
+				+ ", selectedEObjectClass=" + selectedEObjectClass
+				+ ", selectedEObjectJar=" + selectedEObjectJar
+				+ ", controller=" + controller + ", guiHandler=" + guiHandler
+				+ ", parameters=" + parameters + ", packageName=" + packageName
+				+ ", namespacePrefix=" + namespacePrefix + ", metaModelName="
+				+ metaModelName + ", numberOfTests=" + numberOfTests + "]";
+	}
+	
+	
 }

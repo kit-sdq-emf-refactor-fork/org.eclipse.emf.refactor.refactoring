@@ -11,13 +11,24 @@
 package org.eclipse.emf.refactor.refactoring.generator.ui;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.Arrays;
+import java.util.LinkedList;
 
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IProjectNature;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.refactor.refactoring.generator.core.RefactoringInfo;
 import org.eclipse.emf.refactor.refactoring.generator.interfaces.INewRefactoringWizard;
 import org.eclipse.emf.refactor.refactoring.generator.managers.GeneratioManager;
+import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.Wizard;
+import org.eclipse.jface.wizard.WizardPage;
+import org.eclipse.ui.INewWizard;
+import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.actions.WorkspaceModifyOperation;
 
 /**
@@ -25,7 +36,7 @@ import org.eclipse.ui.actions.WorkspaceModifyOperation;
  * @generated NOT
  * @author Thorsten Arendt
  */
-public class NewRefactoringWizardJava extends Wizard implements INewRefactoringWizard {
+public class NewRefactoringWizardJava extends Wizard implements INewWizard, INewRefactoringWizard {
 	
 	/**
 	 *  Wizard page for configurating model refactoring data (basics).
@@ -41,22 +52,54 @@ public class NewRefactoringWizardJava extends Wizard implements INewRefactoringW
 	  * Wizard page for configurating model test parameters.
 	  */
 	 private TestWizardPage testWizardPage;
-	
-	/**
-	 * Default constructor that initializes its wizard pages.
-	 * @param selectedEObject The selected EObject when starting the 
-	 * generation process of the model refactoring.
-	 */
-	public NewRefactoringWizardJava(EObject selectedEObject){
+	 
+	 private LinkedList<IProject> projects;
+
+	private String projectName;
+
+	private String menuLabel;
+
+	private String id;
+
+	private String namespaceUri;
+
+	private String className;
+
+	private String jar;
+
+	private String importPackage;
+	 
+	 /**
+	  * Default constructor that initializes its wizard pages.
+		* @param selectedEObject The selected EObject when starting the 
+		* generation process of the model refactoring.
+		*/
+	public NewRefactoringWizardJava(){
 		super();
 		setWindowTitle("EMF Refactor - Specify EMF Model Refactoring");
-		this.basicWizardPage = new BasicDataWizardPage("EMF Refactor", selectedEObject);
-		this.parameterWizardPage = new ParameterWizardPage("EMF Refactor");
-		this.testWizardPage = new TestWizardPage("EMF Refactor");
+		this.basicWizardPage = new BasicDataWizardPage();
+		this.parameterWizardPage = new ParameterWizardPage();
+		this.testWizardPage = new TestWizardPage();
 		this.addPage(basicWizardPage);
 		this.addPage(parameterWizardPage);
 		this.addPage(testWizardPage);
 	}
+	
+//	/**
+//	 * Default constructor that initializes its wizard pages.
+//	 * @param selectedEObject The selected EObject when starting the 
+//	 * generation process of the model refactoring.
+//	 */
+//	public NewRefactoringWizardJava(EObject selectedEObject){
+//		super();
+//		setWindowTitle("EMF Refactor - Specify EMF Model Refactoring");
+//		this.basicWizardPage = new BasicDataWizardPage("EMF Refactor", selectedEObject);
+//		this.parameterWizardPage = new ParameterWizardPage("EMF Refactor");
+//		this.testWizardPage = new TestWizardPage("EMF Refactor");
+//		this.addPage(basicWizardPage);
+//		this.addPage(parameterWizardPage);
+//		this.addPage(testWizardPage);
+//	}
 
 	/**
 	 * @see org.eclipse.jface.wizard.Wizard#performFinish()
@@ -93,24 +136,113 @@ public class NewRefactoringWizardJava extends Wizard implements INewRefactoringW
 	 * generation activity.
 	 */
 	protected void createRefactoring(IProgressMonitor monitor) {
-		String projectName = basicWizardPage.getProjectName();
-		String id = basicWizardPage.getRefactoringId();
-		String menuLabel = basicWizardPage.getMenuLabel();
-		String namespaceUri = basicWizardPage.getNsUri();
-		String namespacePrefix = basicWizardPage.getNsPrefix();
-		String metaModelName = basicWizardPage.getMetaModelName();
-		String className = basicWizardPage.getClassName();
-		String jar = basicWizardPage.getJar();
+//		String projectName = basicWizardPage.getProjectName();
+//		String id = basicWizardPage.getRefactoringId();
+//		String menuLabel = basicWizardPage.getMenuLabel();
+//		String namespaceUri = basicWizardPage.getNsUri();
+//		String namespacePrefix = basicWizardPage.getNsPrefix();
+//		String metaModelName = basicWizardPage.getMetaModelName();
+//		String className = basicWizardPage.getClassName();
+//		String jar = basicWizardPage.getJar();
 		int numberOfTests = testWizardPage.getNumberOfTests();
+		String nsPrefix = getNsPrefix();
+		String metaModelName = getMetaModelName();
 		RefactoringInfo refactoringConfig = 
 		   new RefactoringInfo(projectName, id, menuLabel, namespaceUri,
-		         namespacePrefix, numberOfTests);
+		         nsPrefix, numberOfTests);
 		refactoringConfig.setSelectedEObjectJar(jar);
-		refactoringConfig.setSelectedEObjectClass(className);
+		refactoringConfig.setSelectedEObjectClass(importPackage + "." + className);
 		refactoringConfig.setMetaModelName(metaModelName);
 		refactoringConfig.setParameters(parameterWizardPage.getParameters());
-		GeneratioManager rg = new GeneratioManager(refactoringConfig);
+		System.out.println(refactoringConfig);
+		GeneratioManager rg = new GeneratioManager(refactoringConfig); 
 		rg.run(monitor);
 	}
 
+	private String getMetaModelName() {
+		EPackage mm = 
+				EPackage.Registry.INSTANCE.getEPackage(namespaceUri);
+		return mm.getName();
+	}
+
+	private String getNsPrefix() {
+		EPackage mm = 
+				EPackage.Registry.INSTANCE.getEPackage(namespaceUri);
+		return mm.getNsPrefix();
+	}
+
+	@Override
+	public void init(IWorkbench workbench, IStructuredSelection selection) {
+		initProjects();
+	}
+	
+	private void initProjects(){
+		this.projects = new LinkedList<IProject>();
+		IProject[] allProjects = ResourcesPlugin.getWorkspace().getRoot().getProjects();
+		for (IProject project : allProjects) {
+			if (project.isOpen()) {
+				IProjectNature nature = null;
+				try {
+					nature = project.getNature("org.eclipse.pde.PluginNature");
+				} catch (CoreException e) {
+					e.printStackTrace();
+				}
+				if (null != nature) 
+					this.projects.add(project);
+			}
+		}
+	}
+	
+	public LinkedList<IProject> getProjects() {
+		return projects;
+	}
+
+	@Override
+	public int getPageNumbers() {
+		return 3;
+	}
+
+	@Override
+	public void updateSecondPage() { }
+
+	@Override
+	public WizardPage getSecondPage() {
+		return parameterWizardPage;
+	}
+
+	@Override
+	public void setTargetProject(String projectName) {
+		this.projectName = projectName;
+	}
+
+	@Override
+	public void setName(String name) {
+		this.menuLabel = name;
+	}
+
+	@Override
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	@Override
+	public void setMetamodel(String metamodel) {
+		this.namespaceUri = metamodel;
+	}
+
+	@Override
+	public void setContext(String context) {
+		this.className = context;
+	}
+
+	@Override
+	public void setJar(String jar) {
+		this.jar = jar;
+	}
+
+	@Override
+	public void setImportPackage(String importPackage) {
+		this.importPackage = importPackage;
+	}
+	
 }

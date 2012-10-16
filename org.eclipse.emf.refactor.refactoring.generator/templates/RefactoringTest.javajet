@@ -1,11 +1,11 @@
 <%@ jet package="org.eclipse.emf.refactor.refactoring" class="RefactoringTest"
-imports="org.eclipse.emf.refactor.refactoring.generator.core"%>
+imports="org.eclipse.emf.refactor.refactoring.generator.core.*"%>
 <%RefactoringInfo info = (RefactoringInfo) argument; %>
 /**
  * <copyright>
  * </copyright>
  *
- * $Id: RefactoringTest.javajet,v 1.1 2012/10/16 11:53:05 tarendt Exp $
+ * $Id: RefactoringTest.javajet,v 1.2 2012/10/16 21:03:02 tarendt Exp $
  */
  
 package <%=info.getPackageName()%>;
@@ -22,7 +22,6 @@ import org.eclipse.emf.refactor.refactoring.core.Refactoring;
 import <%=info.getPackageName()%>.RefactoringController;
 import <%=info.getPackageName()%>.RefactoringGuiHandler;
 import org.eclipse.emf.refactor.refactoring.runtime.test.JUnitTestCaseAdapter;
-import <%=info.getJar()%>.<%=info.getMetaModelName()%>Package;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -52,7 +51,7 @@ public class RefactoringTest extends JUnitTestCaseAdapter {
 			"<%=info.getNamespacePrefix()%>",
 			new File(".").getCanonicalPath(),
 			new Refactoring(null, "", "<%=info.getNamespaceUri()%>", new RefactoringGuiHandler(), new RefactoringController()));
-		register(<%=info.getMetaModelName()%>Package.eINSTANCE);
+		//register(info.getMetaModelName()Package.eINSTANCE);
 		this.number = number;
 	}
 	

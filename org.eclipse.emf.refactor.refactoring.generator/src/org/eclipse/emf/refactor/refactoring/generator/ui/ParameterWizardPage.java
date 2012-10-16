@@ -36,6 +36,11 @@ import org.eclipse.swt.widgets.Text;
  */
 public class ParameterWizardPage extends WizardPage implements Listener {
 	
+	private static final String PAGE_NAME = "org.eclipse.emf.refactor.refactoring.generator.ParameterWizardPage";
+	private static final String PAGE_TITLE = "New Refactoring: Parameter Data";
+	private static final String PAGE_DESCRIPTION = "Please specify the parameter of the refactoring. " +
+												"Required fields are denoted by \"(*)\".";
+	
 	private Button addButton;
 	private Button removeButton;
 	private List parameterList;	
@@ -51,10 +56,11 @@ public class ParameterWizardPage extends WizardPage implements Listener {
 
 	/**
 	 * Default constructor.
-	 * @param pageName Name of the wizard page.
 	 */
-	protected ParameterWizardPage(String pageName) {
-		super(pageName);
+	protected ParameterWizardPage() {
+		super(PAGE_NAME);
+		setTitle(PAGE_TITLE);
+		setDescription(PAGE_DESCRIPTION);
 		parameters = new ArrayList<ParameterInfo>();
 	}
 	
