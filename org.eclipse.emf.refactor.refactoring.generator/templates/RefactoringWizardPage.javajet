@@ -1,0 +1,124 @@
+<%@ jet package="org.eclipse.emf.refactor.refactoring" class="RefactoringWizardPage"
+imports="org.eclipse.emf.refactor.refactoring.generator.core"%>
+<%RefactoringInfo info = (RefactoringInfo) argument; %>
+/**
+ * <copyright>
+ * </copyright>
+ *
+ * $Id: RefactoringWizardPage.javajet,v 1.1 2012/10/16 11:53:05 tarendt Exp $
+ */
+ package <%=info.getPackageName()%>;
+
+import org.eclipse.ltk.ui.refactoring.UserInputWizardPage;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Listener;
+import org.eclipse.swt.widgets.Text;
+
+/**
+ * Class for setting model refactoring specific parameters
+ * by the user.
+ * @generated
+ */
+public class RefactoringWizardPage extends 
+				UserInputWizardPage implements Listener {
+	
+	/**
+	 * Controller of the EMF model refactoring.
+	 * @generated
+	 */			
+	private final RefactoringController controller;
+	
+<% for (ParameterInfo pi : info.getParameters()) { %>
+	/**
+	 * Label for each parameter.
+	 * @generated
+	 */	
+	private Label <%=pi.getName()%>Label;
+	
+	/**
+	 * TextField for each parameter.
+	 * @generated
+	 */
+	private Text <%=pi.getName()%>Widget;
+<% } %>
+
+	/**
+	 * Default constructor using a name and the controller of the 
+	 * EMF model refactoring.
+	 * @param name Name of the WizardPage.
+	 * @param controller Controller of the EMF model refactoring.
+	 * @generated
+	 */
+	public RefactoringWizardPage
+		(String name, RefactoringController controller) {
+		super(name);
+		this.controller = controller;
+	}
+
+	/**
+	 * @see org.eclipse.swt.widgets.Listener#
+	 * handleEvent(org.eclipse.swt.widgets.Event)
+	 * @generated
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public void handleEvent(Event event) {		
+		getWizard().getContainer().updateButtons();
+
+<% for (ParameterInfo pi : info.getParameters()) { %>				
+		if (<%=pi.getName()%>Widget != null) {
+			String <%=pi.getName()%> = <%=pi.getName()%>Widget.getText();
+			if (!<%=pi.getName()%>.isEmpty()){
+				((RefactoringDataManagement) 
+						this.controller.getDataManagementObject()).
+						getInPortByName("<%=pi.getName()%>").
+						setValue(<%=pi.getName()%>);
+			} else {
+				((RefactoringDataManagement) 
+						this.controller.getDataManagementObject()).
+						getInPortByName("<%=pi.getName()%>").
+						setValue("unspecified");
+			}
+		}
+<% } %>
+
+	}
+	
+	/**
+	 * @see org.eclipse.jface.dialogs.IDialogPage#
+	 * createControl(org.eclipse.swt.widgets.Composite)
+	 * @generated
+	 */
+	@Override
+	public void createControl(Composite parent) {
+		Composite composite = new Composite(parent, SWT.NONE);
+		GridLayout gl = new GridLayout();
+		gl.numColumns = 2;
+		GridData gd = new GridData(GridData.FILL_HORIZONTAL);
+		composite.setLayout(gl);
+		
+<% for (ParameterInfo pi : info.getParameters()) { %>	
+		
+		<%=pi.getName()%>Label = new Label(composite, SWT.NONE);
+		<%=pi.getName()%>Label.setText("<%=pi.getDescription()%>: ");
+		<%=pi.getName()%>Label.setEnabled(true);
+		
+		<%=pi.getName()%>Widget = new Text(composite, SWT.BORDER);
+		<%=pi.getName()%>Widget.setToolTipText
+				("value of variable '<%=pi.getName()%>'");
+		<%=pi.getName()%>Widget.setEnabled(true);
+		<%=pi.getName()%>Widget.setLayoutData(gd);
+		<%=pi.getName()%>Widget.addListener(SWT.Modify, this);
+		
+<% } %>
+		
+		setControl(composite);
+	}
+	
+}
+	

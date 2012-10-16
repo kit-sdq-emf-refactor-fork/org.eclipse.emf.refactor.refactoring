@@ -1,0 +1,12 @@
+<%@ jet package="org.eclipse.emf.refactor.refactoring" class="RefactoringController"
+imports="org.eclipse.emf.refactor.refactoring.generator.core"%>
+<%RefactoringInfo info = (RefactoringInfo) argument; %>
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+	<% for (ParameterInfo pi : info.getParameters()) { %>
+	<param>
+		<name><%=pi.getName()%></name>
+		<value>enter value here</value>
+	</param>
+	<% } %>
+</config>
