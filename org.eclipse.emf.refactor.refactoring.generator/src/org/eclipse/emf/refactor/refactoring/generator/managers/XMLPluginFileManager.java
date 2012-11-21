@@ -111,6 +111,18 @@ public abstract class XMLPluginFileManager {
 		}
 	}
 	
+	private static Transformer createTransformer(){
+		final TransformerFactory transformerFactory = TransformerFactory.newInstance();
+		try {
+			Transformer transformer = transformerFactory.newTransformer();
+			transformer.setOutputProperty(OutputKeys.INDENT,"yes");
+			return transformer;
+		} catch (final TransformerConfigurationException e) {
+			e.printStackTrace();
+			return null;
+		}		
+	}
+	
 	/**
 	 * Abstract method for getting a list of RefactoringConfig out from
 	 * the model refactoring extension point served in the plugin.xml 
@@ -132,9 +144,16 @@ public abstract class XMLPluginFileManager {
 			try {
 				IProject project = ResourcesPlugin.getWorkspace()
 									.getRoot().getProject(projectName);
+				
+				String path = project.getLocation().toString() + "/" + XMLPluginFileManager.PLUGINXML;
+				System.out.println("Path: " + path);
+				final File file = new File(path);
+				System.out.println("exists: " + file.exists());
+				if (! file.exists()) createPluginFile(path);
+				
 				java.net.URI uri = project.getLocationURI();
-				doc = builder.parse
-						(uri + "/" + XMLPluginFileManager.PLUGINXML);
+				path = uri + "/" + XMLPluginFileManager.PLUGINXML;
+				doc = builder.parse(path);
 			} catch (final SAXException e) {
 				e.printStackTrace();
 			} catch (final IOException e) {
@@ -142,6 +161,7 @@ public abstract class XMLPluginFileManager {
 			}
 			if (doc != null) {
 				Element root = doc.getDocumentElement();
+				System.out.println(root);
 				NodeList refactorings = root.getElementsByTagName
 									(ExtensionPointTags.REFACTORING_TAG);
 				for (int i=0; i < refactorings.getLength(); i++){
@@ -210,15 +230,7 @@ public abstract class XMLPluginFileManager {
 				extension.appendChild(refactoring);
 			}
 			root.appendChild(extension);
-			final TransformerFactory transformerFactory = 
-												TransformerFactory.newInstance();
-			Transformer transformer = null;
-			try {
-				transformer = transformerFactory.newTransformer();
-				transformer.setOutputProperty(OutputKeys.INDENT,"yes");
-			} catch (final TransformerConfigurationException e) {
-				e.printStackTrace();
-			}
+			Transformer transformer = XMLPluginFileManager.createTransformer();
 			final DOMSource source = new DOMSource(doc);
 			IProject project = ResourcesPlugin.getWorkspace()
 											.getRoot().getProject(projectName);
@@ -230,6 +242,28 @@ public abstract class XMLPluginFileManager {
 			} catch (final TransformerException e) {
 				e.printStackTrace();
 			}			
+		}
+	}
+	
+	private static void createPluginFile(String path) {
+		final DocumentBuilder builder = XMLPluginFileManager.newDocumentBuilder();
+		Document doc = null;
+		Element root;
+		if (builder != null) {
+			doc = builder.newDocument();
+			root = doc.createElement(XMLPluginFileManager.PLUGIN);
+			doc.appendChild(root);
+			final Element extension = doc.createElement(ExtensionPointTags.EXTENSION_POINT_TAG);
+			extension.setAttribute(XMLPluginFileManager.POINT, ExtensionPointTags.EXTENSION_POINT_NAME);
+			root.appendChild(extension);
+		}
+		final Transformer transformer = XMLPluginFileManager.createTransformer();
+		final DOMSource source = new DOMSource(doc);
+		final StreamResult result = new StreamResult(path);
+		try {
+			transformer.transform(source, result);
+		} catch (final TransformerException e) {
+			e.printStackTrace();
 		}
 	}
 

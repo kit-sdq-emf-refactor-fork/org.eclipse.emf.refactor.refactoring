@@ -11,7 +11,6 @@
 package org.eclipse.emf.refactor.refactoring.generator.ui;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.Arrays;
 import java.util.LinkedList;
 
 import org.eclipse.core.resources.IProject;
@@ -19,11 +18,10 @@ import org.eclipse.core.resources.IProjectNature;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.refactor.refactoring.generator.core.RefactoringInfo;
 import org.eclipse.emf.refactor.refactoring.generator.interfaces.INewRefactoringWizard;
-import org.eclipse.emf.refactor.refactoring.generator.managers.GeneratioManager;
+import org.eclipse.emf.refactor.refactoring.generator.managers.GenerationManager;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.jface.wizard.WizardPage;
@@ -155,7 +153,7 @@ public class NewRefactoringWizardJava extends Wizard implements INewWizard, INew
 		refactoringConfig.setMetaModelName(metaModelName);
 		refactoringConfig.setParameters(parameterWizardPage.getParameters());
 		System.out.println(refactoringConfig);
-		GeneratioManager rg = new GeneratioManager(refactoringConfig); 
+		GenerationManager rg = new GenerationManager(refactoringConfig); 
 		rg.run(monitor);
 	}
 

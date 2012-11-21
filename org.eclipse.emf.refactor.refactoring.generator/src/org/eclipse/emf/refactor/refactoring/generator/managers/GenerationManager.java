@@ -61,7 +61,7 @@ import org.osgi.framework.Bundle;
  * @author arendt
  *
  */
-public class GeneratioManager {
+public class GenerationManager {
 	
 	/**
 	 * Full qualified name of the template directory inside the plugin.
@@ -111,7 +111,7 @@ public class GeneratioManager {
 	 * @param config Configuration data used for generating model 
 	 * refactoring code.
 	 */
-	public GeneratioManager(RefactoringInfo info) {
+	public GenerationManager(RefactoringInfo info) {
 		this.info = info;
 		this.templateDirectory = setTemplateDirectory();
 		this.classpathEntries = setClassPathEntries();
@@ -193,8 +193,10 @@ public class GeneratioManager {
 		try {
 			IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
 			IResource r = root.findMember(JETEMITTERS);
+			System.out.println("IResoure: "+ r.getName());
 			if (r != null){
-				r.delete(false, monitor);
+				r.delete(IResource.ALWAYS_DELETE_PROJECT_CONTENT, monitor);
+//				r.delete(false, monitor);
 			}
 		} 
 		catch (CoreException e) { } 
@@ -357,31 +359,30 @@ public class GeneratioManager {
 	 * as well as the contained config.xml files.
 	 * @param monitor Object monitoring the code generation.
 	 */
-	protected void createTestFolders(IProgressMonitor monitor) {
-		String packageName = this.info.getPackageName();
-		packageName = packageName.substring(0, packageName.lastIndexOf('.'));
-		String path = Platform.getInstanceLocation()
-											.getURL().getPath() + packageName;
+	protected void createTestFolders(IProgressMonitor monitor) { 		
+		IProject project = ResourcesPlugin.getWorkspace().getRoot()
+				.getProject(this.info.getProjectName());	
+		System.out.println("-- info.getNumberOfTests(): " + info.getNumberOfTests());
 		if (this.info.getNumberOfTests() > 0) {
-			try {
-				File testFolder = new File(path + "/tests/" + 
-										this.info.getRefactoringId() + "/");
-				testFolder.mkdirs();
-				if (testFolder.exists() && testFolder.isDirectory()){
-					String testfolderprefix = 
-							testFolder.getCanonicalPath() + "/test_";
-					for (int i = 1; i <= this.info.getNumberOfTests(); i++) {
-						File specifictestfolder = new File(testfolderprefix 
-												+ String.format("%03d", i) + "/");
-						if (!specifictestfolder.exists() 
-								|| !specifictestfolder.isDirectory()) {
-							specifictestfolder.mkdir();
-							createConfigXml(monitor, specifictestfolder);
-						}
+			String rootDir = "/tests/" + this.info.getRefactoringId() + "/";
+			String dirPath = project.getLocation().append(rootDir).toOSString();
+			System.out.println("--- dirPath: " + dirPath);
+			File testFolder = new File(dirPath);
+			testFolder.mkdirs();
+			if (testFolder.exists() && testFolder.isDirectory()){
+				for (int i = 1; i <= this.info.getNumberOfTests(); i++) {
+					String testDirSnippet = "/test_" + String.format("%03d", i) + "/";
+					String testDir = project.getLocation().append(rootDir + testDirSnippet).toOSString();
+					System.out.println("--- testDir: " + testDir);
+					File specifictestfolder = new File(testDir);
+					if (!specifictestfolder.exists() 
+							|| !specifictestfolder.isDirectory()) {
+						specifictestfolder.mkdir();
+						String xmlName = "/config.xml";
+						String xmlLocation = project.getLocation().append(rootDir + testDirSnippet + xmlName).toOSString();
+						createConfigXml(monitor, xmlLocation);
 					}
-				}					
-			} catch (IOException e) {
-				e.printStackTrace();
+				}
 			}
 		}
 	}
@@ -390,14 +391,16 @@ public class GeneratioManager {
 	 * Creates the config.xml files within the test folders for the 
 	 * generated model refactoring.
 	 * @param monitor Object monitoring the code generation.
-	 * @param xmlFolder File object containing the folder in which 
+	 * @param xmlLocation File object containing the folder in which 
 	 * the config should be saved. 
 	 */
-	private void createConfigXml(IProgressMonitor monitor, File xmlFolder) {
-		String generatedCode = this.generateCode(monitor, XMLCONFIG);
+	private void createConfigXml(IProgressMonitor monitor, String path) {
+//		String generatedCode = this.generateCode(monitor, XMLCONFIG);
+		String generatedCode = "TO DO";
 		try {
-			File configXml = new File(xmlFolder.getCanonicalPath() 
-														+ "/config.xml");
+//			String path = xmlLocation.getCanonicalPath() + "/config.xml";
+			File configXml = new File(path);
+			System.out.println("---- createConfigXml::path: " + path);
 			if (!configXml.exists() || !configXml.isFile()) {
 				this.saveXml(monitor, generatedCode, 
 								configXml.getCanonicalPath().toString());
