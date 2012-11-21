@@ -341,12 +341,12 @@ public class RefactoringInfo {
 	 * @return Correctly capitalized name of the meta model the model
 	 * refactoring has to be generated for.
 	 */
-	private String buildMetaModelName(String metaModelName) {
-		String result = metaModelName
-						.substring(metaModelName.lastIndexOf('.'));
-		result = result.substring(1, result.lastIndexOf("PackageImpl"));
-		return result;
-	}
+//	private String buildMetaModelName(String metaModelName) {
+//		String result = metaModelName
+//						.substring(metaModelName.lastIndexOf('.'));
+//		result = result.substring(1, result.lastIndexOf("PackageImpl"));
+//		return result;
+//	}
 	
 	/**
 	 * Gets the numbers of tests to be generated for the model refactoring.
