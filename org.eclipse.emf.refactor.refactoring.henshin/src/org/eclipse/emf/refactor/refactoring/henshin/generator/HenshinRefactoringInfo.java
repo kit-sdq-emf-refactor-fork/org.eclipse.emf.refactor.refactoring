@@ -1,4 +1,4 @@
-package org.eclipse.emf.refactor.refactoring.henshin.core;
+package org.eclipse.emf.refactor.refactoring.henshin.generator;
 
 import org.eclipse.emf.refactor.refactoring.generator.core.RefactoringInfo;
 
