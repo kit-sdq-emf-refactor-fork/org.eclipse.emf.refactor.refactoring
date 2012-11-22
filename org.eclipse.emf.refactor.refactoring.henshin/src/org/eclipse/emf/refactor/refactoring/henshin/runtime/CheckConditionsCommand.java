@@ -16,6 +16,7 @@ import org.eclipse.emf.common.command.AbstractCommand;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.change.util.ChangeRecorder;
 import org.eclipse.emf.refactor.refactoring.henshin.interfaces.IHenshinInformation;
+import org.eclipse.emf.refactor.refactoring.henshin.managers.HenshinRuntimeManager;
 
 /**
  * Class used for checking initial an final conditions of
@@ -73,7 +74,7 @@ public class CheckConditionsCommand extends AbstractCommand {
 	public void execute() {
 		//Start Recorder:
 		ChangeRecorder changeRecorder = new ChangeRecorder(root);		
-		this.messages = HenshinRunner.checkConditions
+		this.messages = HenshinRuntimeManager.checkConditions
 							(this.henshinInformation, this.root);		
 		//Undo
 		changeRecorder.endRecording().applyAndReverse();	

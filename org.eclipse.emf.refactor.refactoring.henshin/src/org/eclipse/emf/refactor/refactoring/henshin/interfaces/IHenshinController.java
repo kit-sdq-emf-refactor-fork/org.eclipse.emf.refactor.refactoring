@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.emf.refactor.refactoring.henshin.interfaces;
 
+import org.eclipse.emf.refactor.refactoring.henshin.managers.HenshinRuntimeManager;
 import org.eclipse.emf.refactor.refactoring.interfaces.IController;
 
 /**
@@ -26,7 +27,7 @@ public interface IHenshinController extends IController {
 	 * @return HenshinRunner that executes Henshin transformations using 
 	 * the Henshin interpreter.
 	 */
-	public HenshinRunner getHenshinRunner();
+	public HenshinRuntimeManager getHenshinRuntimeManager();
 	
 	/**
 	 * @see org.eclipse.emf.refactor.common.core.IController#
