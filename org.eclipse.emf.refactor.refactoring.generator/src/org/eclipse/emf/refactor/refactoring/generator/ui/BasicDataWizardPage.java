@@ -242,6 +242,10 @@ public class BasicDataWizardPage extends WizardPage implements Listener {
 					int length = importPackage.length();
 					importPackage = importPackage.substring(0, length-5);
 				}
+				if (importPackage.endsWith(".internal")) {
+					int length = importPackage.length();
+					importPackage = importPackage.substring(0, length-9);
+				}
 				System.out.println("importPackage: " + importPackage);
 				File jarFile;
 				try {

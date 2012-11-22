@@ -66,6 +66,8 @@ public class NewRefactoringWizardJava extends Wizard implements INewWizard, INew
 	private String jar;
 
 	private String importPackage;
+	
+	private final String WINDOW_TITLE = "New Refactoring";
 	 
 	 /**
 	  * Default constructor that initializes its wizard pages.
@@ -73,9 +75,8 @@ public class NewRefactoringWizardJava extends Wizard implements INewWizard, INew
 		* generation process of the model refactoring.
 		*/
 	public NewRefactoringWizardJava(){
-		super();
-		setWindowTitle("EMF Refactor - Specify EMF Model Refactoring");
-		this.addPages();
+//		super();
+//		this.addPages();
 	}
 	
 //	/**
@@ -95,15 +96,16 @@ public class NewRefactoringWizardJava extends Wizard implements INewWizard, INew
 //	}
 
 	public NewRefactoringWizardJava(String metamodel, String contextType) {
-		super();
-		setWindowTitle("EMF Refactor - Specify EMF Model Refactoring");
+//		super();
+//		setWindowTitle("EMF Refactor - Specify EMF Model Refactoring");
 		this.namespaceUri = metamodel;
 		this.className = contextType;
-		this.addPages();
+//		this.addPages();
 	}
 	
 	@Override
 	public void addPages() {
+		setWindowTitle(WINDOW_TITLE);
 		this.basicWizardPage = new BasicDataWizardPage();
 		this.parameterWizardPage = new ParameterWizardPage();
 		this.testWizardPage = new TestWizardPage();
@@ -147,6 +149,11 @@ public class NewRefactoringWizardJava extends Wizard implements INewWizard, INew
 			e.printStackTrace();
 		}
 		return true;
+	}
+	
+	@Override
+	public boolean canFinish() {
+		return basicWizardPage.isPageComplete();
 	}
 	
 	/**
