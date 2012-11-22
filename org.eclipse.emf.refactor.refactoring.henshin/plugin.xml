@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.newWizards">
+      <wizard
+            category="org.eclipse.emf.refactor.newwizards.category"
+            class="org.eclipse.emf.refactor.refactoring.henshin.ui.NewRefactoringWizardHenshin"
+            icon="icons/refactoring.png"
+            id="org.eclipse.emf.refactor.refactoring.newwizard"
+            name="Refactoring (specified in Henshin)">
+      </wizard>
+   </extension>
+
+</plugin>
