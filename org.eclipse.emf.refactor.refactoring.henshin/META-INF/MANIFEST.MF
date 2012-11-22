@@ -6,6 +6,7 @@ Bundle-Version: 0.7.0.qualifier
 Bundle-Activator: org.eclipse.emf.refactor.refactoring.henshin.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
- org.eclipse.emf.refactor.refactoring;bundle-version="0.7.0"
+ org.eclipse.emf.refactor.refactoring;bundle-version="0.7.0",
+ org.eclipse.emf.refactor.refactoring.generator;bundle-version="0.7.0"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
