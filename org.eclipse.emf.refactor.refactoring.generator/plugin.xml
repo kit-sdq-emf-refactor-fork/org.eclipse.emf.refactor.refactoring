@@ -11,5 +11,48 @@
             name="Refactoring (specified in Java)">
       </wizard>
    </extension>
+   <extension
+         id="org.eclipse.emf.refactor.qa.menu"
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            allPopups="true"
+            locationURI="popup:org.eclipse.ui.popup.any?after=additions">
+         <menu
+               id="org.eclipse.emf.refactor.generator.menu"
+               label="EMF Quality Assurance (define new techniques)">
+            <command
+                  commandId="org.eclipse.emf.refactor.refactoring.generator.generateNewRefactoringJavaCommand"
+                  icon="icons/refactoring.png"
+                  label="Generate New Refactoring (specified in Java)"
+                  style="push">
+               <visibleWhen
+                     checkEnabled="true">
+                  <iterate
+                        ifEmpty="false">
+                     <instanceof
+                           value="org.eclipse.emf.ecore.EObject">
+                     </instanceof>
+                  </iterate>
+               </visibleWhen>
+            </command>
+         </menu>
+      </menuContribution>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            id="org.eclipse.emf.refactor.refactoring.generator.generateNewRefactoringJavaCommand"
+            name="GenerateNewRefactoringJavaCommand">
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.handlers">
+      <handler
+            class="org.eclipse.emf.refactor.refactoring.generator.handler.GenerateNewRefactoringJavaCommandHandler"
+            commandId="org.eclipse.emf.refactor.refactoring.generator.generateNewRefactoringJavaCommand">
+      </handler>
+
+   </extension>
+   
 
 </plugin>

@@ -75,12 +75,7 @@ public class NewRefactoringWizardJava extends Wizard implements INewWizard, INew
 	public NewRefactoringWizardJava(){
 		super();
 		setWindowTitle("EMF Refactor - Specify EMF Model Refactoring");
-		this.basicWizardPage = new BasicDataWizardPage();
-		this.parameterWizardPage = new ParameterWizardPage();
-		this.testWizardPage = new TestWizardPage();
-		this.addPage(basicWizardPage);
-		this.addPage(parameterWizardPage);
-		this.addPage(testWizardPage);
+		this.addPages();
 	}
 	
 //	/**
@@ -98,6 +93,33 @@ public class NewRefactoringWizardJava extends Wizard implements INewWizard, INew
 //		this.addPage(parameterWizardPage);
 //		this.addPage(testWizardPage);
 //	}
+
+	public NewRefactoringWizardJava(String metamodel, String contextType) {
+		super();
+		setWindowTitle("EMF Refactor - Specify EMF Model Refactoring");
+		this.namespaceUri = metamodel;
+		this.className = contextType;
+		this.addPages();
+	}
+	
+	@Override
+	public void addPages() {
+		this.basicWizardPage = new BasicDataWizardPage();
+		this.parameterWizardPage = new ParameterWizardPage();
+		this.testWizardPage = new TestWizardPage();
+		if (namespaceUri != null && ! namespaceUri.isEmpty() 
+				&& className != null && ! className.isEmpty()) {
+			setMetamodelAndContext();
+		}
+		this.addPage(basicWizardPage);
+		this.addPage(parameterWizardPage);
+		this.addPage(testWizardPage);
+	}
+	
+	public void setMetamodelAndContext() {
+		basicWizardPage.setMetamodel(namespaceUri);
+		basicWizardPage.setContextType(className);
+	}
 
 	/**
 	 * @see org.eclipse.jface.wizard.Wizard#performFinish()
