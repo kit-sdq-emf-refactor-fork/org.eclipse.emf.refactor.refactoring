@@ -129,7 +129,7 @@ public class GenerationManager {
 		return td;
 	}
 
-	private List<IClasspathEntry> setClassPathEntries() {
+	protected List<IClasspathEntry> setClassPathEntries() {
 		List<IClasspathEntry> cpe = new ArrayList<IClasspathEntry>();
 		// add org.eclipse.emf.refactor.refactoring.generator to class path
 		Bundle bundle = Platform.getBundle(Activator.PLUGIN_ID);
@@ -326,7 +326,7 @@ public class GenerationManager {
 	 * @param template Name of the template used by JET.
 	 * @return Generated code as String.
 	 */
-	private String generateCode(IProgressMonitor monitor, String template) {
+	protected String generateCode(IProgressMonitor monitor, String template) {
 		String templatePath = this.templateDirectory + template + JAVAJET;
 		ClassLoader classLoader = getClass().getClassLoader();
 		this.jetEmitter = new JETEmitter(templatePath, classLoader);

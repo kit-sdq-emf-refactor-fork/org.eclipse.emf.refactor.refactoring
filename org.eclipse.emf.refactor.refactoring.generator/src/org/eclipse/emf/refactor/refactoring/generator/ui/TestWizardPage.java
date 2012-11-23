@@ -40,7 +40,7 @@ public class TestWizardPage extends WizardPage implements Listener {
 	/**
 	 * Default constructor.
 	 */
-	protected TestWizardPage() {
+	public TestWizardPage() {
 		super(PAGE_NAME);
 		setTitle(PAGE_TITLE);
 		setDescription(PAGE_DESCRIPTION);
