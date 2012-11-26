@@ -1,22 +1,22 @@
 <%@ jet package="org.eclipse.emf.refactor" class="RefactoringInformation"
-imports="org.eclipse.emf.refactor.henshin.generator.*"%>
-<%RefactoringConfigHenshin refactoringConfig = (RefactoringConfigHenshin) argument; %>
+imports="org.eclipse.emf.refactor.refactoring.henshin.generator.HenshinRefactoringInfo org.eclipse.emf.refactor.refactoring.generator.core.*"%>
+<%HenshinRefactoringInfo info = (HenshinRefactoringInfo) argument; %>
 /**
  * <copyright>
  * </copyright>
  *
- * $Id: RefactoringInformationHenshin.javajet,v 1.1 2012/11/26 11:49:12 tarendt Exp $
+ * $Id: RefactoringInformationHenshin.javajet,v 1.2 2012/11/26 15:39:38 tarendt Exp $
  */
- package <%=refactoringConfig.getPackageName()%>;
+ package <%=info.getPackageName()%>;
 
 import java.io.File;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.Platform;
-import org.eclipse.emf.refactor.henshin.runtime.HenshinInformationAdapter;
-import org.eclipse.emf.refactor.henshin.core.IHenshinDataManagement;
+import org.eclipse.emf.refactor.refactoring.henshin.interfaces.IHenshinDataManagement;
+import org.eclipse.emf.refactor.refactoring.henshin.runtime.HenshinInformationAdapter;
 import org.osgi.framework.Bundle;
 
-import <%=refactoringConfig.getRootPackageName()%>.Activator;
+import <%=info.getRootPackageName()%>.Activator;
 
 /**
  * Class used for specifying a Henshin file that shall be used by
@@ -44,7 +44,7 @@ public class RefactoringInformation extends HenshinInformationAdapter {
 	}
 
 	/**
-	 * @see org.eclipse.emf.refactor.henshin.core.IHenshinInformation#
+	 * @see org.eclipse.emf.refactor.refactoring.henshin.interfaces.IHenshinInformation#
 	 * getHenshinDataManagement()
 	 * @generated
 	 */
@@ -54,7 +54,7 @@ public class RefactoringInformation extends HenshinInformationAdapter {
 	}
 	
 	/**
-	 * @see org.eclipse.emf.refactor.henshin.runtime.
+	 * @see org.eclipse.emf.refactor.refactoring.henshin.runtime.
 	 * HenshinInformationAdapter#getTransformationFileName()
 	 * @generated
 	 */

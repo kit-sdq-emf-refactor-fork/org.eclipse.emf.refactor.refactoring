@@ -1,13 +1,13 @@
 <%@ jet package="org.eclipse.emf.refactor" class="RefactoringWizardPage"
-imports="org.eclipse.emf.refactor.generator.* org.eclipse.emf.refactor.henshin.generator.*"%>
-<%RefactoringConfigHenshin refactoringConfig = (RefactoringConfigHenshin) argument; %>
+imports="org.eclipse.emf.refactor.refactoring.henshin.generator.HenshinRefactoringInfo org.eclipse.emf.refactor.refactoring.generator.core.*"%>
+<%HenshinRefactoringInfo info = (HenshinRefactoringInfo) argument; %>
 /**
  * <copyright>
  * </copyright>
  *
- * $Id: RefactoringWizardPageHenshin.javajet,v 1.1 2012/11/26 11:49:12 tarendt Exp $
+ * $Id: RefactoringWizardPageHenshin.javajet,v 1.2 2012/11/26 15:39:38 tarendt Exp $
  */
- package <%=refactoringConfig.getPackageName()%>;
+ package <%=info.getPackageName()%>;
 
 import org.eclipse.ltk.ui.refactoring.UserInputWizardPage;
 import org.eclipse.swt.SWT;
@@ -33,18 +33,18 @@ public class RefactoringWizardPage extends
 	 */			
 	private final RefactoringController controller;
 	
-<% for (ParameterConfig pc : refactoringConfig.getParameters()) { %>
+<% for (ParameterInfo pi : info.getParameters()) { %>
 	/**
 	 * Label for each parameter.
 	 * @generated
 	 */
-	private Label <%=pc.getName()%>Label;
+	private Label <%=pi.getName()%>Label;
 	
 	/**
 	 * TextField for each parameter.
 	 * @generated
 	 */
-	private Text <%=pc.getName()%>Widget;
+	private Text <%=pi.getName()%>Widget;
 <% } %>
 
 	/**
@@ -70,18 +70,18 @@ public class RefactoringWizardPage extends
 	public void handleEvent(Event event) {		
 		getWizard().getContainer().updateButtons();
 
-<% for (ParameterConfig pc : refactoringConfig.getParameters()) { %>				
-		if (<%=pc.getName()%>Widget != null) {
-			String <%=pc.getName()%> = <%=pc.getName()%>Widget.getText();
-			if (!<%=pc.getName()%>.isEmpty()){
+<% for (ParameterInfo pi : info.getParameters()) { %>				
+		if (<%=pi.getName()%>Widget != null) {
+			String <%=pi.getName()%> = <%=pi.getName()%>Widget.getText();
+			if (!<%=pi.getName()%>.isEmpty()){
 				((RefactoringDataManagement) 
 						this.controller.getDataManagementObject()).
-						getInPortByName("<%=pc.getName()%>").
-						setValue(<%=pc.getName()%>);
+						getInPortByName("<%=pi.getName()%>").
+						setValue(<%=pi.getName()%>);
 			} else {
 				((RefactoringDataManagement) 
 						this.controller.getDataManagementObject()).
-						getInPortByName("<%=pc.getName()%>").
+						getInPortByName("<%=pi.getName()%>").
 						setValue("unspecified");
 			}
 		}
@@ -102,18 +102,18 @@ public class RefactoringWizardPage extends
 		GridData gd = new GridData(GridData.FILL_HORIZONTAL);
 		composite.setLayout(gl);
 		
-<% for (ParameterConfig pc : refactoringConfig.getParameters()) { %>	
+<% for (ParameterInfo pi : info.getParameters()) { %>	
 		
-		<%=pc.getName()%>Label = new Label(composite, SWT.NONE);
-		<%=pc.getName()%>Label.setText("<%=pc.getDescription()%>: ");
-		<%=pc.getName()%>Label.setEnabled(true);
+		<%=pi.getName()%>Label = new Label(composite, SWT.NONE);
+		<%=pi.getName()%>Label.setText("<%=pi.getDescription()%>: ");
+		<%=pi.getName()%>Label.setEnabled(true);
 		
-		<%=pc.getName()%>Widget = new Text(composite, SWT.BORDER);
-		<%=pc.getName()%>Widget.setToolTipText
-				("value of variable '<%=pc.getName()%>'");
-		<%=pc.getName()%>Widget.setEnabled(true);
-		<%=pc.getName()%>Widget.setLayoutData(gd);
-		<%=pc.getName()%>Widget.addListener(SWT.Modify, this);
+		<%=pi.getName()%>Widget = new Text(composite, SWT.BORDER);
+		<%=pi.getName()%>Widget.setToolTipText
+				("value of variable '<%=pi.getName()%>'");
+		<%=pi.getName()%>Widget.setEnabled(true);
+		<%=pi.getName()%>Widget.setLayoutData(gd);
+		<%=pi.getName()%>Widget.addListener(SWT.Modify, this);
 		
 <% } %>
 		
