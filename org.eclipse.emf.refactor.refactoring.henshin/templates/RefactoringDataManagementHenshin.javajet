@@ -1,0 +1,137 @@
+<%@ jet package="org.eclipse.emf.refactor" class="RefactoringDataManagement"
+imports="org.eclipse.emf.refactor.generator.* org.eclipse.emf.refactor.henshin.generator.*"%>
+<%RefactoringConfigHenshin refactoringConfig = (RefactoringConfigHenshin) argument; %>
+/**
+ * <copyright>
+ * </copyright>
+ *
+ * $Id: RefactoringDataManagementHenshin.javajet,v 1.1 2012/11/26 11:49:12 tarendt Exp $
+ */
+ package <%=refactoringConfig.getPackageName()%>;
+
+import java.util.List;
+
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.refactor.henshin.core.IHenshinDataManagement;
+import org.eclipse.emf.refactor.henshin.core.IHenshinInformation;
+import org.eclipse.emf.refactor.runtime.DataManagementAdapter;
+import org.eclipse.emf.refactor.common.core.Port;
+
+/**
+ * Class for specific data concerning a model refactoring.
+ * @generated
+ */
+public class RefactoringDataManagement extends DataManagementAdapter 
+											implements IHenshinDataManagement {
+
+	private final String SELECTEDEOBJECT = "selectedEObject";
+	
+	/**
+	 * HenshinInformation object used for checking the initial
+	 * conditions of the EMF model refactoring.
+	 * @generated
+	 */
+	private RefactoringInformation initialConditionsInformation = 
+								new RefactoringInformation(this);
+								
+	/**
+	 * HenshinInformation object used for checking the final
+	 * conditions of the EMF model refactoring.
+	 * @generated
+	 */							
+	private RefactoringInformation finalConditionsInformation = 
+								new RefactoringInformation(this);
+								
+	/**
+	 * HenshinInformation object used for executing the EMF 
+	 * model refactoring.
+	 * @generated
+	 */							
+	private RefactoringInformation createChangeInformation = 
+								new RefactoringInformation(this);
+
+	/**
+	 * Default constructor.
+	 * @generated
+	 */
+	public RefactoringDataManagement() {
+		this.addPorts();
+		this.addInformation();
+	}
+	
+	/**
+	 * Adds the ports to the data management used for parameter passing.
+	 * @generated
+	 */
+	private void addPorts(){
+		this.inPorts.add
+			(new Port<<%=refactoringConfig.getSelectedEObjectClass()%>>
+				(SELECTEDEOBJECT, <%=refactoringConfig.getSelectedEObjectClass()%>.class));
+<% for (ParameterConfig pc : refactoringConfig.getParameters()) { %>
+		this.inPorts.add
+			(new Port<String>
+				("<%=pc.getName()%>", String.class, "unspecified"));
+<% } %>		
+	}
+	
+	/**
+	 * Adds the Henshin informations to the data management.
+	 * @generated
+	 */
+	private void addInformation() {	
+<% if (! refactoringConfig.getCheckInitialFileName().isEmpty()) { %>	
+		this.initialConditionsInformation.
+				setTransformationFileName("<%=refactoringConfig.getCheckInitialFileName()%>");	
+<% } %>	
+<% if (! refactoringConfig.getCheckFinalFileName().isEmpty()) { %>	
+		this.finalConditionsInformation.
+				setTransformationFileName("<%=refactoringConfig.getCheckFinalFileName()%>");
+<% } %>			
+		this.createChangeInformation.
+				setTransformationFileName("<%=refactoringConfig.getCreateChangeFileName()%>");
+	}
+	
+	/**
+	 * @see org.eclipse.emf.refactor.henshin.core.IHenshinDataManagement#
+	 * getCreateChangeHenshinInformation()
+	 * @generated
+	 */
+	@Override
+	public IHenshinInformation getCreateChangeHenshinInformation() {
+		return this.createChangeInformation;
+	}
+
+	/**
+	 * @see org.eclipse.emf.refactor.henshin.core.IHenshinDataManagement#
+	 * getFinalConditionsHenshinInformation()
+	 * @generated
+	 */
+	@Override
+	public IHenshinInformation getFinalConditionsHenshinInformation() {
+		return this.finalConditionsInformation;
+	}
+
+	/**
+	 * @see org.eclipse.emf.refactor.henshin.core.IHenshinDataManagement#
+	 * getInitialConditionsHenshinInformation()
+	 * @generated
+	 */
+	@Override
+	public IHenshinInformation getInitialConditionsHenshinInformation() {
+		return this.initialConditionsInformation;
+	}
+	
+	/**
+	 * @see org.eclipse.emf.refactor.common.core.IDataManagement#
+	 * preselect(java.util.List)
+	 * @generated
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public void preselect(List<EObject> selection) {
+		getInPortByName(SELECTEDEOBJECT).
+				setValue((<%=refactoringConfig.getSelectedEObjectClass()%>) selection.get(0));
+	}
+
+}
+	

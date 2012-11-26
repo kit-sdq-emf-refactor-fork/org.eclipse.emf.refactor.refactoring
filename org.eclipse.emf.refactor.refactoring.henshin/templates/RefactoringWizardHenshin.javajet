@@ -1,0 +1,43 @@
+<%@ jet package="org.eclipse.emf.refactor" class="RefactoringWizard"
+imports="org.eclipse.emf.refactor.henshin.generator.*"%>
+<%RefactoringConfigHenshin refactoringConfig = (RefactoringConfigHenshin) argument; %>
+/**
+ * <copyright>
+ * </copyright>
+ *
+ * $Id: RefactoringWizardHenshin.javajet,v 1.1 2012/11/26 11:49:12 tarendt Exp $
+ */
+ package <%=refactoringConfig.getPackageName()%>;
+
+import org.eclipse.emf.refactor.common.core.IController;
+import org.eclipse.emf.refactor.runtime.ltk.ui.AbstractRefactoringWizard;
+
+/**
+ * Class used for providing an implementation of an LTK
+ * RefactoringWizard in EMF Refactor.
+ * @generated
+ */
+public class RefactoringWizard 
+    extends AbstractRefactoringWizard {
+	
+	/**
+	 * Default constructor implementation.
+	 * @param controller Controller of the EMF model refactoring.
+	 * @generated
+	 */					
+	public RefactoringWizard(IController controller) {
+		super(controller);
+	}
+
+	/**
+	 * @see org.eclipse.ltk.ui.refactoring.RefactoringWizard#
+	 * addUserInputPages()
+	 * @generated
+	 */
+	@Override
+	protected void addUserInputPages() {
+		addPage(new RefactoringWizardPage
+			(controller.getParent().getName(), (RefactoringController)controller));
+	}
+
+}
