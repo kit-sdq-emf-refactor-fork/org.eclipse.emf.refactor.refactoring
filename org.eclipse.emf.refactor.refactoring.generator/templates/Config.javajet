@@ -1,4 +1,4 @@
-<%@ jet package="org.eclipse.emf.refactor.refactoring" class="RefactoringController"
+<%@ jet package="org.eclipse.emf.refactor.refactoring" class="Configuration"
 imports="org.eclipse.emf.refactor.refactoring.generator.core.*"%>
 <%RefactoringInfo info = (RefactoringInfo) argument; %>
 <?xml version="1.0" encoding="UTF-8"?>
