@@ -5,7 +5,7 @@ imports="org.eclipse.emf.refactor.refactoring.henshin.generator.HenshinRefactori
  * <copyright>
  * </copyright>
  *
- * $Id: RefactoringTestHenshin.javajet,v 1.2 2012/11/26 15:39:38 tarendt Exp $
+ * $Id: RefactoringTestHenshin.javajet,v 1.3 2012/11/28 15:30:01 tarendt Exp $
  */
  
 package <%=info.getPackageName()%>;
@@ -24,7 +24,7 @@ import org.eclipse.emf.henshin.model.HenshinPackage;
 import org.eclipse.emf.refactor.refactoring.core.Refactoring;
 import org.eclipse.emf.refactor.refactoring.runtime.test.JUnitTestCaseAdapter;
 
-// import <%=info.getSelectedEObjectJar()%>.<%=info.getMetaModelName()%>Package;
+// import <%=info.getJar()%>.<%=info.getMetaModelName()%>Package;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
