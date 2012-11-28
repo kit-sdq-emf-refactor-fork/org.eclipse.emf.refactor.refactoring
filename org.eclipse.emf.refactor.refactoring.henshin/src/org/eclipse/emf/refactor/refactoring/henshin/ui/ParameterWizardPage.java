@@ -15,6 +15,8 @@ import java.util.List;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.henshin.model.Module;
 import org.eclipse.emf.henshin.model.Parameter;
 import org.eclipse.emf.henshin.model.Unit;
@@ -251,8 +253,22 @@ public class ParameterWizardPage extends WizardPage implements Listener {
 	private void checkIsPageComplete() {
 		setTransformationSystem();
 		if (this.module == null){
-			setMessage("Cannot load henshin transformation system.", 
-															SWT.ERROR);
+			setMessage("Cannot load henshin module.", SWT.ERROR);
+			setPageComplete(false);
+			return;
+		}
+		EList<EPackage> imports = this.module.getImports();
+		String nsUri = ((NewRefactoringWizardHenshin) getWizard()).getNamespaceUri();
+		boolean hasImport = false;
+		for (EPackage ePackage : imports) {
+			if (ePackage.getNsURI().equals(nsUri)) {
+				hasImport = true;
+				break;
+			}
+		}
+		if (! hasImport) {
+			setMessage("The henshin module does not import model '" 
+											+ nsUri + "'.", SWT.ERROR);
 			setPageComplete(false);
 			return;
 		}

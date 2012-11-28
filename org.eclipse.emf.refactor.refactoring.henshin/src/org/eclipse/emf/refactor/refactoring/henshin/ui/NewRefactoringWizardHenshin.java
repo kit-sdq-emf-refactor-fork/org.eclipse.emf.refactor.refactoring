@@ -72,6 +72,10 @@ public class NewRefactoringWizardHenshin extends Wizard implements INewWizard, I
 		this.className = contextType;
 	}
 
+	public String getNamespaceUri() {
+		return namespaceUri;
+	}
+
 	@Override
 	public void init(IWorkbench workbench, IStructuredSelection selection) {
 		initProjects();
@@ -122,7 +126,8 @@ public class NewRefactoringWizardHenshin extends Wizard implements INewWizard, I
 	@Override
 	public boolean canFinish() {
 		return (basicWizardPage.isPageComplete() 
-					&& transformationWizardPage.isPageComplete());
+					&& transformationWizardPage.isPageComplete()
+					&& parameterWizardPage.isPageComplete());
 	}
 
 	@Override
