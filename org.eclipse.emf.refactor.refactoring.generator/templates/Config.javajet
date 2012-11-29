@@ -6,7 +6,7 @@ imports="org.eclipse.emf.refactor.refactoring.generator.core.*"%>
 	<% for (ParameterInfo pi : info.getParameters()) { %>
 	<param>
 		<name><%=pi.getName()%></name>
-		<value>enter value here</value>
+		<value>enter value here...</value>
 	</param>
 	<% } %>
 </config>

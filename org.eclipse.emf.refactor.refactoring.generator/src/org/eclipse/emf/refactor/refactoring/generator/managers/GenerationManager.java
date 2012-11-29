@@ -103,7 +103,7 @@ public class GenerationManager {
 	protected final String REFACTORINGDATAMANAGEMENT = 
 											"RefactoringDataManagement";
 	protected final String REFACTORINGTEST = "RefactoringTest";
-	protected final String XMLCONFIG = "Config";
+	private final String XMLCONFIG = "Config";
 	
 	
 	/**
@@ -328,6 +328,7 @@ public class GenerationManager {
 	 */
 	protected String generateCode(IProgressMonitor monitor, String template) {
 		String templatePath = this.templateDirectory + template + JAVAJET;
+		System.out.println("templatePath: " + templatePath);
 		ClassLoader classLoader = getClass().getClassLoader();
 		this.jetEmitter = new JETEmitter(templatePath, classLoader);
 		this.jetEmitter.getClasspathEntries().addAll(classpathEntries);
@@ -359,7 +360,7 @@ public class GenerationManager {
 	 * as well as the contained config.xml files.
 	 * @param monitor Object monitoring the code generation.
 	 */
-	protected void createTestFolders(IProgressMonitor monitor) { 		
+	private void createTestFolders(IProgressMonitor monitor) { 		
 		IProject project = ResourcesPlugin.getWorkspace().getRoot()
 				.getProject(this.info.getProjectName());	
 		System.out.println("-- info.getNumberOfTests(): " + info.getNumberOfTests());
@@ -395,8 +396,8 @@ public class GenerationManager {
 	 * the config should be saved. 
 	 */
 	private void createConfigXml(IProgressMonitor monitor, String path) {
-//		String generatedCode = this.generateCode(monitor, XMLCONFIG);
-		String generatedCode = "TO DO";
+		String generatedCode = this.generateCode(monitor, XMLCONFIG);
+//		String generatedCode = "TO DO";
 		try {
 //			String path = xmlLocation.getCanonicalPath() + "/config.xml";
 			File configXml = new File(path);

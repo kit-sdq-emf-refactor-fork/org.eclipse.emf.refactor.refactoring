@@ -1,8 +1,11 @@
 package org.eclipse.emf.refactor.refactoring.henshin.managers;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -34,6 +37,7 @@ public class HenshinGenerationManager extends GenerationManager {
 				"RefactoringInformation";
 	protected final String REFACTORINGTESTHENSHIN = 
 				"RefactoringTestHenshin";
+	private final String XMLCONFIGHENSHIN = "ConfigHenshin";
 	
 	/**
 	 * Configuration data used for generating model refactoring code.
@@ -112,6 +116,66 @@ public class HenshinGenerationManager extends GenerationManager {
 			e.printStackTrace();
 		}
 		return td;
+	}
+	
+	/**
+	 * Creates the set of test folders for the generated model refactoring
+	 * as well as the contained config.xml files.
+	 * @param monitor Object monitoring the code generation.
+	 */
+	protected void createTestFolders(IProgressMonitor monitor) { 		
+		IProject project = ResourcesPlugin.getWorkspace().getRoot()
+				.getProject(this.info.getProjectName());	
+		System.out.println("-- info.getNumberOfTests(): " + info.getNumberOfTests());
+		if (this.info.getNumberOfTests() > 0) {
+			String rootDir = "/tests/" + this.info.getRefactoringId() + "/";
+			String dirPath = project.getLocation().append(rootDir).toOSString();
+			System.out.println("--- dirPath: " + dirPath);
+			File testFolder = new File(dirPath);
+			testFolder.mkdirs();
+			if (testFolder.exists() && testFolder.isDirectory()){
+				for (int i = 1; i <= this.info.getNumberOfTests(); i++) {
+					String testDirSnippet = "/test_" + String.format("%03d", i) + "/";
+					String testDir = project.getLocation().append(rootDir + testDirSnippet).toOSString();
+					System.out.println("--- testDir: " + testDir);
+					File specifictestfolder = new File(testDir);
+					if (!specifictestfolder.exists() 
+							|| !specifictestfolder.isDirectory()) {
+						specifictestfolder.mkdir();
+						String xmlName = "/config.xml";
+						String xmlLocation = project.getLocation().append(rootDir + testDirSnippet + xmlName).toOSString();
+						createConfigXml(monitor, xmlLocation);
+					}
+				}
+			}
+		}
+	}
+	
+	/**
+	 * Creates the config.xml files within the test folders for the 
+	 * generated model refactoring.
+	 * @param monitor Object monitoring the code generation.
+	 * @param xmlLocation File object containing the folder in which 
+	 * the config should be saved. 
+	 */
+	private void createConfigXml(IProgressMonitor monitor, String path) {
+		String generatedCode = this.generateCode(monitor, XMLCONFIGHENSHIN);
+//		String generatedCode = "TO DO";
+		try {
+//			String path = xmlLocation.getCanonicalPath() + "/config.xml";
+			File configXml = new File(path);
+			System.out.println("---- createConfigXml::path: " + path);
+			if (!configXml.exists() || !configXml.isFile()) {
+				this.saveXml(monitor, generatedCode, 
+								configXml.getCanonicalPath().toString());
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (JETException e) {
+			e.printStackTrace();
+		} catch (CoreException e) {
+			e.printStackTrace();
+		}
 	}
 
 }
