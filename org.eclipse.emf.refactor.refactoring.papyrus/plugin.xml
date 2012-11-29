@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         id="org.eclipse.emf.refactor.papyrus.menu"
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            allPopups="true"
+            locationURI="popup:org.eclipse.ui.popup.any?after=additions">
+         <menu
+               id="org.eclipse.emf.refactor.generator.menu"
+               label="EMF Quality Assurance (define new techniques)">
+            <command
+                  commandId="org.eclipse.emf.refactor.refactoring.papyrus.generateNewRefactoringJavaCommand"
+                  icon="icons/refactoring.png"
+                  label="Generate New Refactoring (specified in Java)"
+                  style="push">
+               <visibleWhen
+                     checkEnabled="true">
+                  <iterate
+                        ifEmpty="false">
+                     <or>
+                        <instanceof
+                              value="org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart">
+                        </instanceof>
+                        <instanceof
+                              value="org.eclipse.emf.facet.infra.browser.uicore.internal.model.ModelElementItem">
+                        </instanceof>
+                     </or>
+                  </iterate>
+               </visibleWhen>
+            </command>
+         </menu>
+      </menuContribution>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            id="org.eclipse.emf.refactor.refactoring.papyrus.generateNewRefactoringJavaCommand"
+            name="GenerateNewRefactoringJavaCommand">
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.handlers">
+      <handler
+            class="org.eclipse.emf.refactor.refactoring.papyrus.handler.GenerateNewRefactoringJavaCommandHandler"
+            commandId="org.eclipse.emf.refactor.refactoring.papyrus.generateNewRefactoringJavaCommand">
+      </handler>
+   </extension>
+
+</plugin>
