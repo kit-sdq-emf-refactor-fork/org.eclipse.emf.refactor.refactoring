@@ -99,7 +99,11 @@ public class BasicDataWizardPage extends WizardPage implements Listener {
 								.getCodeSource().getLocation().toURI());
 						String jarName = jarFile.getName();
 						int index = jarName.indexOf("_");
-						jar = jarName.substring(0, index);
+						if (index == -1) {
+							jar = jarName;
+						} else {
+							jar = jarName.substring(0, index);
+						}
 						System.out.println("Jar5: " + jar);
 					} catch (URISyntaxException e) {
 						e.printStackTrace();
@@ -254,7 +258,11 @@ public class BasicDataWizardPage extends WizardPage implements Listener {
 							.getCodeSource().getLocation().toURI());
 					String jarName = jarFile.getName();
 					int index = jarName.indexOf("_");
-					jar = jarName.substring(0, index);
+					if (index == -1) {
+						jar = jarName;
+					} else {
+						jar = jarName.substring(0, index);
+					}
 					System.out.println("Jar5: " + jar);
 				} catch (URISyntaxException e) {
 					e.printStackTrace();
