@@ -26,5 +26,7 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Import-Package: org.eclipse.ui
 Export-Package: org.eclipse.emf.refactor.refactoring.runtime,
  org.eclipse.emf.refactor.refactoring.runtime.ltk,
+ org.eclipse.emf.refactor.refactoring.runtime.ltk.change,
  org.eclipse.emf.refactor.refactoring.runtime.ltk.ui,
- org.eclipse.emf.refactor.refactoring.runtime.test
+ org.eclipse.emf.refactor.refactoring.runtime.test,
+ org.eclipse.emf.refactor.refactoring.runtime.ui
