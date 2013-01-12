@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.emf.refactor.inputpagebutton">
+      <inputpagebuttoncreator
+            creatorclass="org.eclipse.emf.refactor.refactoring.analyzer.core.StatisticsButtonCreator">
+      </inputpagebuttoncreator>
+   </extension>
+
+</plugin>
