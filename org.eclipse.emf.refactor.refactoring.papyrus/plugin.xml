@@ -47,5 +47,5 @@
             commandId="org.eclipse.emf.refactor.refactoring.papyrus.generateNewRefactoringJavaCommand">
       </handler>
    </extension>
-
+   
 </plugin>

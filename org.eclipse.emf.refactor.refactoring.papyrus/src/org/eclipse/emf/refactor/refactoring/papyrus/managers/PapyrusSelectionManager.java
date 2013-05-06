@@ -34,5 +34,5 @@ public class PapyrusSelectionManager extends SelectionManager {
 		}
 		return r;
 	}
-
+	
 }
