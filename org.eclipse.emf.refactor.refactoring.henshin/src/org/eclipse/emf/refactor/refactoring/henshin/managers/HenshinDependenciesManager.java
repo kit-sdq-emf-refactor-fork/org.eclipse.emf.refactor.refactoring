@@ -15,6 +15,7 @@ import org.eclipse.emf.refactor.refactoring.generator.managers.DependenciesManag
 public class HenshinDependenciesManager extends DependenciesManager {
 
 	private final static String REFACTORHENSHIN = "org.eclipse.emf.refactor.refactoring.henshin";
+	private final static String HENSHINMODEL = "org.eclipse.emf.henshin.model";
 	
 	public static void updateDependencies(RefactoringInfo info) {
 		IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(info.getProjectName());
@@ -41,6 +42,8 @@ public class HenshinDependenciesManager extends DependenciesManager {
 				value = value + "," +  REFACTORRUNTIME;
 			if (! value.contains(REFACTORHENSHIN))
 				value = value + "," +  REFACTORHENSHIN;
+			if (! value.contains(HENSHINMODEL))
+				value = value + "," +  HENSHINMODEL;
 			if (! value.contains(JUNIT)) 
 				value = value + "," +  JUNIT + ";bundle-version=\"4.8.1\"";
 			if (! value.contains(info.getJar()))
