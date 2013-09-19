@@ -29,6 +29,7 @@ public class RefactoringLoader {
 				e2.printStackTrace();
 			}
 		}
+		java.util.Collections.sort(r);
 		return r;
 	}
 	

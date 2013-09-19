@@ -197,7 +197,7 @@ public class Refactoring implements Comparable<Refactoring> {
 		if(this.getName().equals(emfRefactoring.getName())){
 			return emfRefactoring.id.hashCode() - this.id.hashCode();
 		}else{
-		    return emfRefactoring.getName().compareTo(this.getName());	
+		    return this.getName().compareTo(emfRefactoring.getName());//emfRefactoring.getName().compareTo(this.getName());	
 		}
 	}
 
