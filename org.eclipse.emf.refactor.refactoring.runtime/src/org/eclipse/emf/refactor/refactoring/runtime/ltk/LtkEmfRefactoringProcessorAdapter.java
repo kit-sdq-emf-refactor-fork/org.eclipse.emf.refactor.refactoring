@@ -71,8 +71,16 @@ public class LtkEmfRefactoringProcessorAdapter
 	/**
 	 * EditingDomain object of the EMF model.
 	 */
-	protected final EditingDomain editingDomain;
+	protected EditingDomain editingDomain;
 	
+	public EditingDomain getEditingDomain() {
+		return editingDomain;
+	}
+	
+	public void setEditingDomain(EditingDomain editingDomain) {
+		this.editingDomain = editingDomain;
+	}
+
 	/**
 	 * Private constructor used by other constructors.
 	 * @param refactoring EMF Model Refactoring to be executed.
@@ -137,17 +145,20 @@ public class LtkEmfRefactoringProcessorAdapter
 			EditingDomain editingDomain = 
 				AdapterFactoryEditingDomain
 							.getEditingDomainFor(selection.get(0));
+			System.out.println("====> editingDomain 1: " + editingDomain);
 			if (null == editingDomain){
 				ResourceSet rset = 
 						selection.get(0).eResource().getResourceSet();
 				editingDomain = TransactionalEditingDomain.Factory.INSTANCE
 													.getEditingDomain(rset);
+				System.out.println("====> editingDomain 2: " + editingDomain);
 			}
 			if (null == editingDomain) {
 				ResourceSet rset = 
 						selection.get(0).eResource().getResourceSet();
 				editingDomain = TransactionalEditingDomain.Factory.INSTANCE
 											.createEditingDomain(rset);
+				System.out.println("====> editingDomain 3: " + editingDomain);
 			}
 			return editingDomain;
 		}
