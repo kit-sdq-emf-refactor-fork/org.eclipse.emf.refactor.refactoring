@@ -48,4 +48,37 @@
       </handler>
    </extension>
    
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            allPopups="false"
+            locationURI="popup:org.eclipse.ui.popup.any">
+         <menu
+               label="Papyrus UML Model Refactorings">
+            <visibleWhen
+                     checkEnabled="true">
+                  <iterate
+                        ifEmpty="false">
+                     <or>
+                        <instanceof
+                              value="org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart">
+                        </instanceof>
+                        <instanceof
+                              value="org.eclipse.emf.facet.infra.browser.uicore.internal.model.ModelElementItem">
+                        </instanceof>
+                     </or>
+                  </iterate>
+               </visibleWhen>
+            <dynamic
+                  class="org.eclipse.emf.refactor.refactoring.papyrus.ui.PapyrusModelApplicationMenu"
+                  id="org.eclipse.emf.refactor.papyrus.dynamicmenu">
+            </dynamic>
+         </menu>
+      </menuContribution>
+   </extension>
+   
+   
+
+
+   
 </plugin>
