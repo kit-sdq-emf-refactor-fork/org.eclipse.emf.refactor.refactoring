@@ -11,8 +11,6 @@
 package org.eclipse.emf.refactor.refactoring.runtime.ltk.command;
 
 import org.eclipse.emf.common.command.AbstractCommand;
-import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.compare.util.ModelUtils;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil.Copier;
 
@@ -71,10 +69,6 @@ public class PreviewCommand extends AbstractCommand {
 		Copier copier = new Copier();
 		EObject rootCopy =  copier.copy(this.root);
 		copier.copyReferences();
-		URI rootUri = this.root.eResource().getURI();
-		URI rootCopyUri = 
-			URI.createURI(rootUri + "-tmp." + rootUri.fileExtension());
-		ModelUtils.attachResource(rootCopyUri, rootCopy);
 		return rootCopy;
 	}
 

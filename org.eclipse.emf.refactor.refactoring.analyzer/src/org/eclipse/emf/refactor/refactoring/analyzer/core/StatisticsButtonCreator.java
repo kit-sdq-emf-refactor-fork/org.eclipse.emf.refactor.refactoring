@@ -52,7 +52,7 @@ public class StatisticsButtonCreator implements IInputPageButtonCreator {
 						boolean applicable = status.isOK(); 
 						if(applicable) {
 							RefactoringChange c = (RefactoringChange) processor.createChange(new NullProgressMonitor());
-							c.getModelCompareInput();
+//							c.getModelCompareInput();
 							EObject rootAfterRefactoring = (EObject) c.getModifiedElement();
 							EObject rootBeforeRefactoring = (EObject) c.getModifiedElement();
 							String path = rootBeforeRefactoring.eResource().getURI().toPlatformString(false);

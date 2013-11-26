@@ -68,7 +68,9 @@ public class ApplicationMenu extends ContributionItem {
 		ISelection orgSelection = 
 			PlatformUI.getWorkbench().getActiveWorkbenchWindow()
 									.getSelectionService().getSelection(); 
+		System.out.println("===>>> orgSelection: " + orgSelection);
 		selection = getESelection(orgSelection);
+		System.out.println("===>>> selection: " + selection);
 	}
 
 	/**

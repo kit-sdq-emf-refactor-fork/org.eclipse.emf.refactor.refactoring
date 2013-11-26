@@ -8,9 +8,6 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.core.resources;bundle-version="3.6.0",
  org.eclipse.core.runtime,
  org.eclipse.emf.compare;bundle-version="1.1.0",
- org.eclipse.emf.compare.diff;bundle-version="1.1.0",
- org.eclipse.emf.compare.match;bundle-version="1.1.0",
- org.eclipse.emf.compare.ui;bundle-version="1.1.0",
  org.eclipse.emf.ecore;bundle-version="2.6.0",
  org.eclipse.emf.ecore.change;bundle-version="2.5.0",
  org.eclipse.emf.ecore.xmi;bundle-version="2.5.0",
@@ -20,7 +17,10 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.ltk.core.refactoring;bundle-version="3.5.100",
  org.junit;bundle-version="4.8.1",
  org.eclipse.emf.refactor.refactoring;bundle-version="0.7.0",
- org.eclipse.emf.refactor.refactoring.configuration;bundle-version="0.7.0"
+ org.eclipse.emf.refactor.refactoring.configuration;bundle-version="0.7.0",
+ org.eclipse.emf.compare.edit,
+ org.eclipse.compare,
+ org.eclipse.emf.compare.ide.ui;bundle-version="3.0.1"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Import-Package: org.eclipse.ui

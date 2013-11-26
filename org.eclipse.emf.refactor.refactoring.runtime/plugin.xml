@@ -18,5 +18,17 @@
          </menu>
       </menuContribution>
    </extension>
+   
+   <extension
+         point="org.eclipse.ltk.ui.refactoring.changePreviewViewers">
+      <changePreviewViewer
+            class="org.eclipse.emf.refactor.refactoring.runtime.ltk.ui.RefactoringPreviewViewer"
+            id="org.eclipse.emf.refactor.runtime.refactoringpreviewviewer">
+         <enablement>
+            <instanceof
+                  value="org.eclipse.emf.refactor.refactoring.runtime.ltk.change.RefactoringChange">
+            </instanceof></enablement>
+      </changePreviewViewer>
+   </extension>   
 
 </plugin>

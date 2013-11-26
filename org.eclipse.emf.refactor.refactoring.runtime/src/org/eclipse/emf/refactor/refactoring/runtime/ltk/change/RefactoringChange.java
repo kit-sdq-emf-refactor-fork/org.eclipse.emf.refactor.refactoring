@@ -10,23 +10,12 @@
  *******************************************************************************/
 package org.eclipse.emf.refactor.refactoring.runtime.ltk.change;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.OperationCanceledException;
-import org.eclipse.emf.compare.diff.metamodel.DiffModel;
-import org.eclipse.emf.compare.diff.service.DiffService;
-import org.eclipse.emf.compare.match.MatchOptions;
-import org.eclipse.emf.compare.match.metamodel.MatchModel;
-import org.eclipse.emf.compare.match.service.MatchService;
-import org.eclipse.emf.compare.ui.IModelCompareInputProvider;
-import org.eclipse.emf.compare.ui.ModelCompareInput;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.change.ChangeDescription;
 import org.eclipse.emf.edit.domain.EditingDomain;
-import org.eclipse.emf.refactor.refactoring.runtime.ltk.command.PreviewCommand;
 import org.eclipse.emf.refactor.refactoring.runtime.ltk.command.RefactoringCommand;
 import org.eclipse.ltk.core.refactoring.Change;
 import org.eclipse.ltk.core.refactoring.RefactoringStatus;
@@ -37,8 +26,7 @@ import org.eclipse.ltk.core.refactoring.RefactoringStatus;
  * @generated NOT
  * @author Thorsten Arendt
  */
-public class RefactoringChange extends Change 
-				implements IModelCompareInputProvider{
+public class RefactoringChange extends Change {
 	
 	/**
 	 * Name of the RefactoringChange.
@@ -55,6 +43,10 @@ public class RefactoringChange extends Change
 	 */
 	private final EditingDomain editingDomain;
 	
+	public EditingDomain getEditingDomain() {
+		return editingDomain;
+	}
+
 	/**
 	 * Command that executes the EMF model refactoring.
 	 */
@@ -137,29 +129,33 @@ public class RefactoringChange extends Change
 	 * @see org.eclipse.emf.compare.ui.IModelCompareInputProvider#
 	 * getModelCompareInput()
 	 */
-	@Override
-	public ModelCompareInput getModelCompareInput() {
-		try {
-			//Perform Refactoring
-			PreviewCommand previewCommand = 
-							new PreviewCommand(refactoringCommand,this.root);
-			this.editingDomain.getCommandStack().execute(previewCommand);
-			//Generate DiffModel:
-			Map<String, Object> options = new HashMap<String, Object>();
-			options.put(MatchOptions.OPTION_IGNORE_XMI_ID, new Boolean(true));
-			MatchModel matchModel = null;
-			try {
-				matchModel = MatchService.doMatch(this.root,
-										previewCommand.getRootCopy(), options);
-				DiffModel diffModel = DiffService.doDiff(matchModel);
-				return new ModelCompareInput(matchModel, diffModel);	
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		throw new RuntimeException("Could not generate DiffModel");
+//	@Override
+//	public ModelCompareInput getModelCompareInput() {
+//		try {
+//			//Perform Refactoring
+//			PreviewCommand previewCommand = 
+//							new PreviewCommand(refactoringCommand,this.root);
+//			this.editingDomain.getCommandStack().execute(previewCommand);
+//			//Generate DiffModel:
+//			Map<String, Object> options = new HashMap<String, Object>();
+//			options.put(MatchOptions.OPTION_IGNORE_XMI_ID, new Boolean(true));
+//			MatchModel matchModel = null;
+//			try {
+//				matchModel = MatchService.doMatch(this.root,
+//										previewCommand.getRootCopy(), options);
+//				DiffModel diffModel = DiffService.doDiff(matchModel);
+//				return new ModelCompareInput(matchModel, diffModel);	
+//			} catch (InterruptedException e) {
+//				e.printStackTrace();
+//			}
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		throw new RuntimeException("Could not generate DiffModel");
+//	}
+
+	public RefactoringCommand getRefactoringCommand() {
+		return refactoringCommand;
 	}
 
 }
