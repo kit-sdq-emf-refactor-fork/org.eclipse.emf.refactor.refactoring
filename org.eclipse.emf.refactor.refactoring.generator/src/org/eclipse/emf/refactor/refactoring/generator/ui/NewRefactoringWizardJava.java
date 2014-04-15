@@ -21,7 +21,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.refactor.refactoring.generator.core.RefactoringInfo;
 import org.eclipse.emf.refactor.refactoring.generator.interfaces.INewRefactoringWizard;
-import org.eclipse.emf.refactor.refactoring.generator.managers.GenerationManager;
+import org.eclipse.emf.refactor.refactoring.generator.managers.RefactoringGenerationManager;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.jface.wizard.WizardPage;
@@ -182,7 +182,7 @@ public class NewRefactoringWizardJava extends Wizard implements INewWizard, INew
 		refactoringConfig.setMetaModelName(metaModelName);
 		refactoringConfig.setParameters(parameterWizardPage.getParameters());
 		System.out.println(refactoringConfig);
-		GenerationManager rg = new GenerationManager(refactoringConfig); 
+		RefactoringGenerationManager rg = new RefactoringGenerationManager(refactoringConfig); 
 		rg.run(monitor);
 	}
 

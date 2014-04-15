@@ -61,7 +61,7 @@ import org.osgi.framework.Bundle;
  * @author arendt
  *
  */
-public class GenerationManager {
+public class RefactoringGenerationManager {
 	
 	/**
 	 * Full qualified name of the template directory inside the plugin.
@@ -111,7 +111,7 @@ public class GenerationManager {
 	 * @param config Configuration data used for generating model 
 	 * refactoring code.
 	 */
-	public GenerationManager(RefactoringInfo info) {
+	public RefactoringGenerationManager(RefactoringInfo info) {
 		this.info = info;
 		this.templateDirectory = setTemplateDirectory();
 		this.classpathEntries = setClassPathEntries();
