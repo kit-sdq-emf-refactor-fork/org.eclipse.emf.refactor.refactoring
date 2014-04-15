@@ -18,8 +18,27 @@ public class CompareResult {
 	private final HashMap<ModelSmell, Integer> occurencesInChangedModel;
 	
 	CompareResult(HashMap<ModelSmell, Integer> occurencesInOriginalModel, HashMap<ModelSmell, Integer> occurencesInChangedModel){
-		this.occurencesInOriginalModel = occurencesInOriginalModel;
+		this.occurencesInOriginalModel = sort(occurencesInOriginalModel);
 		this.occurencesInChangedModel = occurencesInChangedModel;
+	}
+
+	private HashMap<ModelSmell, Integer> sort(HashMap<ModelSmell, Integer> map) {
+		ModelSmell[] smells = new ModelSmell[0];
+		smells = map.keySet().toArray(smells);
+		for(int i = 0; i < smells.length; i++) {
+			for(int j = 0; j < smells.length; j++) {
+				if(map.get(smells[i]) > map.get(smells[j])) {
+					ModelSmell temp = smells[i];
+					smells[i] = smells[j];
+					smells[j] = temp;
+				}
+			}
+		}		
+		HashMap<ModelSmell, Integer> result = new HashMap<ModelSmell, Integer>();
+		for (ModelSmell smell : smells) {
+			result.put(smell, map.get(smell));
+		}
+		return result;
 	}
 
 	/**
@@ -38,6 +57,26 @@ public class CompareResult {
 	 */
 	public HashMap<ModelSmell, Integer> getOccurencesInChangedModel() {
 		return occurencesInChangedModel;
+	}
+	
+	public int getTotalNumberInOriginalModel() {
+		int number = 0;
+		for(ModelSmell smell : occurencesInOriginalModel.keySet()){
+			Integer numberInOriginal = occurencesInOriginalModel.get(smell);
+			number += numberInOriginal;
+			
+		}
+		return number;
+	}
+	
+	public int getTotalNumberInChangedModel() {
+		int number = 0;
+		for(ModelSmell smell : occurencesInChangedModel.keySet()){
+			Integer numberInOriginal = occurencesInChangedModel.get(smell);
+			number += numberInOriginal;
+			
+		}
+		return number;
 	}
 	
 	/**

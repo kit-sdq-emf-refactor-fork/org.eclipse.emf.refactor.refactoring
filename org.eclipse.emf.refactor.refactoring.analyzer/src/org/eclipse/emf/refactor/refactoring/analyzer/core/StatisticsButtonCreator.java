@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.emf.ecore.EObject;
@@ -52,10 +53,11 @@ public class StatisticsButtonCreator implements IInputPageButtonCreator {
 						boolean applicable = status.isOK(); 
 						if(applicable) {
 							RefactoringChange c = (RefactoringChange) processor.createChange(new NullProgressMonitor());
+							c.perform(new NullProgressMonitor());
 //							c.getModelCompareInput();
 							EObject rootAfterRefactoring = (EObject) c.getModifiedElement();
-							EObject rootBeforeRefactoring = (EObject) c.getModifiedElement();
-							String path = rootBeforeRefactoring.eResource().getURI().toPlatformString(false);
+							EObject rootBeforeRefactoring = (EObject) c.getRootCopy();
+							String path = rootAfterRefactoring.eResource().getURI().toPlatformString(false);
 							IFile iFile = (IFile)org.eclipse.core.resources.ResourcesPlugin.getWorkspace().getRoot().findMember(path);
 							List<Result> smellResultsBefore = ModelSmellFinder.findModelSmells(ConfigurationManager.getSelectedModelSmells(iFile.getProject()), rootBeforeRefactoring);
 							List<Result> smellResultsAfter = ModelSmellFinder.findModelSmells(ConfigurationManager.getSelectedModelSmells(iFile.getProject()), rootAfterRefactoring);
@@ -79,27 +81,38 @@ public class StatisticsButtonCreator implements IInputPageButtonCreator {
 			 * Creates the message for the dialog called by the created button.
 			 */
 			private String buildStatisticsMessage(CompareResult result) {
-				String message = "Following model smell occurences are found before\n applying refactoring '" + controller.getParent().getName() + "':\n\n";
+				
 				Map<ModelSmell, Integer> originalSmells = result.getOccurencesInOriginalModel();
+				Map<ModelSmell, Integer> changedSmells = result.getOccurencesInChangedModel();
+				Map<ModelSmell, Integer> differences = result.getDifferences();
+				
+				String message = "Following model smell occurences are found before\n "
+						+ "applying refactoring '" + controller.getParent().getName() + "': Total " 
+						+ result.getTotalNumberInOriginalModel() + "\n\n";
+				
 				for(ModelSmell smell : originalSmells.keySet()){
 					if(originalSmells.get(smell) != 0){
 						message += smell.getName() + ": " + originalSmells.get(smell) + "\n";
 					}
 				}
-				message += "\n\nFollowing model smells are found after\n applying refactoring '" + controller.getParent().getName() + "':\n\n";
-				Map<ModelSmell, Integer> changedSmells = result.getOccurencesInChangedModel();
+				
+				message += "\n\nFollowing model smells are found after\n "
+						+ "applying refactoring '" + controller.getParent().getName() + "': Total " 
+						+ result.getTotalNumberInChangedModel() + "\n\n";
 				for(ModelSmell smell : changedSmells.keySet()){
 					if(changedSmells.get(smell) != 0){
 						message += smell.getName() + ": " + changedSmells.get(smell) + "\n";
 					}
 				}
-				message += "\n\nFollowing model smell occurrences will change when\napplying refactoring '" + controller.getParent().getName() + "':\n\n";
-				Map<ModelSmell, Integer> differences = result.getDifferences();
-				for(ModelSmell smell : differences.keySet()){
+								
+				message += "\n\nFollowing model smell occurrences will change when\n "
+						+ "applying refactoring '" + controller.getParent().getName() + "':\n\n";
+								for(ModelSmell smell : differences.keySet()){
 					if(differences.get(smell) != 0){
 						message += smell.getName() + ": " + differences.get(smell) + "\n";
 					}
 				}
+								
 				return message;
 			}
 
