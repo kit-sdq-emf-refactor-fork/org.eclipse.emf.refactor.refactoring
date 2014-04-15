@@ -23,7 +23,9 @@ import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.xtext.resource.XtextResource;
+import org.eclipse.xtext.ui.editor.XtextEditor;
 import org.eclipse.xtext.ui.editor.model.XtextDocument;
+import org.eclipse.xtext.ui.editor.utils.EditorUtils;
 import org.eclipse.xtext.util.concurrent.IUnitOfWork;
 
 public class XtextApplicationMenu extends ContributionItem {
@@ -54,9 +56,15 @@ public class XtextApplicationMenu extends ContributionItem {
 				menuItem.addSelectionListener(new SelectionAdapter() {
 					public void widgetSelected(SelectionEvent e) {
 						try {
-							IXtextDataManagement dm = (IXtextDataManagement) r.getController()
-									.getDataManagementObject();
-							XtextDocument doc = dm.getXtextDocument();
+							XtextDocument doc = null;
+							if (r.getController().getDataManagementObject()
+									instanceof IXtextDataManagement) {
+								IXtextDataManagement dm = (IXtextDataManagement) r.getController()
+										.getDataManagementObject();
+								doc = dm.getXtextDocument();
+							} else {
+								doc = getXtextDocument();
+							}
 							doc.modify(new IUnitOfWork.Void<XtextResource>() {
 
 								@Override
@@ -96,6 +104,12 @@ public class XtextApplicationMenu extends ContributionItem {
 							MessageDialog
 								.openError(null, "Error", e2.getMessage());
 						} 
+					}
+
+					private XtextDocument getXtextDocument() {
+						XtextEditor editor = EditorUtils.getActiveXtextEditor();
+						System.out.println("XtextEditor: " + editor);
+						return (XtextDocument) editor.getDocument();
 					}
 				});
 			}			
