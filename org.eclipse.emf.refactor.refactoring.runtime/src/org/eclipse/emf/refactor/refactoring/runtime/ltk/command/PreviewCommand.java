@@ -12,7 +12,7 @@ package org.eclipse.emf.refactor.refactoring.runtime.ltk.command;
 
 import org.eclipse.emf.common.command.AbstractCommand;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.util.EcoreUtil.Copier;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 
 /**
  * Class used for providing a command that provides
@@ -66,10 +66,11 @@ public class PreviewCommand extends AbstractCommand {
 	 * element.
 	 */
 	private EObject generateRootCopy() {
-		Copier copier = new Copier();
-		EObject rootCopy =  copier.copy(this.root);
-		copier.copyReferences();
-		return rootCopy;
+//		Copier copier = new Copier();
+		return EcoreUtil.copy(this.root);
+//		EObject rootCopy =  copier.copy(this.root);
+//		copier.copyReferences();
+//		return rootCopy;
 	}
 
 	/**

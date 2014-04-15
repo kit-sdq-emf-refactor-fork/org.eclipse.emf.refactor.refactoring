@@ -15,6 +15,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.change.ChangeDescription;
+import org.eclipse.emf.ecore.util.EcoreUtil.Copier;
 import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.emf.refactor.refactoring.runtime.ltk.command.RefactoringCommand;
 import org.eclipse.ltk.core.refactoring.Change;
@@ -37,6 +38,11 @@ public class RefactoringChange extends Change {
 	 * Root object of the EMF model.
 	 */
 	private final EObject root;
+	
+	/**
+	 * Copy of the root element of the model (temporary model).
+	 */
+	private EObject rootCopy;
 	
 	/**
 	 * EditingDomain object of the EMF model.
@@ -70,6 +76,7 @@ public class RefactoringChange extends Change {
 		super();
 		this.name = name;
 		this.root = root;
+		this.rootCopy = this.generateRootCopy();
 		this.editingDomain=editingDomain;
 		if(null != changeDescription){
 			refactoringCommand = new RefactoringCommand(name,changeDescription);
@@ -153,6 +160,27 @@ public class RefactoringChange extends Change {
 //		}
 //		throw new RuntimeException("Could not generate DiffModel");
 //	}
+	
+	/**
+	 * Generates a copy of the EMF model presented by the root
+	 * element.
+	 * @return Copy of the EMF model presented by the root
+	 * element.
+	 */
+	private EObject generateRootCopy() {
+		Copier copier = new Copier();
+		EObject rootCopy =  copier.copy(this.root);
+		copier.copyReferences();
+		return rootCopy;
+	}
+	
+	/**
+	 * Gets a copy of the root element of the model (temporary model).
+	 * @return Copy of the root element of the model (temporary model).
+	 */
+	public EObject getRootCopy() {
+		return rootCopy;
+	}
 
 	public RefactoringCommand getRefactoringCommand() {
 		return refactoringCommand;

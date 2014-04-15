@@ -34,6 +34,7 @@ public class RefactoringPreviewViewer implements IChangePreviewViewer {
 	@Override
 	public Control getControl() {
 		return previewControl;
+//		return parent;
 	}
 
 	@Override
@@ -50,7 +51,7 @@ public class RefactoringPreviewViewer implements IChangePreviewViewer {
 		System.out.println("===>> model2: " + model2);
 		EMFCompare compare = EMFCompare.builder().build();
 		Comparison comparison = compare.compare(EMFCompare.createDefaultScope(model2, model1));
-		ICompareEditingDomain editingDomain = EMFCompareEditingDomain.create(model1, model2, null);
+		ICompareEditingDomain editingDomain = EMFCompareEditingDomain.create(model2, model1, null);
 		AdapterFactory adapterFactory = new ComposedAdapterFactory(ComposedAdapterFactory.Descriptor.Registry.INSTANCE);
 		CompareEditorInput compareEditorInput = 
 				new ComparisonEditorInput(new CompareConfiguration(),
@@ -65,5 +66,8 @@ public class RefactoringPreviewViewer implements IChangePreviewViewer {
 		}
 		
 	}
+	
+//	@Override
+//	public void setInput(ChangePreviewViewerInput input) {	}
 
 }

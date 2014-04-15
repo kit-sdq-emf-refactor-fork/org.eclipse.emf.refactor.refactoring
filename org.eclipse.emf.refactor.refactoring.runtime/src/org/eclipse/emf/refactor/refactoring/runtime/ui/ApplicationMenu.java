@@ -187,8 +187,9 @@ public class ApplicationMenu extends ContributionItem {
 				ConfigurationManager.getSelectedRefactorings(project);		
 		for(final Refactoring r : refactorings){
 			if(r.getGui().showInMenu(this.selection)){	
-				MenuItem menuItem = new MenuItem(menu, SWT.CHECK, index);
+				MenuItem menuItem = new MenuItem(menu, SWT.CHECK, menu.getItemCount());
 				menuItem.setText(r.getName());
+				menuItem.setEnabled(true);
 				menuItem.addSelectionListener(new SelectionAdapter() {
 					public void widgetSelected(SelectionEvent e) {
 						try {
