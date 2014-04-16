@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+ <copyright>
+ </copyright>
+
+ $Id$
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.ui.newWizards">
+      <category
+            id="org.eclipse.emf.ecore.Wizard.category.ID"
+            name="%_UI_Wizard_category"/>
+      <wizard
+            id="comrel.presentation.ComrelModelWizardID"
+            name="CoMReL model"
+            class="comrel.presentation.ComrelModelWizard"
+            category="comrel.generator.category"
+            icon="icons/full/obj16/ComrelModelFile.gif">
+         <description>%_UI_ComrelModelWizard_description</description>
+         <selection class="org.eclipse.core.resources.IResource"/>
+      </wizard>
+   </extension>
+
+   <extension point="org.eclipse.ui.editors">
+      <editor
+            id="comrel.presentation.ComrelEditorID"
+            name="%_UI_ComrelEditor_label"
+            icon="icons/full/obj16/ComrelModelFile.gif"
+            extensions="comrel"
+            class="comrel.presentation.ComrelEditor"
+            contributorClass="comrel.presentation.ComrelActionBarContributor">
+      </editor>
+   </extension>
+
+</plugin>

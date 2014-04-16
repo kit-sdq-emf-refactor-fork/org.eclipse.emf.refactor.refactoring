@@ -1,0 +1,88 @@
+<%@ jet package="comrel.helper" class="MultiFeature"
+imports="comrel.generator.helper.*"%>
+<%HelperInfo helperInfo = (HelperInfo) argument; %>
+/**
+ * <copyright>
+ * </copyright>
+ */
+package <%=helperInfo.getPackageName()%>;
+
+import org.eclipse.emf.common.util.BasicEList;
+import org.eclipse.emf.common.util.EList;
+
+import comrel.extensions.IMultiFeatureHelper;
+import comrel.ComrelFactory;
+import comrel.SingleInputPort;
+import comrel.MultiOutputPort;
+
+/**
+ * Helper class for synchronizing ports in 
+ * composite model refactorings specified in CoMReL.
+ * @generated
+ */
+public class <%=helperInfo.getClassName()%> implements IMultiFeatureHelper {
+
+	final ComrelFactory factory = ComrelFactory.eINSTANCE;
+	private SingleInputPort <%=helperInfo.getInputTypeVariable()%>;
+	private MultiOutputPort <%=helperInfo.getOutputTypeVariable() + "s"%>;
+
+	/**
+	 * Default constructor.
+	 * @generated
+	 */
+	public <%=helperInfo.getClassName()%>() {
+		initInputPort();
+		initOutputPort();
+	}
+	
+	/**
+	 * Method for setting the input port.
+	 * @generated
+	 */
+	private void initInputPort() {
+		<%=helperInfo.getInputTypeVariable()%> = factory.createSingleInputPort();
+		<%=helperInfo.getInputTypeVariable()%>.setName("<%=helperInfo.getInputTypeVariable()%>");
+		<%=helperInfo.getInputTypeVariable()%>.setType(<%=helperInfo.getInputType()%>.class);
+	}
+	
+	/**
+	 * Method for setting the output port.
+	 * @generated
+	 */
+	private void initOutputPort(){
+		<%=helperInfo.getOutputTypeVariable() + "s"%> = factory.createMultiOutputPort();
+		<%=helperInfo.getOutputTypeVariable() + "s"%>.setName("<%=helperInfo.getOutputTypeVariable() + "s"%>");
+		<%=helperInfo.getOutputTypeVariable() + "s"%>.setType(<%=helperInfo.getOutputType()%>.class);
+	}
+	
+	/**
+	 * @generated
+	 */
+	@Override
+	public SingleInputPort getInputPort() {
+		return <%=helperInfo.getInputTypeVariable()%>;
+	}
+
+	/**
+	 * @generated
+	 */
+	@Override
+	public MultiOutputPort getOutputPort() {
+		return <%=helperInfo.getOutputTypeVariable() + "s"%>;
+	}
+	
+	/**
+	 * @generated
+	 */
+	@Override
+	public void run() {
+		<%=helperInfo.getInputType()%> in = (<%=helperInfo.getInputType()%>) <%=helperInfo.getInputTypeVariable()%>.getValue();
+		EList<<%=helperInfo.getOutputType()%>> out = new BasicEList<<%=helperInfo.getOutputType()%>>();
+		
+		// TODO implement logic (fill 'out')
+		
+		<%=helperInfo.getOutputTypeVariable() + "s"%>.getValue().addAll(out);
+	}
+
+}
+	

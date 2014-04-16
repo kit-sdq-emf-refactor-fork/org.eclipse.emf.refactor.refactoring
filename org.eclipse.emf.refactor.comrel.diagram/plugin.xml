@@ -1,0 +1,1438 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<!--
+
+-->
+<plugin>
+
+   <extension point="org.eclipse.team.core.fileTypes" id="repo-ftype">
+      <?gmfgen generated="true"?>
+      <fileTypes type="text" extension="comrel_diagram"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.extension_parser" id="resource-factory">
+      <?gmfgen generated="true"?>
+      <parser
+         type="comrel_diagram"
+         class="org.eclipse.gmf.runtime.emf.core.resources.GMFResourceFactory">
+      </parser>
+   </extension>
+
+   <extension point="org.eclipse.ui.editors" id="gmf-editor">
+      <?gmfgen generated="true"?>
+      <editor
+         id="comrel.diagram.part.ComrelDiagramEditorID"
+         name="%editorName"
+         icon="icons/obj16/ComrelDiagramFile.gif"
+         extensions="comrel_diagram"
+         default="true"
+         class="comrel.diagram.part.ComrelDiagramEditor"
+         matchingStrategy="comrel.diagram.part.ComrelMatchingStrategy"
+         contributorClass="comrel.diagram.part.ComrelDiagramActionBarContributor">
+      </editor>
+   </extension>
+   
+   <extension point="org.eclipse.ui.contexts" id="ui-context">
+      <?gmfgen generated="true"?>
+      <context
+         description="%context.description"
+         id="comrel.diagram.ui.diagramContext"
+         name="%context.name"
+         parentId="org.eclipse.gmf.runtime.diagram.ui.diagramContext">
+      </context>
+   </extension>
+
+   <extension point="org.eclipse.ui.newWizards" id="creation-wizard">
+      <?gmfgen generated="true"?>
+  	  <wizard
+  	     name="CoMReL diagram"
+  	     icon="icons/obj16/ComrelDiagramFile.gif"
+  	     category="comrel.generator.category"
+  	     class="comrel.diagram.part.ComrelCreationWizard"
+  	     id="comrel.diagram.part.ComrelCreationWizardID">
+  	  	 <description>%newWizardDesc</description>  
+      </wizard>
+   </extension>
+
+   <extension point="org.eclipse.ui.popupMenus" id="init-diagram-action">
+      <?gmfgen generated="true"?>
+      <objectContribution
+            id="comrel.diagram.InitDiagram"
+            nameFilter="*.comrel"
+            objectClass="org.eclipse.core.resources.IFile">
+         <action
+               label="%initDiagramActionLabel"
+               class="comrel.diagram.part.ComrelInitDiagramFileAction"
+               menubarPath="additions"
+               enablesFor="1"
+               id="comrel.diagram.InitDiagramAction">
+         </action>
+      </objectContribution>
+   </extension>
+	
+   <extension point="org.eclipse.gmf.runtime.common.ui.services.action.globalActionHandlerProviders" id="global-actions">
+      <?gmfgen generated="true"?>
+      <GlobalActionHandlerProvider
+         class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramGlobalActionHandlerProvider"
+         id="ComrelPresentation">
+         <Priority name="Lowest"/>
+         <ViewId id="comrel.diagram.part.ComrelDiagramEditorID">
+            <ElementType class="org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart">
+               <GlobalActionId actionId="delete"/>
+            </ElementType>
+            <ElementType class="org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramEditPart">
+               <GlobalActionId actionId="save"/>
+            </ElementType>
+         </ViewId>
+      </GlobalActionHandlerProvider>
+      <GlobalActionHandlerProvider
+         class="org.eclipse.gmf.runtime.diagram.ui.printing.render.providers.DiagramWithPrintGlobalActionHandlerProvider"
+         id="ComrelPresentationPrint">
+         <Priority name="Lowest"/>
+         <ViewId id="comrel.diagram.part.ComrelDiagramEditorID">
+            <ElementType class="org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart">
+               <GlobalActionId actionId="print"/>
+            </ElementType>
+         </ViewId>
+      </GlobalActionHandlerProvider>
+      <GlobalActionHandlerProvider
+         class="org.eclipse.gmf.runtime.diagram.ui.providers.ide.providers.DiagramIDEGlobalActionHandlerProvider"
+         id="ComrelPresentationIDE">
+         <Priority name="Lowest"/>
+         <ViewId id="comrel.diagram.part.ComrelDiagramEditorID">
+            <ElementType class="org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart">
+               <GlobalActionId actionId="bookmark"/>
+            </ElementType>
+         </ViewId>
+      </GlobalActionHandlerProvider>
+      <GlobalActionHandlerProvider
+            class="org.eclipse.gmf.runtime.diagram.ui.render.providers.DiagramUIRenderGlobalActionHandlerProvider"
+            id="ComrelRender">
+         <Priority name="Lowest"/>
+         <ViewId id="comrel.diagram.part.ComrelDiagramEditorID">
+            <ElementType class="org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart">
+               <GlobalActionId actionId="cut"/>
+               <GlobalActionId actionId="copy"/>
+               <GlobalActionId actionId="paste"/>
+            </ElementType>
+         </ViewId>
+      </GlobalActionHandlerProvider>
+   </extension>
+
+
+   <extension point="org.eclipse.gmf.runtime.common.ui.services.markerNavigationProviders" id="markers-navigation">
+      <?gmfgen generated="true"?>
+      <MarkerNavigationProvider class="comrel.diagram.providers.ComrelMarkerNavigationProvider">
+         <MarkerType name="comrel.diagram.diagnostic"/>
+         <Priority name="Lowest"/>
+      </MarkerNavigationProvider>
+   </extension>
+
+   <extension id="diagnostic" name="Comrel Plugin problems" point="org.eclipse.core.resources.markers">
+      <?gmfgen generated="true"?>
+      <super type="org.eclipse.core.resources.problemmarker"/>
+      <super type="org.eclipse.gmf.runtime.common.ui.services.marker"/>
+      <persistent value="true"/>
+   </extension>   
+
+   <extension id="validationDecoratorProvider" name="ValidationDecorations" point="org.eclipse.gmf.runtime.diagram.ui.decoratorProviders">
+      <?gmfgen generated="true"?>
+      <decoratorProvider class="comrel.diagram.providers.ComrelValidationDecoratorProvider">
+         <Priority name="Lowest"/>
+         <object class="org.eclipse.gmf.runtime.diagram.ui.editparts.IPrimaryEditPart(org.eclipse.gmf.runtime.diagram.ui)" id="PRIMARY_VIEW"/>
+         <context decoratorTargets="PRIMARY_VIEW"/>
+      </decoratorProvider>
+   </extension>
+
+   <extension point="org.eclipse.core.runtime.preferences" id="prefs">
+      <?gmfgen generated="true"?>
+      <initializer class="comrel.diagram.preferences.DiagramPreferenceInitializer"/>
+   </extension>
+
+   <extension point="org.eclipse.ui.preferencePages" id="prefpages">
+      <?gmfgen generated="true"?>
+      <page
+            id="comrel.diagram.general"
+            name="%prefpage.comrel.diagram.general"
+            class="comrel.diagram.preferences.DiagramGeneralPreferencePage">
+      </page>
+      <page
+            id="comrel.diagram.appearance"
+            name="%prefpage.comrel.diagram.appearance"
+            category="comrel.diagram.general"
+            class="comrel.diagram.preferences.DiagramAppearancePreferencePage">
+      </page>
+      <page
+            id="comrel.diagram.connections"
+            name="%prefpage.comrel.diagram.connections"
+            category="comrel.diagram.general"
+            class="comrel.diagram.preferences.DiagramConnectionsPreferencePage">
+      </page>
+      <page
+            id="comrel.diagram.printing"
+            name="%prefpage.comrel.diagram.printing"
+            category="comrel.diagram.general"
+            class="comrel.diagram.preferences.DiagramPrintingPreferencePage">
+      </page>
+      <page
+            id="comrel.diagram.rulersAndGrid"
+            name="%prefpage.comrel.diagram.rulersAndGrid"
+            category="comrel.diagram.general"
+            class="comrel.diagram.preferences.DiagramRulersAndGridPreferencePage">
+      </page>
+   </extension>
+
+   <extension point="org.eclipse.ui.views.properties.tabbed.propertyContributor" id="prop-contrib">
+      <?gmfgen generated="true"?>
+      <propertyContributor
+            contributorId="comrel.diagram"
+            labelProvider="comrel.diagram.sheet.ComrelSheetLabelProvider">
+         <propertyCategory category="domain"/>
+         <propertyCategory category="visual"/>
+         <propertyCategory category="extra"/>
+      </propertyContributor>
+   </extension>
+
+   <extension point="org.eclipse.ui.views.properties.tabbed.propertyTabs" id="proptabs">
+      <?gmfgen generated="true"?>   
+      <propertyTabs contributorId="comrel.diagram">
+         <propertyTab
+             category="visual"
+             id="property.tab.AppearancePropertySection"
+             label="%tab.appearance"/>
+          <propertyTab
+             category="visual"
+             id="property.tab.DiagramPropertySection"
+             label="%tab.diagram"/>
+          <propertyTab
+             category="domain"
+             id="property.tab.domain"
+             label="%tab.domain"/>
+      </propertyTabs>
+   </extension>
+
+   <extension point="org.eclipse.ui.views.properties.tabbed.propertySections" id="propsections">
+      <?gmfgen generated="true"?>   
+      <propertySections contributorId="comrel.diagram">
+         <propertySection id="property.section.ConnectorAppearancePropertySection" 
+            filter="org.eclipse.gmf.runtime.diagram.ui.properties.filters.ConnectionEditPartPropertySectionFilter" 
+            class="org.eclipse.gmf.runtime.diagram.ui.properties.sections.appearance.ConnectionAppearancePropertySection" 
+            tab="property.tab.AppearancePropertySection">
+         </propertySection>
+         <propertySection id="property.section.ShapeColorAndFontPropertySection" 
+            filter="org.eclipse.gmf.runtime.diagram.ui.properties.filters.ShapeEditPartPropertySectionFilter" 
+            class="org.eclipse.gmf.runtime.diagram.ui.properties.sections.appearance.ShapeColorsAndFontsPropertySection" 
+            tab="property.tab.AppearancePropertySection">
+         </propertySection> 
+         <propertySection id="property.section.DiagramColorsAndFontsPropertySection" 
+            filter="org.eclipse.gmf.runtime.diagram.ui.properties.filters.DiagramEditPartPropertySectionFilter" 
+            class="org.eclipse.gmf.runtime.diagram.ui.properties.sections.appearance.DiagramColorsAndFontsPropertySection" 
+            tab="property.tab.AppearancePropertySection">
+         </propertySection>     
+         <propertySection id="property.section.RulerGridPropertySection" 
+            filter="org.eclipse.gmf.runtime.diagram.ui.properties.filters.DiagramEditPartPropertySectionFilter" 
+            class="org.eclipse.gmf.runtime.diagram.ui.properties.sections.grid.RulerGridPropertySection" 
+            tab="property.tab.DiagramPropertySection">
+         </propertySection>     
+         <propertySection
+            id="property.section.domain" 
+            tab="property.tab.domain"
+            class="comrel.diagram.sheet.ComrelPropertySection">
+            <input type="org.eclipse.gmf.runtime.notation.View"/>
+            <input type="org.eclipse.gef.EditPart"/>
+            <input type="comrel.diagram.navigator.ComrelAbstractNavigatorItem"/>
+         </propertySection>
+      </propertySections>
+   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.diagram.core.viewProviders" id="view-provider">
+      <?gmfgen generated="true"?>
+      <viewProvider class="comrel.diagram.providers.ComrelViewProvider">
+         <Priority name="Lowest"/>
+         <object id="referencing-diagrams" class="org.eclipse.gmf.runtime.notation.Diagram">
+            <method name="getType()" value="comrel"/>
+         </object>
+         <context viewClass="org.eclipse.gmf.runtime.notation.Node" containerViews="referencing-diagrams"/>
+         <context viewClass="org.eclipse.gmf.runtime.notation.Diagram" semanticHints="Comrel"/>
+         <context viewClass="org.eclipse.gmf.runtime.notation.Node" semanticHints="2001,2002,2003,2004,2005,2006,2007,3001,3002,3003,3004,3005,3006,3007,3008,3009,3010,3011,3012,3013,3014,3015,3016,3017,3018,3019,3020,3021,3022,3023,3024,3025,3026,3027,3028,3029,3030,3031,3032,3033,3034,3035,3036,3037,3038,3039,3040,3041,3042,3043,3044,3045,3046,3047,3048,3049,3050,3051,3052,3053,3054,3055,3056,3057,3058,3059,3060,3061,3062,3063,3064,3065,3066,3067,3068,3069,3070,3071,3072,3073,3074,3075,3076,3077,3078"/>
+         <context viewClass="org.eclipse.gmf.runtime.notation.Edge" semanticHints="4001,4002,4003"/>
+      </viewProvider>
+   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.diagram.ui.editpartProviders" id="ep-provider">
+      <?gmfgen generated="true"?>
+      <editpartProvider class="comrel.diagram.providers.ComrelEditPartProvider">
+         <Priority name="Lowest"/>
+         <object class="org.eclipse.gmf.runtime.notation.Diagram" id="generated-diagram">
+            <method name="getType()" value="Comrel"/>
+         </object>
+         <object class="org.eclipse.gmf.runtime.notation.Node" id="generated-nodes">
+            <method name="getType()" value="2001,2002,2003,2004,2005,2006,2007,3001,3002,3003,3004,3005,3006,3007,3008,3009,3010,3011,3012,3013,3014,3015,3016,3017,3018,3019,3020,3021,3022,3023,3024,3025,3026,3027,3028,3029,3030,3031,3032,3033,3034,3035,3036,3037,3038,3039,3040,3041,3042,3043,3044,3045,3046,3047,3048,3049,3050,3051,3052,3053,3054,3055,3056,3057,3058,3059,3060,3061,3062,3063,3064,3065,3066,3067,3068,3069,3070,3071,3072,3073,3074,3075,3076,3077,3078"/>
+         </object>
+         <object class="org.eclipse.gmf.runtime.notation.Edge" id="generated-links">
+            <method name="getType()" value="4001,4002,4003"/>
+         </object>
+         <object class="org.eclipse.gmf.runtime.notation.Node" id="generated-labels">
+            <method name="getType()" value="5001,5080,5081,5082,5083,5084,5085,5002,5003,5079,5078,5004,5005,5077,5009,5006,5007,5008,5013,5010,5011,5012,5016,5014,5015,5019,5017,5018,5076,5020,5021,5075,5074,5022,5023,5073,5072,5024,5025,5028,5027,5026,5071,5070,5029,5030,5031,5032,5069,5068,5067,5066,5065,5033,5035,5034,5036,5037,5038,5039,5064,5040,5041,5042,5043,5063,5062,5044,5045,5046,5047,5061,5060,5049,5048,5059,5058,5057,5056,5051,5050,5055,5052,5053,5054"/>
+         </object>
+         <object class="org.eclipse.gmf.runtime.notation.Node" id="generated-compartments">
+            <method name="getType()" value="7001,7002,7003,7004,7005,7006,7007,7008,7009,7010,7011,7012,7013,7014,7015,7016,7017,7018,7019,7020,7021,7022,7023,7024,7025,7026,7027,7028,7029,7030,7031,7032,7033,7034,7035,7036,7037,7038,7039,7040,7041,7042,7043,7044,7045,7046,7047,7048,7049,7050,7051,7052,7053,7054,7055,7056,7057,7058,7059,7060,7061,7062,7063,7064,7065,7066,7067,7068,7069,7070,7071,7072,7073,7074,7075,7076,7077,7078,7079,7080,7081,7082,7083,7084"/>
+         </object>
+         <context views="generated-diagram,generated-nodes,generated-links,generated-labels,generated-compartments"/>
+      </editpartProvider>
+   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.emf.ui.modelingAssistantProviders" id="modelassist-provider">
+      <?gmfgen generated="true"?>
+      <modelingAssistantProvider class="comrel.diagram.providers.ComrelModelingAssistantProvider">
+         <Priority name="Lowest"/>
+         <object class="comrel.diagram.edit.parts.CompositeRefactoringEditPart" id="CompositeRefactoring_1000"/>
+         <object class="comrel.diagram.edit.parts.SingleInputPortEditPart" id="SingleInputPort_2001"/>
+         <object class="comrel.diagram.edit.parts.CartesianQueuedUnitEditPart" id="CartesianQueuedUnit_2002"/>
+         <object class="comrel.diagram.edit.parts.ParallelQueuedUnitEditPart" id="ParallelQueuedUnit_2003"/>
+         <object class="comrel.diagram.edit.parts.SingleQueuedUnitEditPart" id="SingleQueuedUnit_2004"/>
+         <object class="comrel.diagram.edit.parts.SequentialUnitEditPart" id="SequentialUnit_2005"/>
+         <object class="comrel.diagram.edit.parts.ConditionalUnitEditPart" id="ConditionalUnit_2006"/>
+         <object class="comrel.diagram.edit.parts.AtomicUnitEditPart" id="AtomicUnit_2007"/>
+         <context elements="CompositeRefactoring_1000,SingleInputPort_2001,CartesianQueuedUnit_2002,ParallelQueuedUnit_2003,SingleQueuedUnit_2004,SequentialUnit_2005,ConditionalUnit_2006,AtomicUnit_2007"/>
+      </modelingAssistantProvider>
+   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.common.ui.services.iconProviders" id="icon-provider">
+      <?gmfgen generated="true"?>
+      <IconProvider class="comrel.diagram.providers.ComrelIconProvider">
+         <Priority name="Low"/>
+      </IconProvider>
+   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.common.ui.services.parserProviders" id="parser-provider">
+      <?gmfgen generated="true"?>
+      <ParserProvider class="comrel.diagram.providers.ComrelParserProvider">
+         <Priority name="Lowest"/>
+      </ParserProvider>
+   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.diagram.ui.decoratorProviders" id="decorator-provider">
+      <?gmfgen generated="true"?>
+      <decoratorProvider class="comrel.diagram.providers.ComrelShortcutsDecoratorProvider">
+         <Priority name="Lowest"/>
+         <object class="org.eclipse.gmf.runtime.notation.Node(org.eclipse.gmf.runtime.notation)" id="generated-top-nodes">
+            <method name="getType()" value="2001,2002,2003,2004,2005,2006,2007"/>
+         </object>
+         <context decoratorTargets="generated-top-nodes"/>
+      </decoratorProvider>
+   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.emf.type.core.elementTypes" id="element-types">
+      <?gmfgen generated="true"?>
+      <metamodel nsURI="http://comrel/0.1">
+         <metamodelType
+               id="comrel.diagram.CompositeRefactoring_1000"
+               name="%metatype.name.CompositeRefactoring_1000"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               eclass="CompositeRefactoring"
+               edithelper="comrel.diagram.edit.helpers.CompositeRefactoringEditHelper">
+            <param name="semanticHint" value="1000"/>
+         </metamodelType>
+      </metamodel>
+      <metamodel nsURI="http://comrel/0.1">
+         <metamodelType
+               id="comrel.diagram.SingleInputPort_2001"
+               name="%metatype.name.SingleInputPort_2001"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               eclass="SingleInputPort"
+               edithelper="comrel.diagram.edit.helpers.SingleInputPortEditHelper">
+            <param name="semanticHint" value="2001"/>
+         </metamodelType>
+      </metamodel>
+      <metamodel nsURI="http://comrel/0.1">
+         <metamodelType
+               id="comrel.diagram.CartesianQueuedUnit_2002"
+               name="%metatype.name.CartesianQueuedUnit_2002"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               eclass="CartesianQueuedUnit"
+               edithelper="comrel.diagram.edit.helpers.CartesianQueuedUnitEditHelper">
+            <param name="semanticHint" value="2002"/>
+         </metamodelType>
+      </metamodel>
+      <metamodel nsURI="http://comrel/0.1">
+         <specializationType
+               id="comrel.diagram.ParallelQueuedUnit_2003"
+               name="%metatype.name.ParallelQueuedUnit_2003"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+            <specializes id="comrel.diagram.ParallelQueuedUnit_3004"/>
+            <param name="semanticHint" value="2003"/>
+         </specializationType>
+      </metamodel>
+      <metamodel nsURI="http://comrel/0.1">
+         <specializationType
+               id="comrel.diagram.SingleQueuedUnit_2004"
+               name="%metatype.name.SingleQueuedUnit_2004"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+            <specializes id="comrel.diagram.SingleQueuedUnit_3022"/>
+            <param name="semanticHint" value="2004"/>
+         </specializationType>
+      </metamodel>
+      <metamodel nsURI="http://comrel/0.1">
+         <specializationType
+               id="comrel.diagram.SequentialUnit_2005"
+               name="%metatype.name.SequentialUnit_2005"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+            <specializes id="comrel.diagram.SequentialUnit_3026"/>
+            <param name="semanticHint" value="2005"/>
+         </specializationType>
+      </metamodel>
+      <metamodel nsURI="http://comrel/0.1">
+         <specializationType
+               id="comrel.diagram.ConditionalUnit_2006"
+               name="%metatype.name.ConditionalUnit_2006"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+            <specializes id="comrel.diagram.ConditionalUnit_3030"/>
+            <param name="semanticHint" value="2006"/>
+         </specializationType>
+      </metamodel>
+      <metamodel nsURI="http://comrel/0.1">
+         <specializationType
+               id="comrel.diagram.AtomicUnit_2007"
+               name="%metatype.name.AtomicUnit_2007"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+            <specializes id="comrel.diagram.AtomicUnit_3034"/>
+            <param name="semanticHint" value="2007"/>
+         </specializationType>
+      </metamodel>
+      <metamodel nsURI="http://comrel/0.1">
+         <specializationType
+               id="comrel.diagram.SingleInputPort_3001"
+               name="%metatype.name.SingleInputPort_3001"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+            <specializes id="comrel.diagram.SingleInputPort_2001"/>
+            <param name="semanticHint" value="3001"/>
+         </specializationType>
+      </metamodel>
+      <metamodel nsURI="http://comrel/0.1">
+         <metamodelType
+               id="comrel.diagram.MultiInputPort_3002"
+               name="%metatype.name.MultiInputPort_3002"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               eclass="MultiInputPort"
+               edithelper="comrel.diagram.edit.helpers.MultiInputPortEditHelper">
+            <param name="semanticHint" value="3002"/>
+         </metamodelType>
+      </metamodel>
+      <metamodel nsURI="http://comrel/0.1">
+         <specializationType
+               id="comrel.diagram.CartesianQueuedUnit_3003"
+               name="%metatype.name.CartesianQueuedUnit_3003"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+            <specializes id="comrel.diagram.CartesianQueuedUnit_2002"/>
+            <param name="semanticHint" value="3003"/>
+         </specializationType>
+      </metamodel>
+      <metamodel nsURI="http://comrel/0.1">
+         <metamodelType
+               id="comrel.diagram.ParallelQueuedUnit_3004"
+               name="%metatype.name.ParallelQueuedUnit_3004"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               eclass="ParallelQueuedUnit"
+               edithelper="comrel.diagram.edit.helpers.ParallelQueuedUnitEditHelper">
+            <param name="semanticHint" value="3004"/>
+         </metamodelType>
+      </metamodel>
+      <metamodel nsURI="http://comrel/0.1">
+         <specializationType
+               id="comrel.diagram.SingleInputPort_3005"
+               name="%metatype.name.SingleInputPort_3005"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+            <specializes id="comrel.diagram.SingleInputPort_2001"/>
+            <param name="semanticHint" value="3005"/>
+         </specializationType>
+      </metamodel>
+      <metamodel nsURI="http://comrel/0.1">
+         <specializationType
+               id="comrel.diagram.MultiInputPort_3006"
+               name="%metatype.name.MultiInputPort_3006"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+            <specializes id="comrel.diagram.MultiInputPort_3002"/>
+            <param name="semanticHint" value="3006"/>
+         </specializationType>
+      </metamodel>
+      <metamodel nsURI="http://comrel/0.1">
+         <specializationType
+               id="comrel.diagram.CartesianQueuedUnit_3007"
+               name="%metatype.name.CartesianQueuedUnit_3007"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+            <specializes id="comrel.diagram.CartesianQueuedUnit_2002"/>
+            <param name="semanticHint" value="3007"/>
+         </specializationType>
+      </metamodel>
+      <metamodel nsURI="http://comrel/0.1">
+         <metamodelType
+               id="comrel.diagram.SingleFeatureUnit_3008"
+               name="%metatype.name.SingleFeatureUnit_3008"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               eclass="SingleFeatureUnit"
+               edithelper="comrel.diagram.edit.helpers.SingleFeatureUnitEditHelper">
+            <param name="semanticHint" value="3008"/>
+         </metamodelType>
+      </metamodel>
+      <metamodel nsURI="http://comrel/0.1">
+         <specializationType
+               id="comrel.diagram.SingleInputPort_3009"
+               name="%metatype.name.SingleInputPort_3009"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+            <specializes id="comrel.diagram.SingleInputPort_2001"/>
+            <param name="semanticHint" value="3009"/>
+         </specializationType>
+      </metamodel>
+      <metamodel nsURI="http://comrel/0.1">
+         <specializationType
+               id="comrel.diagram.MultiInputPort_3010"
+               name="%metatype.name.MultiInputPort_3010"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+            <specializes id="comrel.diagram.MultiInputPort_3002"/>
+            <param name="semanticHint" value="3010"/>
+         </specializationType>
+      </metamodel>
+      <metamodel nsURI="http://comrel/0.1">
+         <metamodelType
+               id="comrel.diagram.SingleOutputPort_3011"
+               name="%metatype.name.SingleOutputPort_3011"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               eclass="SingleOutputPort"
+               edithelper="comrel.diagram.edit.helpers.SingleOutputPortEditHelper">
+            <param name="semanticHint" value="3011"/>
+         </metamodelType>
+      </metamodel>
+      <metamodel nsURI="http://comrel/0.1">
+         <metamodelType
+               id="comrel.diagram.MultiFeatureUnit_3012"
+               name="%metatype.name.MultiFeatureUnit_3012"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               eclass="MultiFeatureUnit"
+               edithelper="comrel.diagram.edit.helpers.MultiFeatureUnitEditHelper">
+            <param name="semanticHint" value="3012"/>
+         </metamodelType>
+      </metamodel>
+      <metamodel nsURI="http://comrel/0.1">
+         <specializationType
+               id="comrel.diagram.SingleInputPort_3013"
+               name="%metatype.name.SingleInputPort_3013"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+            <specializes id="comrel.diagram.SingleInputPort_2001"/>
+            <param name="semanticHint" value="3013"/>
+         </specializationType>
+      </metamodel>
+      <metamodel nsURI="http://comrel/0.1">
+         <specializationType
+               id="comrel.diagram.MultiInputPort_3014"
+               name="%metatype.name.MultiInputPort_3014"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+            <specializes id="comrel.diagram.MultiInputPort_3002"/>
+            <param name="semanticHint" value="3014"/>
+         </specializationType>
+      </metamodel>
+      <metamodel nsURI="http://comrel/0.1">
+         <metamodelType
+               id="comrel.diagram.MultiOutputPort_3015"
+               name="%metatype.name.MultiOutputPort_3015"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               eclass="MultiOutputPort"
+               edithelper="comrel.diagram.edit.helpers.MultiOutputPortEditHelper">
+            <param name="semanticHint" value="3015"/>
+         </metamodelType>
+      </metamodel>
+      <metamodel nsURI="http://comrel/0.1">
+         <metamodelType
+               id="comrel.diagram.SingleFilterUnit_3016"
+               name="%metatype.name.SingleFilterUnit_3016"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               eclass="SingleFilterUnit"
+               edithelper="comrel.diagram.edit.helpers.SingleFilterUnitEditHelper">
+            <param name="semanticHint" value="3016"/>
+         </metamodelType>
+      </metamodel>
+      <metamodel nsURI="http://comrel/0.1">
+         <specializationType
+               id="comrel.diagram.MultiInputPort_3017"
+               name="%metatype.name.MultiInputPort_3017"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+            <specializes id="comrel.diagram.MultiInputPort_3002"/>
+            <param name="semanticHint" value="3017"/>
+         </specializationType>
+      </metamodel>
+      <metamodel nsURI="http://comrel/0.1">
+         <specializationType
+               id="comrel.diagram.SingleOutputPort_3018"
+               name="%metatype.name.SingleOutputPort_3018"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+            <specializes id="comrel.diagram.SingleOutputPort_3011"/>
+            <param name="semanticHint" value="3018"/>
+         </specializationType>
+      </metamodel>
+      <metamodel nsURI="http://comrel/0.1">
+         <metamodelType
+               id="comrel.diagram.MultiFilterUnit_3019"
+               name="%metatype.name.MultiFilterUnit_3019"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               eclass="MultiFilterUnit"
+               edithelper="comrel.diagram.edit.helpers.MultiFilterUnitEditHelper">
+            <param name="semanticHint" value="3019"/>
+         </metamodelType>
+      </metamodel>
+      <metamodel nsURI="http://comrel/0.1">
+         <specializationType
+               id="comrel.diagram.MultiInputPort_3020"
+               name="%metatype.name.MultiInputPort_3020"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+            <specializes id="comrel.diagram.MultiInputPort_3002"/>
+            <param name="semanticHint" value="3020"/>
+         </specializationType>
+      </metamodel>
+      <metamodel nsURI="http://comrel/0.1">
+         <specializationType
+               id="comrel.diagram.MultiOutputPort_3021"
+               name="%metatype.name.MultiOutputPort_3021"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+            <specializes id="comrel.diagram.MultiOutputPort_3015"/>
+            <param name="semanticHint" value="3021"/>
+         </specializationType>
+      </metamodel>
+      <metamodel nsURI="http://comrel/0.1">
+         <metamodelType
+               id="comrel.diagram.SingleQueuedUnit_3022"
+               name="%metatype.name.SingleQueuedUnit_3022"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               eclass="SingleQueuedUnit"
+               edithelper="comrel.diagram.edit.helpers.SingleQueuedUnitEditHelper">
+            <param name="semanticHint" value="3022"/>
+         </metamodelType>
+      </metamodel>
+      <metamodel nsURI="http://comrel/0.1">
+         <specializationType
+               id="comrel.diagram.SingleInputPort_3023"
+               name="%metatype.name.SingleInputPort_3023"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+            <specializes id="comrel.diagram.SingleInputPort_2001"/>
+            <param name="semanticHint" value="3023"/>
+         </specializationType>
+      </metamodel>
+      <metamodel nsURI="http://comrel/0.1">
+         <specializationType
+               id="comrel.diagram.MultiInputPort_3024"
+               name="%metatype.name.MultiInputPort_3024"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+            <specializes id="comrel.diagram.MultiInputPort_3002"/>
+            <param name="semanticHint" value="3024"/>
+         </specializationType>
+      </metamodel>
+      <metamodel nsURI="http://comrel/0.1">
+         <specializationType
+               id="comrel.diagram.CartesianQueuedUnit_3025"
+               name="%metatype.name.CartesianQueuedUnit_3025"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+            <specializes id="comrel.diagram.CartesianQueuedUnit_2002"/>
+            <param name="semanticHint" value="3025"/>
+         </specializationType>
+      </metamodel>
+      <metamodel nsURI="http://comrel/0.1">
+         <metamodelType
+               id="comrel.diagram.SequentialUnit_3026"
+               name="%metatype.name.SequentialUnit_3026"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               eclass="SequentialUnit"
+               edithelper="comrel.diagram.edit.helpers.SequentialUnitEditHelper">
+            <param name="semanticHint" value="3026"/>
+         </metamodelType>
+      </metamodel>
+      <metamodel nsURI="http://comrel/0.1">
+         <specializationType
+               id="comrel.diagram.SingleInputPort_3027"
+               name="%metatype.name.SingleInputPort_3027"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+            <specializes id="comrel.diagram.SingleInputPort_2001"/>
+            <param name="semanticHint" value="3027"/>
+         </specializationType>
+      </metamodel>
+      <metamodel nsURI="http://comrel/0.1">
+         <specializationType
+               id="comrel.diagram.MultiInputPort_3028"
+               name="%metatype.name.MultiInputPort_3028"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+            <specializes id="comrel.diagram.MultiInputPort_3002"/>
+            <param name="semanticHint" value="3028"/>
+         </specializationType>
+      </metamodel>
+      <metamodel nsURI="http://comrel/0.1">
+         <specializationType
+               id="comrel.diagram.CartesianQueuedUnit_3029"
+               name="%metatype.name.CartesianQueuedUnit_3029"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+            <specializes id="comrel.diagram.CartesianQueuedUnit_2002"/>
+            <param name="semanticHint" value="3029"/>
+         </specializationType>
+      </metamodel>
+      <metamodel nsURI="http://comrel/0.1">
+         <metamodelType
+               id="comrel.diagram.ConditionalUnit_3030"
+               name="%metatype.name.ConditionalUnit_3030"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               eclass="ConditionalUnit"
+               edithelper="comrel.diagram.edit.helpers.ConditionalUnitEditHelper">
+            <param name="semanticHint" value="3030"/>
+         </metamodelType>
+      </metamodel>
+      <metamodel nsURI="http://comrel/0.1">
+         <specializationType
+               id="comrel.diagram.SingleInputPort_3031"
+               name="%metatype.name.SingleInputPort_3031"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+            <specializes id="comrel.diagram.SingleInputPort_2001"/>
+            <param name="semanticHint" value="3031"/>
+         </specializationType>
+      </metamodel>
+      <metamodel nsURI="http://comrel/0.1">
+         <specializationType
+               id="comrel.diagram.MultiInputPort_3032"
+               name="%metatype.name.MultiInputPort_3032"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+            <specializes id="comrel.diagram.MultiInputPort_3002"/>
+            <param name="semanticHint" value="3032"/>
+         </specializationType>
+      </metamodel>
+      <metamodel nsURI="http://comrel/0.1">
+         <specializationType
+               id="comrel.diagram.CartesianQueuedUnit_3033"
+               name="%metatype.name.CartesianQueuedUnit_3033"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+            <specializes id="comrel.diagram.CartesianQueuedUnit_2002"/>
+            <param name="semanticHint" value="3033"/>
+         </specializationType>
+      </metamodel>
+      <metamodel nsURI="http://comrel/0.1">
+         <metamodelType
+               id="comrel.diagram.AtomicUnit_3034"
+               name="%metatype.name.AtomicUnit_3034"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               eclass="AtomicUnit"
+               edithelper="comrel.diagram.edit.helpers.AtomicUnitEditHelper">
+            <param name="semanticHint" value="3034"/>
+         </metamodelType>
+      </metamodel>
+      <metamodel nsURI="http://comrel/0.1">
+         <specializationType
+               id="comrel.diagram.SingleInputPort_3035"
+               name="%metatype.name.SingleInputPort_3035"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+            <specializes id="comrel.diagram.SingleInputPort_2001"/>
+            <param name="semanticHint" value="3035"/>
+         </specializationType>
+      </metamodel>
+      <metamodel nsURI="http://comrel/0.1">
+         <specializationType
+               id="comrel.diagram.ParallelQueuedUnit_3036"
+               name="%metatype.name.ParallelQueuedUnit_3036"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+            <specializes id="comrel.diagram.ParallelQueuedUnit_3004"/>
+            <param name="semanticHint" value="3036"/>
+         </specializationType>
+      </metamodel>
+      <metamodel nsURI="http://comrel/0.1">
+         <specializationType
+               id="comrel.diagram.ParallelQueuedUnit_3037"
+               name="%metatype.name.ParallelQueuedUnit_3037"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+            <specializes id="comrel.diagram.ParallelQueuedUnit_3004"/>
+            <param name="semanticHint" value="3037"/>
+         </specializationType>
+      </metamodel>
+      <metamodel nsURI="http://comrel/0.1">
+         <specializationType
+               id="comrel.diagram.SingleFeatureUnit_3038"
+               name="%metatype.name.SingleFeatureUnit_3038"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+            <specializes id="comrel.diagram.SingleFeatureUnit_3008"/>
+            <param name="semanticHint" value="3038"/>
+         </specializationType>
+      </metamodel>
+      <metamodel nsURI="http://comrel/0.1">
+         <specializationType
+               id="comrel.diagram.MultiFeatureUnit_3039"
+               name="%metatype.name.MultiFeatureUnit_3039"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+            <specializes id="comrel.diagram.MultiFeatureUnit_3012"/>
+            <param name="semanticHint" value="3039"/>
+         </specializationType>
+      </metamodel>
+      <metamodel nsURI="http://comrel/0.1">
+         <specializationType
+               id="comrel.diagram.SingleFilterUnit_3040"
+               name="%metatype.name.SingleFilterUnit_3040"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+            <specializes id="comrel.diagram.SingleFilterUnit_3016"/>
+            <param name="semanticHint" value="3040"/>
+         </specializationType>
+      </metamodel>
+      <metamodel nsURI="http://comrel/0.1">
+         <specializationType
+               id="comrel.diagram.MultiFilterUnit_3041"
+               name="%metatype.name.MultiFilterUnit_3041"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+            <specializes id="comrel.diagram.MultiFilterUnit_3019"/>
+            <param name="semanticHint" value="3041"/>
+         </specializationType>
+      </metamodel>
+      <metamodel nsURI="http://comrel/0.1">
+         <specializationType
+               id="comrel.diagram.SingleQueuedUnit_3042"
+               name="%metatype.name.SingleQueuedUnit_3042"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+            <specializes id="comrel.diagram.SingleQueuedUnit_3022"/>
+            <param name="semanticHint" value="3042"/>
+         </specializationType>
+      </metamodel>
+      <metamodel nsURI="http://comrel/0.1">
+         <specializationType
+               id="comrel.diagram.ParallelQueuedUnit_3043"
+               name="%metatype.name.ParallelQueuedUnit_3043"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+            <specializes id="comrel.diagram.ParallelQueuedUnit_3004"/>
+            <param name="semanticHint" value="3043"/>
+         </specializationType>
+      </metamodel>
+      <metamodel nsURI="http://comrel/0.1">
+         <specializationType
+               id="comrel.diagram.SequentialUnit_3044"
+               name="%metatype.name.SequentialUnit_3044"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+            <specializes id="comrel.diagram.SequentialUnit_3026"/>
+            <param name="semanticHint" value="3044"/>
+         </specializationType>
+      </metamodel>
+      <metamodel nsURI="http://comrel/0.1">
+         <specializationType
+               id="comrel.diagram.ParallelQueuedUnit_3045"
+               name="%metatype.name.ParallelQueuedUnit_3045"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+            <specializes id="comrel.diagram.ParallelQueuedUnit_3004"/>
+            <param name="semanticHint" value="3045"/>
+         </specializationType>
+      </metamodel>
+      <metamodel nsURI="http://comrel/0.1">
+         <specializationType
+               id="comrel.diagram.ConditionalUnit_3046"
+               name="%metatype.name.ConditionalUnit_3046"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+            <specializes id="comrel.diagram.ConditionalUnit_3030"/>
+            <param name="semanticHint" value="3046"/>
+         </specializationType>
+      </metamodel>
+      <metamodel nsURI="http://comrel/0.1">
+         <specializationType
+               id="comrel.diagram.CartesianQueuedUnit_3047"
+               name="%metatype.name.CartesianQueuedUnit_3047"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+            <specializes id="comrel.diagram.CartesianQueuedUnit_2002"/>
+            <param name="semanticHint" value="3047"/>
+         </specializationType>
+      </metamodel>
+      <metamodel nsURI="http://comrel/0.1">
+         <specializationType
+               id="comrel.diagram.ParallelQueuedUnit_3048"
+               name="%metatype.name.ParallelQueuedUnit_3048"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+            <specializes id="comrel.diagram.ParallelQueuedUnit_3004"/>
+            <param name="semanticHint" value="3048"/>
+         </specializationType>
+      </metamodel>
+      <metamodel nsURI="http://comrel/0.1">
+         <specializationType
+               id="comrel.diagram.AtomicUnit_3049"
+               name="%metatype.name.AtomicUnit_3049"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+            <specializes id="comrel.diagram.AtomicUnit_3034"/>
+            <param name="semanticHint" value="3049"/>
+         </specializationType>
+      </metamodel>
+      <metamodel nsURI="http://comrel/0.1">
+         <specializationType
+               id="comrel.diagram.SingleFeatureUnit_3050"
+               name="%metatype.name.SingleFeatureUnit_3050"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+            <specializes id="comrel.diagram.SingleFeatureUnit_3008"/>
+            <param name="semanticHint" value="3050"/>
+         </specializationType>
+      </metamodel>
+      <metamodel nsURI="http://comrel/0.1">
+         <specializationType
+               id="comrel.diagram.MultiFeatureUnit_3051"
+               name="%metatype.name.MultiFeatureUnit_3051"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+            <specializes id="comrel.diagram.MultiFeatureUnit_3012"/>
+            <param name="semanticHint" value="3051"/>
+         </specializationType>
+      </metamodel>
+      <metamodel nsURI="http://comrel/0.1">
+         <specializationType
+               id="comrel.diagram.SingleFilterUnit_3052"
+               name="%metatype.name.SingleFilterUnit_3052"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+            <specializes id="comrel.diagram.SingleFilterUnit_3016"/>
+            <param name="semanticHint" value="3052"/>
+         </specializationType>
+      </metamodel>
+      <metamodel nsURI="http://comrel/0.1">
+         <specializationType
+               id="comrel.diagram.MultiFilterUnit_3053"
+               name="%metatype.name.MultiFilterUnit_3053"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+            <specializes id="comrel.diagram.MultiFilterUnit_3019"/>
+            <param name="semanticHint" value="3053"/>
+         </specializationType>
+      </metamodel>
+      <metamodel nsURI="http://comrel/0.1">
+         <specializationType
+               id="comrel.diagram.SingleQueuedUnit_3054"
+               name="%metatype.name.SingleQueuedUnit_3054"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+            <specializes id="comrel.diagram.SingleQueuedUnit_3022"/>
+            <param name="semanticHint" value="3054"/>
+         </specializationType>
+      </metamodel>
+      <metamodel nsURI="http://comrel/0.1">
+         <specializationType
+               id="comrel.diagram.SingleFeatureUnit_3055"
+               name="%metatype.name.SingleFeatureUnit_3055"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+            <specializes id="comrel.diagram.SingleFeatureUnit_3008"/>
+            <param name="semanticHint" value="3055"/>
+         </specializationType>
+      </metamodel>
+      <metamodel nsURI="http://comrel/0.1">
+         <specializationType
+               id="comrel.diagram.MultiFeatureUnit_3056"
+               name="%metatype.name.MultiFeatureUnit_3056"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+            <specializes id="comrel.diagram.MultiFeatureUnit_3012"/>
+            <param name="semanticHint" value="3056"/>
+         </specializationType>
+      </metamodel>
+      <metamodel nsURI="http://comrel/0.1">
+         <specializationType
+               id="comrel.diagram.SingleFilterUnit_3057"
+               name="%metatype.name.SingleFilterUnit_3057"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+            <specializes id="comrel.diagram.SingleFilterUnit_3016"/>
+            <param name="semanticHint" value="3057"/>
+         </specializationType>
+      </metamodel>
+      <metamodel nsURI="http://comrel/0.1">
+         <specializationType
+               id="comrel.diagram.MultiFilterUnit_3058"
+               name="%metatype.name.MultiFilterUnit_3058"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+            <specializes id="comrel.diagram.MultiFilterUnit_3019"/>
+            <param name="semanticHint" value="3058"/>
+         </specializationType>
+      </metamodel>
+      <metamodel nsURI="http://comrel/0.1">
+         <specializationType
+               id="comrel.diagram.SingleQueuedUnit_3059"
+               name="%metatype.name.SingleQueuedUnit_3059"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+            <specializes id="comrel.diagram.SingleQueuedUnit_3022"/>
+            <param name="semanticHint" value="3059"/>
+         </specializationType>
+      </metamodel>
+      <metamodel nsURI="http://comrel/0.1">
+         <specializationType
+               id="comrel.diagram.SequentialUnit_3060"
+               name="%metatype.name.SequentialUnit_3060"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+            <specializes id="comrel.diagram.SequentialUnit_3026"/>
+            <param name="semanticHint" value="3060"/>
+         </specializationType>
+      </metamodel>
+      <metamodel nsURI="http://comrel/0.1">
+         <specializationType
+               id="comrel.diagram.SingleFeatureUnit_3061"
+               name="%metatype.name.SingleFeatureUnit_3061"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+            <specializes id="comrel.diagram.SingleFeatureUnit_3008"/>
+            <param name="semanticHint" value="3061"/>
+         </specializationType>
+      </metamodel>
+      <metamodel nsURI="http://comrel/0.1">
+         <specializationType
+               id="comrel.diagram.MultiFeatureUnit_3062"
+               name="%metatype.name.MultiFeatureUnit_3062"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+            <specializes id="comrel.diagram.MultiFeatureUnit_3012"/>
+            <param name="semanticHint" value="3062"/>
+         </specializationType>
+      </metamodel>
+      <metamodel nsURI="http://comrel/0.1">
+         <specializationType
+               id="comrel.diagram.SingleFilterUnit_3063"
+               name="%metatype.name.SingleFilterUnit_3063"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+            <specializes id="comrel.diagram.SingleFilterUnit_3016"/>
+            <param name="semanticHint" value="3063"/>
+         </specializationType>
+      </metamodel>
+      <metamodel nsURI="http://comrel/0.1">
+         <specializationType
+               id="comrel.diagram.MultiFilterUnit_3064"
+               name="%metatype.name.MultiFilterUnit_3064"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+            <specializes id="comrel.diagram.MultiFilterUnit_3019"/>
+            <param name="semanticHint" value="3064"/>
+         </specializationType>
+      </metamodel>
+      <metamodel nsURI="http://comrel/0.1">
+         <specializationType
+               id="comrel.diagram.SingleQueuedUnit_3065"
+               name="%metatype.name.SingleQueuedUnit_3065"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+            <specializes id="comrel.diagram.SingleQueuedUnit_3022"/>
+            <param name="semanticHint" value="3065"/>
+         </specializationType>
+      </metamodel>
+      <metamodel nsURI="http://comrel/0.1">
+         <specializationType
+               id="comrel.diagram.ConditionalUnit_3066"
+               name="%metatype.name.ConditionalUnit_3066"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+            <specializes id="comrel.diagram.ConditionalUnit_3030"/>
+            <param name="semanticHint" value="3066"/>
+         </specializationType>
+      </metamodel>
+      <metamodel nsURI="http://comrel/0.1">
+         <specializationType
+               id="comrel.diagram.SingleQueuedUnit_3067"
+               name="%metatype.name.SingleQueuedUnit_3067"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+            <specializes id="comrel.diagram.SingleQueuedUnit_3022"/>
+            <param name="semanticHint" value="3067"/>
+         </specializationType>
+      </metamodel>
+      <metamodel nsURI="http://comrel/0.1">
+         <specializationType
+               id="comrel.diagram.AtomicUnit_3068"
+               name="%metatype.name.AtomicUnit_3068"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+            <specializes id="comrel.diagram.AtomicUnit_3034"/>
+            <param name="semanticHint" value="3068"/>
+         </specializationType>
+      </metamodel>
+      <metamodel nsURI="http://comrel/0.1">
+         <specializationType
+               id="comrel.diagram.SequentialUnit_3069"
+               name="%metatype.name.SequentialUnit_3069"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+            <specializes id="comrel.diagram.SequentialUnit_3026"/>
+            <param name="semanticHint" value="3069"/>
+         </specializationType>
+      </metamodel>
+      <metamodel nsURI="http://comrel/0.1">
+         <specializationType
+               id="comrel.diagram.SequentialUnit_3070"
+               name="%metatype.name.SequentialUnit_3070"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+            <specializes id="comrel.diagram.SequentialUnit_3026"/>
+            <param name="semanticHint" value="3070"/>
+         </specializationType>
+      </metamodel>
+      <metamodel nsURI="http://comrel/0.1">
+         <specializationType
+               id="comrel.diagram.ConditionalUnit_3071"
+               name="%metatype.name.ConditionalUnit_3071"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+            <specializes id="comrel.diagram.ConditionalUnit_3030"/>
+            <param name="semanticHint" value="3071"/>
+         </specializationType>
+      </metamodel>
+      <metamodel nsURI="http://comrel/0.1">
+         <specializationType
+               id="comrel.diagram.ConditionalUnit_3072"
+               name="%metatype.name.ConditionalUnit_3072"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+            <specializes id="comrel.diagram.ConditionalUnit_3030"/>
+            <param name="semanticHint" value="3072"/>
+         </specializationType>
+      </metamodel>
+      <metamodel nsURI="http://comrel/0.1">
+         <specializationType
+               id="comrel.diagram.SequentialUnit_3073"
+               name="%metatype.name.SequentialUnit_3073"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+            <specializes id="comrel.diagram.SequentialUnit_3026"/>
+            <param name="semanticHint" value="3073"/>
+         </specializationType>
+      </metamodel>
+      <metamodel nsURI="http://comrel/0.1">
+         <specializationType
+               id="comrel.diagram.AtomicUnit_3074"
+               name="%metatype.name.AtomicUnit_3074"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+            <specializes id="comrel.diagram.AtomicUnit_3034"/>
+            <param name="semanticHint" value="3074"/>
+         </specializationType>
+      </metamodel>
+      <metamodel nsURI="http://comrel/0.1">
+         <specializationType
+               id="comrel.diagram.ConditionalUnit_3075"
+               name="%metatype.name.ConditionalUnit_3075"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+            <specializes id="comrel.diagram.ConditionalUnit_3030"/>
+            <param name="semanticHint" value="3075"/>
+         </specializationType>
+      </metamodel>
+      <metamodel nsURI="http://comrel/0.1">
+         <metamodelType
+               id="comrel.diagram.ConditionCheck_3076"
+               name="%metatype.name.ConditionCheck_3076"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               eclass="ConditionCheck"
+               edithelper="comrel.diagram.edit.helpers.ConditionCheckEditHelper">
+            <param name="semanticHint" value="3076"/>
+         </metamodelType>
+      </metamodel>
+      <metamodel nsURI="http://comrel/0.1">
+         <specializationType
+               id="comrel.diagram.AtomicUnit_3077"
+               name="%metatype.name.AtomicUnit_3077"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+            <specializes id="comrel.diagram.AtomicUnit_3034"/>
+            <param name="semanticHint" value="3077"/>
+         </specializationType>
+      </metamodel>
+      <metamodel nsURI="http://comrel/0.1">
+         <specializationType
+               id="comrel.diagram.AtomicUnit_3078"
+               name="%metatype.name.AtomicUnit_3078"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+            <specializes id="comrel.diagram.AtomicUnit_3034"/>
+            <param name="semanticHint" value="3078"/>
+         </specializationType>
+      </metamodel>
+      <metamodel nsURI="http://comrel/0.1">
+         <metamodelType
+               id="comrel.diagram.SinglePortMapping_4001"
+               name="%metatype.name.SinglePortMapping_4001"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               eclass="SinglePortMapping"
+               edithelper="comrel.diagram.edit.helpers.SinglePortMappingEditHelper">
+            <param name="semanticHint" value="4001"/>
+         </metamodelType>
+      </metamodel>
+      <metamodel nsURI="http://comrel/0.1">
+         <metamodelType
+               id="comrel.diagram.MultiPortMapping_4002"
+               name="%metatype.name.MultiPortMapping_4002"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               eclass="MultiPortMapping"
+               edithelper="comrel.diagram.edit.helpers.MultiPortMappingEditHelper">
+            <param name="semanticHint" value="4002"/>
+         </metamodelType>
+      </metamodel>
+      <metamodel nsURI="http://comrel/0.1">
+         <metamodelType
+               id="comrel.diagram.MultiSinglePortMapping_4003"
+               name="%metatype.name.MultiSinglePortMapping_4003"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               eclass="MultiSinglePortMapping"
+               edithelper="comrel.diagram.edit.helpers.MultiSinglePortMappingEditHelper">
+            <param name="semanticHint" value="4003"/>
+         </metamodelType>
+      </metamodel>
+   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.emf.type.core.elementTypeBindings" id="element-types-bindings">
+      <?gmfgen generated="true"?>
+      <clientContext id="comrel.diagram.TypeContext">
+         <enablement>
+            <test
+               property="org.eclipse.gmf.runtime.emf.core.editingDomain"
+               value="comrel.diagram.EditingDomain"/>
+         </enablement>
+      </clientContext> 
+      <binding context="comrel.diagram.TypeContext">
+         <elementType ref="comrel.diagram.CompositeRefactoring_1000"/>
+         <elementType ref="comrel.diagram.SingleInputPort_2001"/>
+         <elementType ref="comrel.diagram.CartesianQueuedUnit_2002"/>
+         <elementType ref="comrel.diagram.ParallelQueuedUnit_2003"/>
+         <elementType ref="comrel.diagram.SingleQueuedUnit_2004"/>
+         <elementType ref="comrel.diagram.SequentialUnit_2005"/>
+         <elementType ref="comrel.diagram.ConditionalUnit_2006"/>
+         <elementType ref="comrel.diagram.AtomicUnit_2007"/>
+         <elementType ref="comrel.diagram.SingleInputPort_3001"/>
+         <elementType ref="comrel.diagram.MultiInputPort_3002"/>
+         <elementType ref="comrel.diagram.CartesianQueuedUnit_3003"/>
+         <elementType ref="comrel.diagram.ParallelQueuedUnit_3004"/>
+         <elementType ref="comrel.diagram.SingleInputPort_3005"/>
+         <elementType ref="comrel.diagram.MultiInputPort_3006"/>
+         <elementType ref="comrel.diagram.CartesianQueuedUnit_3007"/>
+         <elementType ref="comrel.diagram.SingleFeatureUnit_3008"/>
+         <elementType ref="comrel.diagram.SingleInputPort_3009"/>
+         <elementType ref="comrel.diagram.MultiInputPort_3010"/>
+         <elementType ref="comrel.diagram.SingleOutputPort_3011"/>
+         <elementType ref="comrel.diagram.MultiFeatureUnit_3012"/>
+         <elementType ref="comrel.diagram.SingleInputPort_3013"/>
+         <elementType ref="comrel.diagram.MultiInputPort_3014"/>
+         <elementType ref="comrel.diagram.MultiOutputPort_3015"/>
+         <elementType ref="comrel.diagram.SingleFilterUnit_3016"/>
+         <elementType ref="comrel.diagram.MultiInputPort_3017"/>
+         <elementType ref="comrel.diagram.SingleOutputPort_3018"/>
+         <elementType ref="comrel.diagram.MultiFilterUnit_3019"/>
+         <elementType ref="comrel.diagram.MultiInputPort_3020"/>
+         <elementType ref="comrel.diagram.MultiOutputPort_3021"/>
+         <elementType ref="comrel.diagram.SingleQueuedUnit_3022"/>
+         <elementType ref="comrel.diagram.SingleInputPort_3023"/>
+         <elementType ref="comrel.diagram.MultiInputPort_3024"/>
+         <elementType ref="comrel.diagram.CartesianQueuedUnit_3025"/>
+         <elementType ref="comrel.diagram.SequentialUnit_3026"/>
+         <elementType ref="comrel.diagram.SingleInputPort_3027"/>
+         <elementType ref="comrel.diagram.MultiInputPort_3028"/>
+         <elementType ref="comrel.diagram.CartesianQueuedUnit_3029"/>
+         <elementType ref="comrel.diagram.ConditionalUnit_3030"/>
+         <elementType ref="comrel.diagram.SingleInputPort_3031"/>
+         <elementType ref="comrel.diagram.MultiInputPort_3032"/>
+         <elementType ref="comrel.diagram.CartesianQueuedUnit_3033"/>
+         <elementType ref="comrel.diagram.AtomicUnit_3034"/>
+         <elementType ref="comrel.diagram.SingleInputPort_3035"/>
+         <elementType ref="comrel.diagram.ParallelQueuedUnit_3036"/>
+         <elementType ref="comrel.diagram.ParallelQueuedUnit_3037"/>
+         <elementType ref="comrel.diagram.SingleFeatureUnit_3038"/>
+         <elementType ref="comrel.diagram.MultiFeatureUnit_3039"/>
+         <elementType ref="comrel.diagram.SingleFilterUnit_3040"/>
+         <elementType ref="comrel.diagram.MultiFilterUnit_3041"/>
+         <elementType ref="comrel.diagram.SingleQueuedUnit_3042"/>
+         <elementType ref="comrel.diagram.ParallelQueuedUnit_3043"/>
+         <elementType ref="comrel.diagram.SequentialUnit_3044"/>
+         <elementType ref="comrel.diagram.ParallelQueuedUnit_3045"/>
+         <elementType ref="comrel.diagram.ConditionalUnit_3046"/>
+         <elementType ref="comrel.diagram.CartesianQueuedUnit_3047"/>
+         <elementType ref="comrel.diagram.ParallelQueuedUnit_3048"/>
+         <elementType ref="comrel.diagram.AtomicUnit_3049"/>
+         <elementType ref="comrel.diagram.SingleFeatureUnit_3050"/>
+         <elementType ref="comrel.diagram.MultiFeatureUnit_3051"/>
+         <elementType ref="comrel.diagram.SingleFilterUnit_3052"/>
+         <elementType ref="comrel.diagram.MultiFilterUnit_3053"/>
+         <elementType ref="comrel.diagram.SingleQueuedUnit_3054"/>
+         <elementType ref="comrel.diagram.SingleFeatureUnit_3055"/>
+         <elementType ref="comrel.diagram.MultiFeatureUnit_3056"/>
+         <elementType ref="comrel.diagram.SingleFilterUnit_3057"/>
+         <elementType ref="comrel.diagram.MultiFilterUnit_3058"/>
+         <elementType ref="comrel.diagram.SingleQueuedUnit_3059"/>
+         <elementType ref="comrel.diagram.SequentialUnit_3060"/>
+         <elementType ref="comrel.diagram.SingleFeatureUnit_3061"/>
+         <elementType ref="comrel.diagram.MultiFeatureUnit_3062"/>
+         <elementType ref="comrel.diagram.SingleFilterUnit_3063"/>
+         <elementType ref="comrel.diagram.MultiFilterUnit_3064"/>
+         <elementType ref="comrel.diagram.SingleQueuedUnit_3065"/>
+         <elementType ref="comrel.diagram.ConditionalUnit_3066"/>
+         <elementType ref="comrel.diagram.SingleQueuedUnit_3067"/>
+         <elementType ref="comrel.diagram.AtomicUnit_3068"/>
+         <elementType ref="comrel.diagram.SequentialUnit_3069"/>
+         <elementType ref="comrel.diagram.SequentialUnit_3070"/>
+         <elementType ref="comrel.diagram.ConditionalUnit_3071"/>
+         <elementType ref="comrel.diagram.ConditionalUnit_3072"/>
+         <elementType ref="comrel.diagram.SequentialUnit_3073"/>
+         <elementType ref="comrel.diagram.AtomicUnit_3074"/>
+         <elementType ref="comrel.diagram.ConditionalUnit_3075"/>
+         <elementType ref="comrel.diagram.ConditionCheck_3076"/>
+         <elementType ref="comrel.diagram.AtomicUnit_3077"/>
+         <elementType ref="comrel.diagram.AtomicUnit_3078"/>
+         <elementType ref="comrel.diagram.SinglePortMapping_4001"/>
+         <elementType ref="comrel.diagram.MultiPortMapping_4002"/>
+         <elementType ref="comrel.diagram.MultiSinglePortMapping_4003"/>
+         <advice ref="org.eclipse.gmf.runtime.diagram.core.advice.notationDepdendents"/>
+      </binding>
+   </extension>
+	   <extension point="org.eclipse.core.expressions.propertyTesters" id="navigator-proptest.isURIEditorInput">
+      <?gmfgen generated="true"?>
+       <propertyTester
+           id="comrel.diagram.URIEditorInputPropertyTester"
+           type="org.eclipse.emf.common.ui.URIEditorInput"
+           namespace="comrel.diagram"
+           properties="isURIEditorInput"
+           class="comrel.diagram.part.ComrelUriEditorInputTester">
+       </propertyTester>
+   </extension>
+
+	   <extension point="org.eclipse.core.expressions.propertyTesters" id="navigator-proptest.isShortcut">
+      <?gmfgen generated="true"?>
+       <propertyTester
+           id="comrel.diagram.ShortcutPropertyTester"
+           type="org.eclipse.gmf.runtime.notation.View"
+           namespace="comrel.diagram"
+           properties="isShortcut"
+           class="comrel.diagram.part.ComrelShortcutPropertyTester">
+       </propertyTester>
+   </extension>
+
+	   <extension point="org.eclipse.ui.navigator.viewer" id="navigator-viewbinding">
+      <?gmfgen generated="true"?>
+      <viewerContentBinding viewerId="org.eclipse.ui.navigator.ProjectExplorer">
+         <includes>
+            <contentExtension pattern="comrel.diagram.resourceContent"/>
+			<contentExtension pattern="comrel.diagram.domainResourceContent"/>
+            <contentExtension pattern="comrel.diagram.navigatorLinkHelper"/>
+         </includes>
+      </viewerContentBinding>
+      <viewerActionBinding viewerId="org.eclipse.ui.navigator.ProjectExplorer">
+         <includes>
+            <actionExtension pattern="comrel.diagram.navigatorActionProvider"/>
+         </includes>
+      </viewerActionBinding>
+   </extension>
+
+   <extension point="org.eclipse.ui.navigator.navigatorContent" id="navigator-content">
+      <?gmfgen generated="true"?>
+      <navigatorContent
+            id="comrel.diagram.resourceContent" 
+            name="%navigatorContentName" 
+            priority="normal" 
+            contentProvider="comrel.diagram.navigator.ComrelNavigatorContentProvider" 
+            labelProvider="comrel.diagram.navigator.ComrelNavigatorLabelProvider"
+            icon="icons/obj16/ComrelDiagramFile.gif"
+            activeByDefault="true">
+         <triggerPoints>
+            <or>
+	           <and>
+    	          <instanceof value="org.eclipse.core.resources.IFile"/>
+        	      <test property="org.eclipse.core.resources.extension" value="comrel_diagram"/>
+               </and>
+               <instanceof value="comrel.diagram.navigator.ComrelAbstractNavigatorItem"/>
+           	   <adapt type="org.eclipse.gmf.runtime.notation.View">
+           	      <test property="comrel.diagram.isShortcut"/>
+           	   </adapt>
+            </or>
+         </triggerPoints>
+         <possibleChildren>
+            <or>
+         	   <instanceof value="comrel.diagram.navigator.ComrelAbstractNavigatorItem"/>
+           	   <adapt type="org.eclipse.gmf.runtime.notation.View">
+           	      <test property="comrel.diagram.isShortcut"/>
+           	   </adapt>
+            </or>
+         </possibleChildren>
+         <commonSorter 
+               id="comrel.diagram.navigatorSorter" 
+               class="comrel.diagram.navigator.ComrelNavigatorSorter">
+            <parentExpression>
+               <or>
+	              <and>
+    	             <instanceof value="org.eclipse.core.resources.IFile"/>
+        	         <test property="org.eclipse.core.resources.extension" value="comrel_diagram"/>
+                  </and>
+                  <instanceof value="comrel.diagram.navigator.ComrelAbstractNavigatorItem"/>
+               </or>
+            </parentExpression>
+         </commonSorter>
+      </navigatorContent>
+      <navigatorContent
+            id="comrel.diagram.domainResourceContent" 
+            name="%domainNavigatorContentName" 
+            priority="normal" 
+            contentProvider="comrel.diagram.navigator.ComrelDomainNavigatorContentProvider" 
+            labelProvider="comrel.diagram.navigator.ComrelDomainNavigatorLabelProvider"
+            icon="icons/obj16/ComrelDiagramFile.gif"
+            activeByDefault="true">
+         <triggerPoints>
+            <or>
+	           <and>
+    	          <instanceof value="org.eclipse.core.resources.IFile"/>
+        	      <test property="org.eclipse.core.resources.extension" value="comrel"/>
+               </and>
+               <instanceof value="comrel.diagram.navigator.ComrelDomainNavigatorItem"/>
+            </or>
+         </triggerPoints>
+         <possibleChildren>
+            <instanceof value="comrel.diagram.navigator.ComrelDomainNavigatorItem"/>
+         </possibleChildren>
+      </navigatorContent>
+      <actionProvider
+            id="comrel.diagram.navigatorActionProvider"
+            class="comrel.diagram.navigator.ComrelNavigatorActionProvider">
+         <enablement>
+            <or>
+               <instanceof value="comrel.diagram.navigator.ComrelAbstractNavigatorItem"/>
+           	   <adapt type="org.eclipse.gmf.runtime.notation.View">
+           	      <test property="comrel.diagram.isShortcut"/>
+           	   </adapt>
+            </or>
+         </enablement>
+      </actionProvider>
+   </extension>
+   
+	   <extension point="org.eclipse.ui.navigator.linkHelper" id="navigator-linkhelper">
+      <?gmfgen generated="true"?>
+      <linkHelper
+            id="comrel.diagram.navigatorLinkHelper"
+            class="comrel.diagram.navigator.ComrelNavigatorLinkHelper">
+         <editorInputEnablement>
+            <and>
+               <instanceof value="org.eclipse.emf.common.ui.URIEditorInput"/>
+               <test property="comrel.diagram.isURIEditorInput"/>
+            </and>
+         </editorInputEnablement>
+         <selectionEnablement>
+            <instanceof value="comrel.diagram.navigator.ComrelAbstractNavigatorItem"/>
+         </selectionEnablement>
+      </linkHelper>
+   </extension>
+   <extension point="org.eclipse.ui.commands" id="update-cmd">
+      <?gmfgen generated="true"?>
+      <command
+         categoryId="org.eclipse.ui.category.edit"
+         defaultHandler="comrel.diagram.part.ComrelDiagramUpdateCommand"
+         description="%update.diagram.description"
+         id="comrel.diagram.updateDiagram"
+         name="%update.diagram.name"/>
+   </extension>
+   
+   <extension point="org.eclipse.ui.bindings" id="update-cmd-binding">
+      <?gmfgen generated="true"?>
+      <key 
+         commandId="comrel.diagram.updateDiagram"
+         contextId="comrel.diagram.ui.diagramContext"
+         schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+         sequence="F5"/>
+   </extension>
+
+   <extension point="org.eclipse.ui.menus" id="context-menus">
+      <?gmfgen generated="true"?>
+      <!-- menuContribution locationURI="menu:org.eclipse.ui.main.menu?after=">
+      </menuContribution>
+      <menuContribution locationURI="toolbar:org.eclipse.ui.main.toolbar?after=">
+      </menuContribution -->
+      <menuContribution locationURI="popup:org.eclipse.gmf.runtime.diagram.ui.DiagramEditorContextMenu">
+         <command commandId="comrel.diagram.LoadResourceAction">
+            <visibleWhen>
+               <and>
+                  <with variable="activePartId"><equals value="comrel.diagram.part.ComrelDiagramEditorID"/></with>
+                  <with variable="selection"><iterate ifEmpty="false"> 
+                     <instanceof value="comrel.diagram.edit.parts.CompositeRefactoringEditPart"/>
+                  </iterate></with>
+               </and>
+            </visibleWhen>
+         </command>
+      </menuContribution>
+   </extension>
+
+   <extension point="org.eclipse.ui.commands" id="menu-commands">
+      <?gmfgen generated="true"?>
+      <category id="comrel.diagram.part.ComrelDiagramEditorID" name="%cmdcategory.name" description="%cmdcategory.desc"/>
+      <command id="comrel.diagram.LoadResourceAction"
+         name="Load Resource"
+         categoryId="comrel.diagram.part.ComrelDiagramEditorID"
+         defaultHandler="comrel.diagram.part.LoadResourceAction"/>
+   </extension>
+
+   <extension point="org.eclipse.ui.handlers" id="menu-handlers">
+      <?gmfgen generated="true"?>
+   </extension>
+
+   <!-- optionally, specify keybindings -->
+</plugin>

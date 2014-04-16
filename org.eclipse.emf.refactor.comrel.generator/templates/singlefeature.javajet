@@ -1,0 +1,85 @@
+<%@ jet package="comrel.helper" class="SingleFeature"
+imports="comrel.generator.helper.*"%>
+<%HelperInfo helperInfo = (HelperInfo) argument; %>
+/**
+ * <copyright>
+ * </copyright>
+ */
+package <%=helperInfo.getPackageName()%>;
+
+import comrel.extensions.ISingleFeatureHelper;
+import comrel.ComrelFactory;
+import comrel.SingleInputPort;
+import comrel.SingleOutputPort;
+
+/**
+ * Helper class for synchronizing ports in 
+ * composite model refactorings specified in CoMReL.
+ * @generated
+ */
+public class <%=helperInfo.getClassName()%> implements ISingleFeatureHelper {
+
+	final ComrelFactory factory = ComrelFactory.eINSTANCE;
+	private SingleInputPort <%=helperInfo.getInputTypeVariable() + "in"%>;
+	private SingleOutputPort <%=helperInfo.getOutputTypeVariable() + "out"%>;
+
+	/**
+	 * Default constructor.
+	 * @generated
+	 */
+	public <%=helperInfo.getClassName()%>() {
+		initInputPort();
+		initOutputPort();
+	}
+	
+	/**
+	 * Method for setting the input port.
+	 * @generated
+	 */
+	private void initInputPort() {
+		<%=helperInfo.getInputTypeVariable() + "in"%> = factory.createSingleInputPort();
+		<%=helperInfo.getInputTypeVariable() + "in"%>.setName("<%=helperInfo.getInputTypeVariable() + "in"%>");
+		<%=helperInfo.getInputTypeVariable() + "in"%>.setType(<%=helperInfo.getInputType()%>.class);
+	}
+	
+	/**
+	 * Method for setting the output port.
+	 * @generated
+	 */
+	private void initOutputPort(){
+		<%=helperInfo.getOutputTypeVariable() + "out"%> = factory.createSingleOutputPort();
+		<%=helperInfo.getOutputTypeVariable() + "out"%>.setName("<%=helperInfo.getOutputTypeVariable() + "out"%>");
+		<%=helperInfo.getOutputTypeVariable() + "out"%>.setType(<%=helperInfo.getOutputType()%>.class);
+	}
+	
+	/**
+	 * @generated
+	 */
+	@Override
+	public SingleInputPort getInputPort() {
+		return <%=helperInfo.getInputTypeVariable() + "in"%>;
+	}
+
+	/**
+	 * @generated
+	 */
+	@Override
+	public SingleOutputPort getOutputPort() {
+		return <%=helperInfo.getOutputTypeVariable() + "out"%>;
+	}
+	
+	/**
+	 * @generated
+	 */
+	@Override
+	public void run() {
+		<%=helperInfo.getInputType()%> in = (<%=helperInfo.getInputType()%>) <%=helperInfo.getInputTypeVariable() + "in"%>.getValue();
+		<%=helperInfo.getOutputType()%> out = null;
+		
+		// TODO implement logic (replace 'null')
+		
+		<%=helperInfo.getOutputTypeVariable() + "out"%>.setValue(out);
+	}
+
+}
+	

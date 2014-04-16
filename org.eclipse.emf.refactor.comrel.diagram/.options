@@ -1,0 +1,7 @@
+# Tracing options for the comrel.diagram plug-in
+
+# Common issues
+comrel.diagram/debug=false
+
+# Visual IDs
+comrel.diagram/debug/visualID=false

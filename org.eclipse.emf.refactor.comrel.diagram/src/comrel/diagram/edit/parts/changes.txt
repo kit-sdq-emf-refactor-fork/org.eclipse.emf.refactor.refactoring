@@ -1,0 +1,43 @@
+----------------------
+createNodeShape (rest)
+----------------------
+
+MultiInputPortFigure figure = new MultiInputPortFigure();
+InputPort port = (InputPort) this.resolveSemanticElement();
+figure.setPort(port);
+return primaryShape = figure;
+
+
+----------------------
+createNodeShape (last)
+----------------------
+
+SingleQueuedUnitFigure figure = new SingleQueuedUnitFigure();
+RectangleFigure compHelper = (RectangleFigure) figure.getChildren().get(1);
+RectangleFigure compRef = (RectangleFigure) figure.getChildren().get(2);
+Labels.setLabels(compHelper, compRef, true);
+RefactoringUnit unit = (RefactoringUnit) this.resolveSemanticElement();
+unit.setFigure(figure);
+return primaryShape = figure;
+
+
+----------------
+addFixedChildren
+----------------
+
+-> bei InputPorts
+
+PositionConstants.NORTH);
+locator.setCurrentSideOfParent(PositionConstants.NORTH); // Position des Ports
+locator.setPreferredSideOfParent(PositionConstants.NORTH); // Position des Ports
+
+
+----------------
+removeFixedChild
+----------------
+
+-> bei MULTI-InputPorts
+
+komplett auskommentieren
+
+

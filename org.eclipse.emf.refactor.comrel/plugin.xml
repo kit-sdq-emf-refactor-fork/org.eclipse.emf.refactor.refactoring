@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+ <copyright>
+ </copyright>
+
+ $Id$
+-->
+
+<plugin>
+   <extension-point id="singlefilter" name="singlefilter" schema="schema/singlefilter.exsd"/>
+   <extension-point id="multifilter" name="multifilter" schema="schema/multifilter.exsd"/>
+   <extension-point id="singlefeature" name="singlefeature" schema="schema/singlefeature.exsd"/>
+   <extension-point id="multifeature" name="multifeature" schema="schema/multifeature.exsd"/>
+   
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <package
+            uri="http://comrel/0.1"
+            class="comrel.ComrelPackage"
+            genModel="model/comrel.genmodel"/>
+   </extension>
+
+</plugin>

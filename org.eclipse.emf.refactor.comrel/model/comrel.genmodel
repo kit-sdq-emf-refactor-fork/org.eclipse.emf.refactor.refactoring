@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/comrel/src"
+    modelPluginID="comrel" modelName="Comrel" importerID="org.eclipse.emf.importer.ecore"
+    complianceLevel="6.0" copyrightFields="false">
+  <foreignModel>comrel.ecore</foreignModel>
+  <genPackages prefix="Comrel" disposableProviderFactory="true" ecorePackage="comrel.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="comrel.ecore#//MappingVisualization">
+      <genEnumLiterals ecoreEnumLiteral="comrel.ecore#//MappingVisualization/arrows"/>
+      <genEnumLiterals ecoreEnumLiteral="comrel.ecore#//MappingVisualization/coloredPorts"/>
+      <genEnumLiterals ecoreEnumLiteral="comrel.ecore#//MappingVisualization/indices"/>
+      <genEnumLiterals ecoreEnumLiteral="comrel.ecore#//MappingVisualization/arrowsAndColoredPorts"/>
+      <genEnumLiterals ecoreEnumLiteral="comrel.ecore#//MappingVisualization/arrowsAndIndices"/>
+    </genEnums>
+    <genClasses ecoreClass="comrel.ecore#//CompositeRefactoring">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference comrel.ecore#//CompositeRefactoring/mainRefactoringUnit"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference comrel.ecore#//CompositeRefactoring/portMappings"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference comrel.ecore#//CompositeRefactoring/modelRefactorings"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference comrel.ecore#//CompositeRefactoring/helper"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute comrel.ecore#//CompositeRefactoring/mappingVisualization"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute comrel.ecore#//CompositeRefactoring/customInitialCondition"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute comrel.ecore#//CompositeRefactoring/customFinalCondition"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="comrel.ecore#//NamedElement">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute comrel.ecore#//NamedElement/name"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="comrel.ecore#//DescribedElement">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute comrel.ecore#//DescribedElement/description"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="comrel.ecore#//RefactoringUnit">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute comrel.ecore#//RefactoringUnit/seqExecutionOrder"/>
+      <genOperations ecoreOperation="comrel.ecore#//RefactoringUnit/getAllInputPorts"/>
+      <genOperations ecoreOperation="comrel.ecore#//RefactoringUnit/setSeqExecutionOrder">
+        <genParameters ecoreParameter="comrel.ecore#//RefactoringUnit/setSeqExecutionOrder/seqExecutionOrder"/>
+        <genParameters ecoreParameter="comrel.ecore#//RefactoringUnit/setSeqExecutionOrder/superCall"/>
+      </genOperations>
+      <genOperations ecoreOperation="comrel.ecore#//RefactoringUnit/setName">
+        <genParameters ecoreParameter="comrel.ecore#//RefactoringUnit/setName/newName"/>
+        <genParameters ecoreParameter="comrel.ecore#//RefactoringUnit/setName/updateContainer"/>
+      </genOperations>
+    </genClasses>
+    <genClasses ecoreClass="comrel.ecore#//ModelRefactoring">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute comrel.ecore#//ModelRefactoring/refId"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute comrel.ecore#//ModelRefactoring/label"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute comrel.ecore#//ModelRefactoring/namespaceUri"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference comrel.ecore#//ModelRefactoring/inputPorts"/>
+    </genClasses>
+    <genClasses ecoreClass="comrel.ecore#//AtomicUnit">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference comrel.ecore#//AtomicUnit/inputPorts"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute comrel.ecore#//AtomicUnit/unitId"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute comrel.ecore#//AtomicUnit/label"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute comrel.ecore#//AtomicUnit/namespaceUri"/>
+      <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute comrel.ecore#//AtomicUnit/type"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference comrel.ecore#//AtomicUnit/modelRefactoring"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute comrel.ecore#//AtomicUnit/checkInitialConditionFlag"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute comrel.ecore#//AtomicUnit/checkFinalConditionFlag"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="comrel.ecore#//CompositeUnit"/>
+    <genClasses ecoreClass="comrel.ecore#//SequentialUnit">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference comrel.ecore#//SequentialUnit/helperUnits"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference comrel.ecore#//SequentialUnit/refactoringUnits"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference comrel.ecore#//SequentialUnit/inputPorts"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute comrel.ecore#//SequentialUnit/strict"/>
+      <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute comrel.ecore#//SequentialUnit/type"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute comrel.ecore#//SequentialUnit/lblStrict"/>
+      <genOperations ecoreOperation="comrel.ecore#//SequentialUnit/updateSeqExecutionOrder"/>
+    </genClasses>
+    <genClasses ecoreClass="comrel.ecore#//ConditionCheck">
+      <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute comrel.ecore#//ConditionCheck/type"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute comrel.ecore#//ConditionCheck/spec"/>
+    </genClasses>
+    <genClasses ecoreClass="comrel.ecore#//ConditionalUnit">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference comrel.ecore#//ConditionalUnit/if"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference comrel.ecore#//ConditionalUnit/helperUnits"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference comrel.ecore#//ConditionalUnit/then"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference comrel.ecore#//ConditionalUnit/else"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference comrel.ecore#//ConditionalUnit/inputPorts"/>
+      <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute comrel.ecore#//ConditionalUnit/type"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="comrel.ecore#//QueuedUnit">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute comrel.ecore#//QueuedUnit/strict"/>
+      <genOperations ecoreOperation="comrel.ecore#//QueuedUnit/init"/>
+    </genClasses>
+    <genClasses ecoreClass="comrel.ecore#//SingleQueuedUnit">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference comrel.ecore#//SingleQueuedUnit/helperUnits"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference comrel.ecore#//SingleQueuedUnit/refactoringUnit"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference comrel.ecore#//SingleQueuedUnit/singleInputPorts"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference comrel.ecore#//SingleQueuedUnit/multiInputPort"/>
+      <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute comrel.ecore#//SingleQueuedUnit/type"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute comrel.ecore#//SingleQueuedUnit/lblStrict"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="comrel.ecore#//TwicedQueuedUnit"/>
+    <genClasses ecoreClass="comrel.ecore#//CartesianQueuedUnit">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference comrel.ecore#//CartesianQueuedUnit/helperUnits"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference comrel.ecore#//CartesianQueuedUnit/refactoringUnit"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference comrel.ecore#//CartesianQueuedUnit/singleInputPorts"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference comrel.ecore#//CartesianQueuedUnit/multiInputPorts"/>
+      <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute comrel.ecore#//CartesianQueuedUnit/type"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute comrel.ecore#//CartesianQueuedUnit/lblStrict"/>
+    </genClasses>
+    <genClasses ecoreClass="comrel.ecore#//ParallelQueuedUnit">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference comrel.ecore#//ParallelQueuedUnit/helperUnits"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference comrel.ecore#//ParallelQueuedUnit/refactoringUnits"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference comrel.ecore#//ParallelQueuedUnit/singleInputPorts"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference comrel.ecore#//ParallelQueuedUnit/multiInputPorts"/>
+      <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute comrel.ecore#//ParallelQueuedUnit/type"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute comrel.ecore#//ParallelQueuedUnit/lblStrict"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="comrel.ecore#//HelperUnit">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute comrel.ecore#//HelperUnit/helperUnitId"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute comrel.ecore#//HelperUnit/namespaceUri"/>
+      <genOperations ecoreOperation="comrel.ecore#//HelperUnit/getInputPort"/>
+      <genOperations ecoreOperation="comrel.ecore#//HelperUnit/getOutputPort"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="comrel.ecore#//FeatureUnit"/>
+    <genClasses ecoreClass="comrel.ecore#//SingleFeatureUnit">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference comrel.ecore#//SingleFeatureUnit/inputPort"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference comrel.ecore#//SingleFeatureUnit/secondaryInputPorts"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference comrel.ecore#//SingleFeatureUnit/outputPort"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference comrel.ecore#//SingleFeatureUnit/singleFeatureHelper"/>
+      <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute comrel.ecore#//SingleFeatureUnit/type"/>
+    </genClasses>
+    <genClasses ecoreClass="comrel.ecore#//MultiFeatureUnit">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference comrel.ecore#//MultiFeatureUnit/inputPort"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference comrel.ecore#//MultiFeatureUnit/secondaryInputPorts"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference comrel.ecore#//MultiFeatureUnit/outputPort"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference comrel.ecore#//MultiFeatureUnit/multiFeatureHelper"/>
+      <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute comrel.ecore#//MultiFeatureUnit/type"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="comrel.ecore#//FilterUnit"/>
+    <genClasses ecoreClass="comrel.ecore#//SingleFilterUnit">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference comrel.ecore#//SingleFilterUnit/inputPort"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference comrel.ecore#//SingleFilterUnit/outputPort"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference comrel.ecore#//SingleFilterUnit/singleFilterHelper"/>
+      <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute comrel.ecore#//SingleFilterUnit/type"/>
+    </genClasses>
+    <genClasses ecoreClass="comrel.ecore#//MultiFilterUnit">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference comrel.ecore#//MultiFilterUnit/inputPort"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference comrel.ecore#//MultiFilterUnit/outputPort"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference comrel.ecore#//MultiFilterUnit/multiFilterHelper"/>
+      <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute comrel.ecore#//MultiFilterUnit/type"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="comrel.ecore#//Helper">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute comrel.ecore#//Helper/helperId"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute comrel.ecore#//Helper/namespaceUri"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="comrel.ecore#//FeatureHelper">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference comrel.ecore#//FeatureHelper/inputPort"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference comrel.ecore#//FeatureHelper/secondaryInputPorts"/>
+    </genClasses>
+    <genClasses ecoreClass="comrel.ecore#//SingleFeatureHelper">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference comrel.ecore#//SingleFeatureHelper/outputPort"/>
+    </genClasses>
+    <genClasses ecoreClass="comrel.ecore#//MultiFeatureHelper">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference comrel.ecore#//MultiFeatureHelper/outputPort"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="comrel.ecore#//FilterHelper">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference comrel.ecore#//FilterHelper/inputPort"/>
+    </genClasses>
+    <genClasses ecoreClass="comrel.ecore#//SingleFilterHelper">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference comrel.ecore#//SingleFilterHelper/outputPort"/>
+    </genClasses>
+    <genClasses ecoreClass="comrel.ecore#//MultiFilterHelper">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference comrel.ecore#//MultiFilterHelper/outputPort"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="comrel.ecore#//Port">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute comrel.ecore#//Port/type"/>
+      <genOperations ecoreOperation="comrel.ecore#//Port/setType">
+        <genParameters ecoreParameter="comrel.ecore#//Port/setType/newType"/>
+        <genParameters ecoreParameter="comrel.ecore#//Port/setType/initiator"/>
+      </genOperations>
+      <genOperations ecoreOperation="comrel.ecore#//Port/updatePortName">
+        <genParameters ecoreParameter="comrel.ecore#//Port/updatePortName/singularPortName"/>
+      </genOperations>
+      <genOperations ecoreOperation="comrel.ecore#//Port/getSingularPortName"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="comrel.ecore#//SinglePort">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute comrel.ecore#//SinglePort/value"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="comrel.ecore#//MultiPort">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute comrel.ecore#//MultiPort/value"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="comrel.ecore#//InputPort">
+      <genOperations ecoreOperation="comrel.ecore#//InputPort/isMappingTarget"/>
+      <genOperations ecoreOperation="comrel.ecore#//InputPort/isRootPort"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="comrel.ecore#//OutputPort"/>
+    <genClasses ecoreClass="comrel.ecore#//SingleInputPort"/>
+    <genClasses ecoreClass="comrel.ecore#//MultiInputPort"/>
+    <genClasses ecoreClass="comrel.ecore#//SingleOutputPort"/>
+    <genClasses ecoreClass="comrel.ecore#//MultiOutputPort"/>
+    <genClasses image="false" ecoreClass="comrel.ecore#//PortMapping">
+      <genOperations ecoreOperation="comrel.ecore#//PortMapping/getSource"/>
+      <genOperations ecoreOperation="comrel.ecore#//PortMapping/getTarget"/>
+      <genOperations ecoreOperation="comrel.ecore#//PortMapping/updatePortTypesAndNames">
+        <genParameters ecoreParameter="comrel.ecore#//PortMapping/updatePortTypesAndNames/type"/>
+        <genParameters ecoreParameter="comrel.ecore#//PortMapping/updatePortTypesAndNames/singularPortName"/>
+      </genOperations>
+      <genOperations ecoreOperation="comrel.ecore#//PortMapping/updateMappingNumber"/>
+      <genOperations ecoreOperation="comrel.ecore#//PortMapping/updateVisualization"/>
+    </genClasses>
+    <genClasses ecoreClass="comrel.ecore#//SinglePortMapping">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference comrel.ecore#//SinglePortMapping/source"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference comrel.ecore#//SinglePortMapping/target"/>
+    </genClasses>
+    <genClasses ecoreClass="comrel.ecore#//MultiPortMapping">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference comrel.ecore#//MultiPortMapping/source"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference comrel.ecore#//MultiPortMapping/target"/>
+    </genClasses>
+    <genClasses ecoreClass="comrel.ecore#//MultiSinglePortMapping">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference comrel.ecore#//MultiSinglePortMapping/source"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference comrel.ecore#//MultiSinglePortMapping/target"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

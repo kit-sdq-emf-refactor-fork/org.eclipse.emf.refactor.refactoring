@@ -1,0 +1,21 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: CoMReL Interpreter
+Bundle-SymbolicName: org.eclipse.emf.refactor.comrel.interpreter;singleton:=true
+Bundle-Version: 0.9.0
+Bundle-Activator: comrel.interpreter.Activator
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.eclipse.emf.ecore;bundle-version="2.6.1",
+ org.eclipse.ltk.core.refactoring;bundle-version="3.5.100",
+ org.eclipse.core.resources;bundle-version="3.6.0",
+ org.eclipse.emf.refactor.comrel;bundle-version="0.8.0",
+ org.eclipse.uml2.uml;bundle-version="3.1.1",
+ org.eclipse.emf.refactor.refactoring;bundle-version="0.7.0",
+ org.eclipse.emf.refactor.refactoring.runtime;bundle-version="0.7.0"
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Import-Package: org.eclipse.emf.ecore.change,
+ org.eclipse.emf.ecore.change.util,
+ org.eclipse.emf.ecore.xmi.impl
+Export-Package: comrel.interpreter

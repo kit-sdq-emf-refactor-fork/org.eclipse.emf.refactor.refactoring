@@ -1,0 +1,101 @@
+<%@ jet package="comrel.helper" class="SingleFilter"
+imports="comrel.generator.helper.*"%>
+<%HelperInfo helperInfo = (HelperInfo) argument; %>
+/**
+ * <copyright>
+ * </copyright>
+ */
+package <%=helperInfo.getPackageName()%>;
+
+import org.eclipse.emf.common.util.BasicEList;
+import org.eclipse.emf.common.util.EList;
+
+import comrel.extensions.ISingleFilterHelper;
+import comrel.MultiInputPort;
+import comrel.ComrelFactory;
+import comrel.SingleOutputPort;
+
+/**
+ * Helper class for synchronizing ports in 
+ * composite model refactorings specified in CoMReL.
+ * @generated
+ */
+public class <%=helperInfo.getClassName()%> implements ISingleFilterHelper {
+
+	final ComrelFactory factory = ComrelFactory.eINSTANCE;
+	private MultiInputPort <%=helperInfo.getInputTypeVariable() + "s"%>;
+	private SingleOutputPort <%=helperInfo.getOutputTypeVariable()%>;
+
+	/**
+	 * Default constructor.
+	 * @generated
+	 */
+	public <%=helperInfo.getClassName()%>() {
+		initInputPort();
+		initOutputPort();
+	}
+	
+	/**
+	 * Method for setting the input port.
+	 * @generated
+	 */
+	private void initInputPort() {
+		<%=helperInfo.getInputTypeVariable() + "s"%> = factory.createMultiInputPort();
+		<%=helperInfo.getInputTypeVariable() + "s"%>.setName("<%=helperInfo.getInputTypeVariable() + "s"%>");
+		<%=helperInfo.getInputTypeVariable() + "s"%>.setType(<%=helperInfo.getInputType()%>.class);
+	}
+	
+	/**
+	 * Method for setting the output port.
+	 * @generated
+	 */
+	private void initOutputPort(){
+		<%=helperInfo.getOutputTypeVariable()%> = factory.createSingleOutputPort();
+		<%=helperInfo.getOutputTypeVariable()%>.setName("<%=helperInfo.getOutputTypeVariable()%>");
+		<%=helperInfo.getOutputTypeVariable()%>.setType(<%=helperInfo.getOutputType()%>.class);
+	}
+	
+	/**
+	 * @generated
+	 */
+	@Override
+	public MultiInputPort getInputPort() {
+		return <%=helperInfo.getInputTypeVariable() + "s"%>;
+	}
+
+	/**
+	 * @generated
+	 */
+	@Override
+	public SingleOutputPort getOutputPort() {
+		return <%=helperInfo.getOutputTypeVariable()%>;
+	}
+	
+	/**
+	 * @generated
+	 */
+	@Override
+	public void run() {
+		EList<<%=helperInfo.getInputType()%>> in = setInput();
+		<%=helperInfo.getOutputType()%> out = null;
+		
+		// TODO implement logic (replace 'null')
+		
+		<%=helperInfo.getOutputTypeVariable()%>.setValue(out);
+	}
+
+	/**
+	 * Helper method for extracting input to Java objects. 
+	 * @generated
+	 */
+	private EList<<%=helperInfo.getInputType()%>> setInput() {
+		EList<Object> origin = <%=helperInfo.getInputTypeVariable() + "s"%>.getValue();
+		EList<<%=helperInfo.getInputType()%>> in = new BasicEList<<%=helperInfo.getInputType()%>>();
+		for (Object o : origin) {
+			in.add((<%=helperInfo.getInputType()%>) o);
+		}
+		return in;
+	}
+
+}
+	

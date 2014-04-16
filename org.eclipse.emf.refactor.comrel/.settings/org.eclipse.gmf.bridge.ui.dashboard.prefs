@@ -1,0 +1,4 @@
+#Fri Sep 16 17:41:50 CEST 2011
+eclipse.preferences.version=1
+gmf_dashboard/domainGenerationModel=platform\:/resource/comrel/model/comrel.genmodel
+gmf_dashboard/domainModel=platform\:/resource/comrel/model/comrel.ecore

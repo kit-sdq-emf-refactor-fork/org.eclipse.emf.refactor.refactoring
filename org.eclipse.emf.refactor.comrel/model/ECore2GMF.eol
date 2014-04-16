@@ -1,0 +1,91 @@
+
+-- nennt die default-Gruppe in 'Units' um
+var toolGroupUnit = GmfTool!ToolGroup.all.selectOne(r|r.title = 'Objects');
+toolGroupUnit.title='Composite Units';
+
+-- erstellt die Tool-Group Connectoren
+-- var toolGroupConnectoren = new GmfTool!ToolGroup;
+-- toolGroupConnectoren.title = 'Connectoren';
+-- toolGroupConnectoren.collapsible = true;
+
+-- erstellt die Tool-Group AtomicUnits
+var toolGroupAtomicUnits = new GmfTool!ToolGroup;
+toolGroupAtomicUnits.title = 'Atomic Units';
+toolGroupAtomicUnits.collapsible = true;
+
+-- erstellt die Tool-Group FilterUnits
+var toolGroupFilter = new GmfTool!ToolGroup;
+toolGroupFilter.title = 'Filter Units';
+toolGroupFilter.collapsible = true;
+
+-- erstellt die Tool-Group SingleFeatureUnits
+var toolGroupFeature = new GmfTool!ToolGroup;
+toolGroupFeature.title = 'Feature Units';
+toolGroupFeature.collapsible = true;
+
+-- sucht aus allen Tools die Connectoren raus und fügt sie der Connectoren-Tool_group hinzu
+var atomics = toolGroupUnit.getTools().select(t | t.title.endsWith('AtomicUnit'));
+toolGroupAtomicUnits.tools.addAll(atomics);
+
+-- sucht aus allen Tools die Features raus und fügt sie der SingleFeature-Tool_group hinzu
+var feature = toolGroupUnit.getTools().select(t | t.title.endsWith('FeatureUnit'));
+toolGroupFeature.tools.addAll(feature);
+
+-- sucht aus allen Tools die Filter raus und fügt sie der Filter-Tool_group hinzu
+var filter = toolGroupUnit.getTools().select(t | t.title.endsWith('FilterUnit'));
+toolGroupFilter.tools.addAll(filter);
+
+
+-- erstellt die Tool-Group Ports
+var toolGroupPort= new GmfTool!ToolGroup;
+toolGroupPort.title='Ports';
+toolGroupPort.collapsible = true;
+
+-- sucht aus allen Tools die Ports raus und fügt sie der Ports-Tool-Group hinzu
+
+-- var portsWeg = toolGroupUnit.getTools().select(t | t.title.endsWith('OutputPort'));
+-- delete portsWeg;
+var ports = toolGroupUnit.getTools().select(t | t.title.endsWith('Port'));
+toolGroupPort.tools.addAll(ports);
+
+-- Sucht die Palette und fügt die Ports- & Connectoren-Tool-Group hinzu
+var palette = GmfTool!Palette.all.selectOne(r | r.title = 'comrelPalette');
+palette.tools.add(toolGroupAtomicUnits);
+palette.tools.add(toolGroupFilter);
+palette.tools.add(toolGroupFeature);
+palette.tools.add(toolGroupPort);
+
+-- Sucht die Mappings-Toolgroup, entfernt sie und fügt sie wieder hinzu (damit sie am Ende steht)
+var toolGroupMapping = GmfTool!ToolGroup.all.selectOne(r|r.title = 'Connections');
+toolGroupMapping.title = 'Mappings';
+palette.tools.remove(toolGroupMapping);
+palette.tools.add(toolGroupMapping);
+
+-- LinkConstraints für das SInglePortMapping-Mapping
+var singlePortMappingConstraint = new GmfMap!LinkConstraints;
+var singleSourceConstraint = new GmfMap!Constraint;
+singleSourceConstraint.body = 'self<>oppositeEnd';
+singlePortMappingConstraint.setSourceEnd(singleSourceConstraint);
+
+var singlePortMappingTool = toolGroupMapping.tools.selectOne(m | m.title='SinglePortMapping');
+
+var singlePortMappingMapping = GmfMap!LinkMapping.all.selectOne(m | m.tool = singlePortMappingTool);
+singlePortMappingMapping.setCreationConstraints(singlePortMappingConstraint);
+
+-- LinkConstraints für das MultiPortMapping-Mapping
+var multiPortMappingConstraint = new GmfMap!LinkConstraints;
+var multiSourceConstraint = new GmfMap!Constraint;
+multiSourceConstraint.body = 'self<>oppositeEnd';
+multiPortMappingConstraint.setSourceEnd(multiSourceConstraint);
+var multiPortMappingTool = toolGroupMapping.tools.selectOne(m | m.title='MultiPortMapping');
+var multiPortMappingMapping = GmfMap!LinkMapping.all.selectOne(m | m.tool = multiPortMappingTool);
+multiPortMappingMapping.setCreationConstraints(multiPortMappingConstraint);
+
+-- LinkConstraints für das multiSinglePortMapping-Mapping
+var multiSinglePortMappingConstraint = new GmfMap!LinkConstraints;
+var multiSingleSourceConstraint = new GmfMap!Constraint;
+multiSingleSourceConstraint.body = 'self<>oppositeEnd';
+multiSinglePortMappingConstraint.setSourceEnd(multiSingleSourceConstraint);
+var multiSinglePortMappingTool = toolGroupMapping.tools.selectOne(m | m.title='MultiSinglePortMapping');
+var multiSinglePortMappingMapping = GmfMap!LinkMapping.all.selectOne(m | m.tool = multiSinglePortMappingTool);
+multiSinglePortMappingMapping.setCreationConstraints(multiSinglePortMappingConstraint);
