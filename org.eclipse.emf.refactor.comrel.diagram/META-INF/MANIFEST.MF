@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: CoMReL Diagram
+Bundle-Name: org.eclipse.emf.refactor.comrel.diagram
 Bundle-SymbolicName: org.eclipse.emf.refactor.comrel.diagram;singleton:=true
 Bundle-Version: 0.9.0
 Bundle-ClassPath: .

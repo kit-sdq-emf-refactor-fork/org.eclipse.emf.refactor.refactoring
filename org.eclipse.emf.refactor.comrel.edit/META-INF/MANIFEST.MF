@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: CoMReL Edit
+Bundle-Name: org.eclipse.emf.refactor.comrel.edit
 Bundle-SymbolicName: org.eclipse.emf.refactor.comrel.edit;singleton:=true
 Bundle-Version: 0.9.0
 Bundle-ClassPath: .
