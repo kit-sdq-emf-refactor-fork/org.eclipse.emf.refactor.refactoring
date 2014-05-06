@@ -38,7 +38,7 @@
       </wizard>
       <wizard
             category="org.eclipse.emf.refactor.newwizards.category/comrel.generator.category"
-            class="comrel.generator.refactoring.wizards.RefactoringWizard"
+            class="comrel.generator.refactoring.wizards.NewRefactoringWizardCoMReL"
             icon="icons/refactoring.jpg"
             id="comrel.generator.wizard.refactoring"
             name="Refactoring (specified in CoMReL)">

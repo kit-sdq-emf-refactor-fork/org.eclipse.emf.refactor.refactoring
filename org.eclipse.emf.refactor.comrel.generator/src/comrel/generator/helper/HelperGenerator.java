@@ -38,7 +38,7 @@ public class HelperGenerator {
 	private final String JETEMITTERS = ".JETEmitters";
 	private final String JAVA = ".java";
 	private final String JAVAJET = ".javajet";
-	private final String COMRELMODEL = "comrel";
+	private final String COMRELMODEL = "org.eclipse.emf.refactor.comrel";
 	private final String REQUIREBUNDLE = "Require-Bundle";
 	private final String BUNDLESYMBOLICNAME = "Bundle-SymbolicName";
 	private final String BUNDLEVERSION = "Bundle-Version";
