@@ -4,16 +4,16 @@ import java.util.List;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.emf.facet.infra.browser.uicore.internal.model.ModelElementItem;
 import org.eclipse.emf.refactor.refactoring.managers.SelectionManager;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
 import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.papyrus.infra.emf.utils.EMFHelper;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 
-@SuppressWarnings("restriction")
+//@SuppressWarnings("restriction")
 public class PapyrusSelectionManager extends SelectionManager {
 	
 	public static List<EObject> getENotationSelection() {
@@ -52,21 +52,24 @@ public class PapyrusSelectionManager extends SelectionManager {
 			return null;
 		List<EObject> r = SelectionManager.getESelection(selection);
 		for (Object o : getSelection(selection)) {
-			if (o instanceof ModelElementItem) {
-				System.out.println("instanceof ModelElementItem");
-				ModelElementItem mei = (ModelElementItem) o;
-	    		System.out.println("element: " + mei.getEObject());
-	    		r.add(mei.getEObject());
-			} else {
+//			if (o instanceof ModelElementItem) {
+//				System.out.println("instanceof ModelElementItem");
+//				ModelElementItem mei = (ModelElementItem) o;
+//	    		System.out.println("element: " + mei.getEObject());
+//	    		r.add(mei.getEObject());
+//			} else {
 				if (o instanceof IGraphicalEditPart) {
 		    		System.out.println("instanceof IGraphicalEditPart");
 		    		IGraphicalEditPart gep = (IGraphicalEditPart) o;
 		    		System.out.println("element: " + gep.resolveSemanticElement());
 		    		r.add(gep.resolveSemanticElement());
 		    	} else {
-		    		return null;
+		    		EObject eObject = EMFHelper.getEObject(o);
+		    		if (eObject != null) {
+		    				r.add(eObject);
+		    		}
 		    	}
-			}
+//			}
 		}
 		return r;
 	}
